@@ -20,11 +20,13 @@ The middleware constructor will initialise the middleware function to serve file
 
 %EXAMPLE: example/example.jsx, ../src => @idio/frontend%
 
+%TREE example/frontend%
+
 *The entry point*
 
 %EXAMPLE: example/frontend/index.jsx%
 
-*The component *
+*The component*
 
 %EXAMPLE: example/frontend/Component.jsx%
 

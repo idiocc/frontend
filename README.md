@@ -72,6 +72,13 @@ import frontend from '@idio/frontend'
 })()
 ```
 
+```m
+example/frontend
+├── Component.jsx
+├── index.jsx
+└── style.css
+```
+
 *The entry point*
 
 ```jsx
@@ -81,7 +88,7 @@ import Component from './Component'
 render(<Component test="Welcome"/>, document.body)
 ```
 
-*The component *
+*The component*
 
 ```jsx
 import { h } from 'preact'
