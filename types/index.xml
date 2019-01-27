@@ -1,10 +1,7 @@
 <types>
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
-    </prop>
-    <prop string name="text">
-      A text to return.
+  <type name="FrontendConfig" desc="Options for the middleware.">
+    <prop string name="directory" default="frontend">
+      The directory from which to serve files.
     </prop>
   </type>
 </types>

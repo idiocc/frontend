@@ -4,8 +4,9 @@
 
 ## Copyright
 
-(c) [Idio][1] 2019
-
-[1]: https://idio.cc
+<Footer
+  client="Idio"
+  clientLink="https://idio.cc"
+  clientLogo="https://avatars3.githubusercontent.com/u/40834161?s=100"/>
 
 %~ -1%

@@ -11,7 +11,7 @@
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
-    "b": "alamode src -o build",
+    "b": "alamode src -o build -s",
     "d": "yarn-s d1",
     "d1": "NODE_DEBUG=doc doc src/index.js -g",
     "build": "yarn-s d b doc",
@@ -28,7 +28,9 @@
   },
   "keywords": [
     "frontend",
-    "idio"
+    "idio",
+    "jsx",
+    "node_modules"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
