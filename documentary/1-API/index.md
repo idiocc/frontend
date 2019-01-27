@@ -18,6 +18,8 @@ The middleware constructor will initialise the middleware function to serve file
 
 %TYPEDEF types/index.xml%
 
+The middleware can be used in any `Koa` application, or within the [`idio` web server](https://idio.cc).
+
 %EXAMPLE: example/example.jsx, ../src => @idio/frontend%
 
 %TREE example/frontend%
@@ -35,5 +37,6 @@ The middleware constructor will initialise the middleware function to serve file
 %EXAMPLE: example/frontend/style.css%
 
 <!-- %FORK example example/example% -->
+![Chrome Example](docs/Example.gif)
 
 %~%

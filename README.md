@@ -38,6 +38,8 @@ __<a name="type-frontendconfig">`FrontendConfig`</a>__: Options for the middlewa
 | --------- | -------- | ---------------------------------------- | ---------- |
 | directory | _string_ | The directory from which to serve files. | `frontend` |
 
+The middleware can be used in any `Koa` application, or within the [`idio` web server](https://idio.cc).
+
 ```jsx
 /* yarn example/ */
 import core from '@idio/core'
@@ -108,6 +110,8 @@ body {
   background: lightcyan;
 }
 ```
+
+![Chrome Example](docs/Example.gif)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
