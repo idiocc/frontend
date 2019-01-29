@@ -14,7 +14,7 @@ let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esMo
                async function frontend(config = {}) {
   const {
     directory = 'frontend',
-    addPragma = true,
+    pragma = 'import { h } from \'preact\'',
   } = config
   /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
@@ -28,7 +28,7 @@ let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esMo
       let body = await read(path)
       if (/\.jsx$/.test(path)) {
         body = await transpileJSX(body, { quoteProps: 1 })
-        if (addPragma) body = 'import { h } from \'preact\'\n' + body
+        if (pragma) body = `${pragma}\n${body}`
       }
       if (/\.css$/.test(path)) {
         body = wrapCss(body)
@@ -127,9 +127,9 @@ const resolveDependency = async (path) => {
 
 /* documentary types/index.xml */
 /**
- * @typedef {Object} Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
+ * @typedef {Object} FrontendConfig Options for the middleware.
+ * @prop {string} [directory="frontend"] The directory from which to serve files. Default `frontend`.
+ * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */
 
 
