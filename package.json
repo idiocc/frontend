@@ -45,6 +45,7 @@
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "preact-render-to-string": "4.1.0",
+    "rqt": "3.0.4",
     "snapshot-context": "2.0.4",
     "yarn-s": "1.1.0",
     "zoroaster": "3.6.6"

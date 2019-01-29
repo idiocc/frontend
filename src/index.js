@@ -127,7 +127,7 @@ const resolveDependency = async (path) => {
 
 /* documentary types/index.xml */
 /**
- * @typedef {Object} Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
+ * @typedef {Object} FrontendConfig Options for the middleware.
+ * @prop {string} [directory="frontend"] The directory from which to serve files. Default `frontend`.
+ * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */

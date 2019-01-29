@@ -1,33 +1,42 @@
-import { resolve } from 'path'
-import { debuglog } from 'util'
+import { join } from 'path'
+import core from '@idio/core'
 
-const LOG = debuglog('@idio/frontend')
-
-const FIXTURE = resolve(__dirname, '../fixture')
+const FIXTURE = 'test/fixture'
 
 /**
  * A testing context for the package.
  */
 export default class Context {
-  async _init() {
-    LOG('init context')
+  /**
+   * Start the server on a random port by default. The server will be destroyed automatically by the end of a test.
+   * @param {import('@idio/core').MiddlewareConfig} [middleware] Middleware configuration.
+   * @param {import('@idio/core').Config} [config] configuration object
+   */
+  async start(middleware = {}, config = {}) {
+    const res = await core(middleware, {
+      port: 0,
+      ...config,
+    })
+    const { app } = res
+    this.app = app
+    return res
+  }
+  async _destroy() {
+    if (this.app) await this.app.destroy()
   }
   /**
-   * Example method.
+   * The frontend directory from which to serve client JavaScript.
    */
-  example() {
-    return 'OK'
+  get directory() {
+    return 'test/fixture/frontend'
   }
   /**
    * Path to the fixture file.
    */
   get FIXTURE() {
-    return resolve(FIXTURE, 'test.txt')
+    return join(FIXTURE, 'test.txt')
   }
   get SNAPSHOT_DIR() {
-    return resolve(__dirname, '../snapshot')
-  }
-  async _destroy() {
-    LOG('destroy context')
+    return 'test/snapshot'
   }
 }

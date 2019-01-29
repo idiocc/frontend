@@ -77,6 +77,14 @@
   dependencies:
     vary "^1.1.2"
 
+"@rqt/aqt@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@rqt/aqt/-/aqt-1.1.5.tgz#f044af0353f7a959e351855abac3e78561c1d36c"
+  integrity sha512-5jLl1c1hHLcpPbeoRj7NHOXsskpDHk/CfU+MxKuEkM/1werlccNnMDp1wAJBZ0kSa6mb7BU5Pwd54gudFm9hXQ==
+  dependencies:
+    catchment "3.2.0"
+    erotic "2.0.1"
+
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -1281,6 +1289,13 @@ rndm@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/rndm/-/rndm-1.2.0.tgz#f33fe9cfb52bbfd520aa18323bc65db110a1b76c"
   integrity sha1-8z/pz7Urv9UgqhgyO8ZdsRCht2w=
+
+rqt@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/rqt/-/rqt-3.0.4.tgz#21173b5166070020db81810cb21355644770f0bd"
+  integrity sha512-DTnSnU1wivpQUX+jr3LjTCgcTxNnyKL/qqvx/L/mUnGWMcXpbh+maIegqaT0iaGVYZ8bOaeNXU6A4w3hRKGyMg==
+  dependencies:
+    "@rqt/aqt" "1.1.5"
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
