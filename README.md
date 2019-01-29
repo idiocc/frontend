@@ -34,9 +34,10 @@ The middleware constructor will initialise the middleware function to serve file
 
 __<a name="type-frontendconfig">`FrontendConfig`</a>__: Options for the middleware.
 
-|   Name    |   Type   |               Description                |  Default   |
-| --------- | -------- | ---------------------------------------- | ---------- |
-| directory | _string_ | The directory from which to serve files. | `frontend` |
+|   Name    |   Type   |                                                                                                           Description                                                                                                            |           Default            |
+| --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| directory | _string_ | The directory from which to serve files.                                                                                                                                                                                         | `frontend`                   |
+| pragma    | _string_ | The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. | `import { h } from 'preact'` |
 
 The middleware can be used in any `Koa` application, or within the [`idio` web server](https://idio.cc).
 
@@ -125,12 +126,9 @@ body {
       </a>
     </th>
     <th>
-      © <a href="https://artd.eco">Art Deco</a>
-      for
-      <a href="https://idio.cc">Idio</a>
+      © <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a>
       2019
-    </th>
-    <th>
+    </th><th>
         <a href="https://idio.cc">
           <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio" />
         </a>
