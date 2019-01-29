@@ -14,6 +14,7 @@ let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esMo
                async function frontend(config = {}) {
   const {
     directory = 'frontend',
+    addPragma = true,
   } = config
   /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
@@ -24,15 +25,15 @@ let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esMo
         ctx.redirect(`/${path}`)
         return
       }
-      const res = await read(path)
-      let body
-      if (/\.css$/.test(path)) {
-        body = wrapCss(res)
-      } else {
-        body = await patchSource(path, res)
-      }
+      let body = await read(path)
       if (/\.jsx$/.test(path)) {
         body = await transpileJSX(body, { quoteProps: 1 })
+        if (addPragma) body = 'import { h } from \'preact\'\n' + body
+      }
+      if (/\.css$/.test(path)) {
+        body = wrapCss(body)
+      } else {
+        body = await patchSource(path, body)
       }
       ctx.type = 'application/javascript'
       ctx.body = body

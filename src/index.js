@@ -14,6 +14,7 @@ import transpileJSX from '@a-la/jsx'
 export default async function frontend(config = {}) {
   const {
     directory = 'frontend',
+    pragma = 'import { h } from \'preact\'',
   } = config
   /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
@@ -24,15 +25,15 @@ export default async function frontend(config = {}) {
         ctx.redirect(`/${path}`)
         return
       }
-      const res = await read(path)
-      let body
-      if (/\.css$/.test(path)) {
-        body = wrapCss(res)
-      } else {
-        body = await patchSource(path, res)
-      }
+      let body = await read(path)
       if (/\.jsx$/.test(path)) {
         body = await transpileJSX(body, { quoteProps: 1 })
+        if (pragma) body = `${pragma}\n${body}`
+      }
+      if (/\.css$/.test(path)) {
+        body = wrapCss(body)
+      } else {
+        body = await patchSource(path, body)
       }
       ctx.type = 'application/javascript'
       ctx.body = body
