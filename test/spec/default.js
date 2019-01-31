@@ -55,6 +55,21 @@ const T = {
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
     await test('node_module.js', res)
   },
+  async 'serves explicit node_module path'({ start, directory, SNAPSHOT_DIR },
+    { test, setDir }) {
+    setDir(SNAPSHOT_DIR)
+    const { url } = await start({
+      frontend: {
+        use: true,
+        middlewareConstructor(app, config) {
+          return frontend(config)
+        },
+        config: { directory },
+      },
+    })
+    const res = await rqt(`${url}/${directory}/explicit.js`)
+    await test('explicit.js', res)
+  },
 }
 
 export default T

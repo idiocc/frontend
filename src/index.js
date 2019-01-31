@@ -72,13 +72,23 @@ __$styleInject(style)`
 
 const patchSource = async (path, source) => {
   const replacement = async (m, pre, from) => {
-    if (/[/.]/.test(from)) {
+    if (/^[/.]/.test(from)) {
       const dir = dirname(path)
       const p = join(dir, from)
       const { path: rd } = await resolveDependency(p)
       const rel = relative(dir, rd)
       const r = rel.startsWith('.') ? rel : `./${rel}`
       return `${pre}'${r}'`
+    }
+    let [scope, name, ...paths] = from.split('/')
+    if (!scope.startsWith('@') && name) {
+      paths = [name, ...paths]
+      name = scope
+    } else {
+      name = `${scope}/${name}`
+    }
+    if (paths.length) {
+      return getNodeModule(name, paths.join('/'), pre)
     }
     const { module: mod } = require(`${from}/package.json`)
     if (!mod) {

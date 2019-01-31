@@ -26,25 +26,32 @@ let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esMo
         return
       }
       let body = await read(path)
-      if (/\.jsx$/.test(path)) {
-        body = await transpileJSX(body, { quoteProps: 1 })
-        if (pragma) body = `${pragma}\n${body}`
-      }
-      if (/\.css$/.test(path)) {
-        body = wrapCss(body)
-      } else {
-        body = await patchSource(path, body)
-      }
+      body = await patch(path, body, pragma)
       ctx.type = 'application/javascript'
       ctx.body = body
     } else if (p.startsWith('node_modules/')) {
-      ctx.body = await read(p)
+      let body = await read(p)
+      body = await patch(p, body, pragma)
+      ctx.body = body
       ctx.type = 'application/javascript'
     } else {
       await next()
     }
   }
   return m
+}
+
+const patch = async (path, body, pragma) => {
+  if (/\.jsx$/.test(path)) {
+    body = await transpileJSX(body, { quoteProps: 1 })
+    if (pragma) body = `${pragma}\n${body}`
+  }
+  if (/\.css$/.test(path)) {
+    body = wrapCss(body)
+  } else {
+    body = await patchSource(path, body)
+  }
+  return body
 }
 
 const wrapCss = (style) => {
@@ -65,13 +72,23 @@ __$styleInject(style)`
 
 const patchSource = async (path, source) => {
   const replacement = async (m, pre, from) => {
-    if (/[/.]/.test(from)) {
+    if (/^[/.]/.test(from)) {
       const dir = dirname(path)
       const p = join(dir, from)
       const { path: rd } = await resolveDependency(p)
       const rel = relative(dir, rd)
       const r = rel.startsWith('.') ? rel : `./${rel}`
       return `${pre}'${r}'`
+    }
+    let [scope, name, ...paths] = from.split('/')
+    if (!scope.startsWith('@') && name) {
+      paths = [name, ...paths]
+      name = scope
+    } else {
+      name = `${scope}/${name}`
+    }
+    if (paths.length) {
+      return getNodeModule(name, paths.join('/'), pre)
     }
     const { module: mod } = require(`${from}/package.json`)
     if (!mod) {
