@@ -1,5 +1,9 @@
 ## 31 January 2019
 
+### 1.2.1
+
+- [fix] Update `@a-la/jsx` to correctly parse inner self-closing tags.
+
 ### 1.2.0
 
 - [feature] Update packages from `node_modules`.

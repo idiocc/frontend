@@ -52,7 +52,7 @@
     "zoroaster": "3.6.6"
   },
   "dependencies": {
-    "@a-la/jsx": "1.2.3",
+    "@a-la/jsx": "1.2.5",
     "@wrote/exists": "1.0.1",
     "@wrote/read": "1.0.2",
     "catchment": "3.2.2",
