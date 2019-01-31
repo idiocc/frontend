@@ -26,25 +26,32 @@ export default async function frontend(config = {}) {
         return
       }
       let body = await read(path)
-      if (/\.jsx$/.test(path)) {
-        body = await transpileJSX(body, { quoteProps: 1 })
-        if (pragma) body = `${pragma}\n${body}`
-      }
-      if (/\.css$/.test(path)) {
-        body = wrapCss(body)
-      } else {
-        body = await patchSource(path, body)
-      }
+      body = await patch(path, body, pragma)
       ctx.type = 'application/javascript'
       ctx.body = body
     } else if (p.startsWith('node_modules/')) {
-      ctx.body = await read(p)
+      let body = await read(p)
+      body = await patch(p, body, pragma)
+      ctx.body = body
       ctx.type = 'application/javascript'
     } else {
       await next()
     }
   }
   return m
+}
+
+const patch = async (path, body, pragma) => {
+  if (/\.jsx$/.test(path)) {
+    body = await transpileJSX(body, { quoteProps: 1 })
+    if (pragma) body = `${pragma}\n${body}`
+  }
+  if (/\.css$/.test(path)) {
+    body = wrapCss(body)
+  } else {
+    body = await patchSource(path, body)
+  }
+  return body
 }
 
 const wrapCss = (style) => {

@@ -40,11 +40,13 @@
   "homepage": "https://github.com/idiocc/frontend#readme",
   "devDependencies": {
     "@idio/core": "1.2.0",
+    "@idio/preact-fixture": "1.0.0",
     "alamode": "1.7.1",
     "documentary": "1.21.1",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "preact-render-to-string": "4.1.0",
+    "preact-router": "2.6.1",
     "rqt": "3.0.4",
     "snapshot-context": "2.0.4",
     "yarn-s": "1.1.0",
