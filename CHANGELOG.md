@@ -1,3 +1,9 @@
+## 5 February 2019
+
+### 1.2.2
+
+- [dep] Install `resolve-dependency`.
+
 ## 31 January 2019
 
 ### 1.2.1
