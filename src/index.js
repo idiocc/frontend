@@ -1,9 +1,9 @@
 import { collect } from 'catchment'
 import { Replaceable } from 'restream'
-import exists from '@wrote/exists'
 import read from '@wrote/read'
 import { relative, join, dirname } from 'path'
 import transpileJSX from '@a-la/jsx'
+import resolveDependency from 'resolve-dependency'
 
 /**
  * The Middleware To Serve Front-End JavaScript.
@@ -116,30 +116,6 @@ const getNodeModule = (from, path, pre) => {
   const modPath = require.resolve(`${from}/${path}`)
   const modRel = relative('', modPath)
   return `${pre}'/${modRel}'`
-}
-
-/**
- * For the given local path that can omit the JS/JSX extension and point to a directory (e.g., `./lib` or `./lib/example`), find that file on the filesystem.
- */
-const resolveDependency = async (path) => {
-  let e = await exists(path)
-  let res = path
-  let isDir = false
-  if (!e) {
-    let p = `${path}.js`
-    e = await exists(p)
-    if (!e) p = `${path}.jsx`; e = await exists(p)
-    if (!e) throw new Error(`${path}.js or ${path}.jsx is not found.`)
-    res = p
-  } else if (e.isDirectory()) {
-    let p = `${path}/index.js`
-    e = await exists(p)
-    if (!e) p = `${p}x`; e = await exists(p)
-    if (!e) throw new Error(`index.jsx? file is not found in ${path}.`)
-    res = p
-    isDir = true
-  }
-  return { path: res, isDir }
 }
 
 /* documentary types/index.xml */

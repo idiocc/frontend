@@ -1253,6 +1253,13 @@ reloquent@1.0.6:
   dependencies:
     promto "1.0.1"
 
+resolve-dependency@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-dependency/-/resolve-dependency-1.0.0.tgz#8f6b2dc6dce5e220eb6252581af4d1181d11dcc1"
+  integrity sha512-Q7jtB7N7zp0TA6L7uXbo+Pv03VvDBkZRbNkyHxfn8o0eACIpwNfr0O9UZ2umVFyYKRl9fRkqocdRwXtaOfTYYQ==
+  dependencies:
+    "@wrote/exists" "1.0.1"
+
 resolve-path@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/resolve-path/-/resolve-path-1.4.0.tgz#c4bda9f5efb2fce65247873ab36bb4d834fe16f7"

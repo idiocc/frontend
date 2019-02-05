@@ -53,9 +53,9 @@
   },
   "dependencies": {
     "@a-la/jsx": "1.2.5",
-    "@wrote/exists": "1.0.1",
     "@wrote/read": "1.0.2",
     "catchment": "3.2.2",
+    "resolve-dependency": "1.0.0",
     "restream": "3.5.0"
   }
 }
