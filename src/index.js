@@ -7,9 +7,9 @@ import resolveDependency from 'resolve-dependency'
 
 /**
  * The Middleware To Serve Front-End JavaScript.
- * @param {Config} [config] Options for the program.
- * @param {boolean} [config.shouldRun=true] A boolean option. Default `true`.
- * @param {string} config.text A text to return.
+ * @param {FrontendConfig} [config] Options for the middleware.
+ * @param {string} [config.directory="frontend"] The directory from which to serve files. Default `frontend`.
+ * @param {string} [config.pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */
 export default async function frontend(config = {}) {
   const {
@@ -43,7 +43,7 @@ export default async function frontend(config = {}) {
 
 const patch = async (path, body, pragma) => {
   if (/\.jsx$/.test(path)) {
-    body = await transpileJSX(body, { quoteProps: 1 })
+    body = await transpileJSX(body)
     if (pragma) body = `${pragma}\n${body}`
   }
   if (/\.css$/.test(path)) {

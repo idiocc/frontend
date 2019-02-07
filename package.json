@@ -2,7 +2,8 @@
   "name": "@idio/frontend",
   "version": "1.2.2",
   "description": "The Middleware To Serve Front-End JavaScript.",
-  "main": "build",
+  "main": "build/index.js",
+  "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
@@ -20,7 +21,8 @@
     "example/": "yarn e example/example"
   },
   "files": [
-    "build"
+    "build",
+    "src"
   ],
   "repository": {
     "type": "git",
@@ -52,7 +54,7 @@
     "zoroaster": "3.6.6"
   },
   "dependencies": {
-    "@a-la/jsx": "1.2.5",
+    "@a-la/jsx": "1.3.1",
     "@wrote/read": "1.0.2",
     "catchment": "3.2.2",
     "resolve-dependency": "1.0.0",
