@@ -8,13 +8,13 @@ import frontend from '@idio/frontend'
 
 %~%
 
-```## frontend => Middleware
+```## async frontend => Middleware
 [
   ["config", "FrontendConfig"]
 ]
 ```
 
-The middleware constructor will initialise the middleware function to serve files from the specified directory (`frontend` by default). The files will be updated on-the-fly to fix their imports to relative paths (e.g., `preact` will be transformed into `node_modules/preact/dist/preact.mjs`). Any CSS styles will also be served using an injector script.
+The middleware constructor will initialise the middleware function to serve files from the specified directory (`frontend` by default). The files will be updated on-the-fly to fix their imports to relative paths (e.g., `preact` will be transformed into `/node_modules/preact/dist/preact.mjs`). Any CSS styles will also be served using an injector script.
 
 %TYPEDEF types/index.xml%
 

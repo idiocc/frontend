@@ -12,7 +12,7 @@ yarn add -E @idio/frontend
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`frontend(config: FrontendConfig): Middleware`](#frontendconfig-frontendconfig-middleware)
+- [`async frontend(config: FrontendConfig): Middleware`](#async-frontendconfig-frontendconfig-middleware)
   * [`FrontendConfig`](#type-frontendconfig)
 - [Copyright](#copyright)
 
@@ -28,9 +28,9 @@ import frontend from '@idio/frontend'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `frontend(`<br/>&nbsp;&nbsp;`config: FrontendConfig,`<br/>`): Middleware`
+## `async frontend(`<br/>&nbsp;&nbsp;`config: FrontendConfig,`<br/>`): Middleware`
 
-The middleware constructor will initialise the middleware function to serve files from the specified directory (`frontend` by default). The files will be updated on-the-fly to fix their imports to relative paths (e.g., `preact` will be transformed into `node_modules/preact/dist/preact.mjs`). Any CSS styles will also be served using an injector script.
+The middleware constructor will initialise the middleware function to serve files from the specified directory (`frontend` by default). The files will be updated on-the-fly to fix their imports to relative paths (e.g., `preact` will be transformed into `/node_modules/preact/dist/preact.mjs`). Any CSS styles will also be served using an injector script.
 
 __<a name="type-frontendconfig">`FrontendConfig`</a>__: Options for the middleware.
 
