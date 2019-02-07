@@ -1,5 +1,9 @@
 ## 7 February 2019
 
+### 1.2.4
+
+- [feature] Throw an error when `frontend` directory does not exist.
+
 ### 1.2.3
 
 - [package] Fix JSDoc documentation and up `@a-la/jsx`.
