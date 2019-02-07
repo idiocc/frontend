@@ -4,6 +4,7 @@ import read from '@wrote/read'
 import { relative, join, dirname } from 'path'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
+import exists from '@wrote/exists'
 
 /**
  * The Middleware To Serve Front-End JavaScript.
@@ -17,6 +18,10 @@ export default async function frontend(config = {}) {
     pragma = 'import { h } from \'preact\'',
   } = config
   /** @type {import('koa').Middleware} */
+  const e = await exists(directory)
+  if (!e) {
+    throw new Error(`Frontend directory ${directory} does not exist.`)
+  }
   const m = async (ctx, next) => {
     const p = ctx.path.replace('/', '')
     if (p == directory || p.startsWith(`${directory}/`)) {

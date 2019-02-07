@@ -4,6 +4,7 @@ let read = require('@wrote/read'); if (read && read.__esModule) read = read.defa
 const { relative, join, dirname } = require('path');
 let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
 let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
+let exists = require('@wrote/exists'); if (exists && exists.__esModule) exists = exists.default;
 
 /**
  * The Middleware To Serve Front-End JavaScript.
@@ -17,6 +18,10 @@ let resolveDependency = require('resolve-dependency'); if (resolveDependency && 
     pragma = 'import { h } from \'preact\'',
   } = config
   /** @type {import('koa').Middleware} */
+  const e = await exists(directory)
+  if (!e) {
+    throw new Error(`Frontend directory ${directory} does not exist.`)
+  }
   const m = async (ctx, next) => {
     const p = ctx.path.replace('/', '')
     if (p == directory || p.startsWith(`${directory}/`)) {

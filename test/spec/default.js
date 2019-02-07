@@ -1,4 +1,4 @@
-import { equal } from 'zoroaster/assert'
+import { equal, throws } from 'zoroaster/assert'
 import rqt, { aqt } from 'rqt'
 import SnapshotContext from 'snapshot-context'
 import Context from '../context'
@@ -9,6 +9,16 @@ const T = {
   context: [Context, SnapshotContext],
   'is a function'() {
     equal(typeof frontend, 'function')
+  },
+  async 'throws error when directory does not exist'() {
+    await throws({
+      async fn() {
+        await frontend({
+          directory: 'test-error',
+        })
+      },
+      message: 'Frontend directory test-error does not exist.',
+    })
   },
   async 'redirects to the index file'({ start, directory }) {
     const { url } = await start({
