@@ -108,6 +108,10 @@ const patchSource = async (path, source) => {
       re: /^( *import(?:\s+[^\s,]+\s*,?)?(?:\s*{(?:[^}]+)})?\s+from\s+)['"](.+)['"]/gm,
       replacement,
     },
+    {
+      re: /^( *import\s+)['"](.+)['"]/gm,
+      replacement,
+    },
   ])
   rs.end(source)
   const body = await collect(rs)
