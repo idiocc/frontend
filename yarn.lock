@@ -764,6 +764,14 @@ forkfeed@1.0.0:
   resolved "https://registry.yarnpkg.com/forkfeed/-/forkfeed-1.0.0.tgz#e519201d8f3809a0802b72347066a0a772f0629b"
   integrity sha512-E8O9yqYwJLxyExwKLAbDe/Mw20fUuxwplFB/h8lpRQWgKrPcih3uuVKPyXqcJ0N/iPHJMHV6ZH1iFjIkRYvaFw==
 
+fpj@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fpj/-/fpj-1.0.0.tgz#82d0dd38e387b5b36ca0d5f5d13a61263c2af3a1"
+  integrity sha512-/yE4bB8fIMceRnxsPRWx6MMx0S5Gx/qKL7jtDtUelVqBO3fZY6XfWaye1pc3rcwhiIpHBdzg4ySi1vIQAhfvUw==
+  dependencies:
+    "@wrote/exists" "1.0.1"
+    "@wrote/read" "1.0.2"
+
 fresh@~0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"

@@ -1,10 +1,11 @@
 import { collect } from 'catchment'
 import { Replaceable } from 'restream'
 import read from '@wrote/read'
-import { relative, join, dirname } from 'path'
+import { relative, join, dirname, resolve } from 'path'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
 import exists from '@wrote/exists'
+import findPackageJson from 'fpj'
 
 /**
  * The Middleware To Serve Front-End JavaScript.
@@ -26,7 +27,7 @@ export default async function frontend(config = {}) {
     const p = ctx.path.replace('/', '')
     if (p == directory || p.startsWith(`${directory}/`)) {
       const { path, isDir } = await resolveDependency(p)
-      if (isDir) {
+      if (isDir && !p.endsWith('/')) {
         ctx.redirect(`/${path}`)
         return
       }
@@ -77,8 +78,8 @@ __$styleInject(style)`
 
 const patchSource = async (path, source) => {
   const replacement = async (m, pre, from) => {
+    const dir = dirname(path)
     if (/^[/.]/.test(from)) {
-      const dir = dirname(path)
       const p = join(dir, from)
       const { path: rd } = await resolveDependency(p)
       const rel = relative(dir, rd)
@@ -92,16 +93,26 @@ const patchSource = async (path, source) => {
     } else {
       name = `${scope}/${name}`
     }
+    // explicit dep, e.g., @depack/example/src/index.jsx
     if (paths.length) {
-      return getNodeModule(name, paths.join('/'), pre)
+      const {
+        packageJson,
+      } = await findPackageJson(dir, name)
+      const realFrom = resolve(dirname(packageJson))
+      return getNodeModule(realFrom, paths.join('/'), pre)
     }
-    const { module: mod } = require(`${from}/package.json`)
+    // try module
+    const {
+      packageJson,
+    } = await findPackageJson(dir, from)
+    const realFrom = resolve(dirname(packageJson))
+    const { module: mod } = require(resolve(packageJson))
     if (!mod) {
-      console.warn('[↛] Package %s does not specify module in package.json, trying src', from)
-      const d = getNodeModule(from, 'src', pre)
+      console.warn('[↛] Package %s does not specify module in package.json, trying src', realFrom)
+      const d = getNodeModule(realFrom, 'src', pre)
       return d
     }
-    return getNodeModule(from, mod, pre)
+    return getNodeModule(realFrom, mod, pre)
   }
   const rs = new Replaceable([
     {
@@ -122,7 +133,7 @@ const patchSource = async (path, source) => {
  * Returns the import statement with the path to the dependency on the file system.
  */
 const getNodeModule = (from, path, pre) => {
-  const modPath = require.resolve(`${from}/${path}`)
+  const modPath = join(from, path)
   const modRel = relative('', modPath)
   return `${pre}'/${modRel}'`
 }
