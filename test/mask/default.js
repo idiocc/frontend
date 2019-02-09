@@ -2,6 +2,7 @@ import { makeTestSuite } from 'zoroaster'
 import rqt from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
+import { splitFrom } from '../../src/lib';
 
 const ts = makeTestSuite('test/result/index.jsx', {
   /**
@@ -44,6 +45,11 @@ export const node_modules = makeTestSuite('test/result/node_modules.jsx', {
   },
   context: Context,
   splitRe: /^\/\/\/ /mg,
+})
+
+export const split = makeTestSuite('test/result/split.json', {
+  getResults: splitFrom,
+  jsonProps: ['expected'],
 })
 
 export default ts

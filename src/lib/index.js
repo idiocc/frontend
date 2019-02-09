@@ -8,6 +8,8 @@ export const splitFrom = (from) => {
   if (!scope.startsWith('@') && name) {
     paths = [name, ...paths]
     name = scope
+  } else if (!scope.startsWith('@')) {
+    name = scope
   } else {
     name = `${scope}/${name}`
   }
@@ -15,29 +17,29 @@ export const splitFrom = (from) => {
 }
 
 /**
- * Updates the source code to point to the `node_modules`.
+ * Updates the source code of served JS files to point to the `/node_modules`, e.g., `import 'preact'` -> `import '/node_modules/preact/dist/preact.mjs'`.
+ * @param {string} path
+ * @param {string} source
  */
 export const patchSource = async (path, source) => {
   const replacement = async (m, pre, from) => {
     const dir = dirname(path)
-    if (/^[/.]/.test(from)) { // ignore local deps
+    // ignore local deps which are resolved by middleware
+    if (/^[/.]/.test(from)) {
       return m
     }
     const { name, paths } = splitFrom(from)
+    const {
+      packageJson,
+    } = await findPackageJson(dir, name)
+    const abs = resolve(packageJson)
+    const realFrom = dirname(abs)
     // explicit dep, e.g., @depack/example/src/index.jsx
     if (paths) {
-      const {
-        packageJson,
-      } = await findPackageJson(dir, name)
-      const realFrom = resolve(dirname(packageJson))
       return getNodeModule(realFrom, paths, pre)
     }
     // try module
-    const {
-      packageJson,
-    } = await findPackageJson(dir, from)
-    const realFrom = resolve(dirname(packageJson))
-    const { module: mod } = require(resolve(packageJson))
+    const { module: mod } = require(abs)
     if (!mod) {
       console.warn('[↛] Package %s does not specify module in package.json, trying src', realFrom)
       const d = getNodeModule(realFrom, 'src', pre)
