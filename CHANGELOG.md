@@ -1,5 +1,13 @@
 ## 8 February 2019
 
+### 1.4.0
+
+- [feature] Resolve `node_modules` entries.
+- [feature] Resolve using FindPackageJson instead of `require.resolve` to serve linked packages.
+- [fix] Don't override local dependencies' paths.
+
+## 8 February 2019
+
 ### 1.3.0
 
 - [feature] Update direct references such as `import 'package'`.
