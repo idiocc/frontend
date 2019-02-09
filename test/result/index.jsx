@@ -4,7 +4,7 @@
 /* expected */
 import { h } from '/node_modules/preact/dist/preact.mjs'
 import { render } from '/node_modules/preact/dist/preact.mjs'
-import Component from './Component.jsx'
+import Component from './Component'
 
 render(h(Component), document.body)
 /**/
@@ -15,7 +15,7 @@ index.jsx
 /* expected */
 import { h } from '/node_modules/preact/dist/preact.mjs'
 import { render } from '/node_modules/preact/dist/preact.mjs'
-import Component from './Component.jsx'
+import Component from './Component'
 
 render(h(Component), document.body)
 /**/
