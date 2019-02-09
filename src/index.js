@@ -25,7 +25,10 @@ export default async function frontend(config = {}) {
   }
   const m = async (ctx, next) => {
     const p = ctx.path.replace('/', '')
-    if (p == directory || p.startsWith(`${directory}/`)) {
+    if ( p == directory
+      || p.startsWith(`${directory}/`)
+      || p.startsWith('node_modules/'))
+    {
       const { path, isDir } = await resolveDependency(p)
       if (isDir && !p.endsWith('/')) {
         ctx.redirect(`/${path}`)
@@ -35,11 +38,6 @@ export default async function frontend(config = {}) {
       body = await patch(path, body, pragma)
       ctx.type = 'application/javascript'
       ctx.body = body
-    } else if (p.startsWith('node_modules/')) {
-      let body = await read(p)
-      body = await patch(p, body, pragma)
-      ctx.body = body
-      ctx.type = 'application/javascript'
     } else {
       await next()
     }
