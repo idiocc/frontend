@@ -6,7 +6,7 @@ import frontend from '../src'
 (async () => {
   const { url, router, app } = await core({
     logger: { use: true },
-    frontend: {
+    _frontend: {
       use: true,
       middlewareConstructor(_, config) {
         return frontend(config)

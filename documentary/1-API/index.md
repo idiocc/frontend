@@ -37,6 +37,6 @@ The middleware can be used in any `Koa` application, or within the [`idio` web s
 %EXAMPLE: example/frontend/style.css%
 
 <!-- %FORK example example/example% -->
-![Chrome Example](docs/Example.gif)
+![Chrome Example](docs/Example1.gif)
 
 %~%

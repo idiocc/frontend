@@ -50,7 +50,7 @@ import frontend from '@idio/frontend'
 (async () => {
   const { url, router, app } = await core({
     logger: { use: true },
-    frontend: {
+    _frontend: {
       use: true,
       middlewareConstructor(_, config) {
         return frontend(config)
@@ -87,8 +87,13 @@ example/frontend
 ```jsx
 import { render } from 'preact'
 import Component from './Component'
+// linked node_modules are also resolved
+import { Form, Input } from '@depack/form'
 
 render(<Component test="Welcome"/>, document.body)
+render(<Form>
+  <Input placeholder="hello world"/>
+</Form>, document.body)
 ```
 
 *The component*
@@ -111,7 +116,7 @@ body {
 }
 ```
 
-![Chrome Example](docs/Example.gif)
+![Chrome Example](docs/Example1.gif)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
