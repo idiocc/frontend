@@ -1,3 +1,9 @@
+## 19 February 2019
+
+### 1.4.1
+
+- [deps] Update dependencies.
+
 ## 10 February 2019
 
 ### 1.4.0
