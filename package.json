@@ -45,20 +45,20 @@
   },
   "homepage": "https://github.com/idiocc/frontend#readme",
   "devDependencies": {
-    "@idio/core": "1.3.2",
+    "@idio/core": "1.3.3",
     "@idio/preact-fixture": "1.0.0",
-    "alamode": "1.8.2",
-    "documentary": "1.21.2",
+    "alamode": "1.8.3",
+    "documentary": "1.21.3",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "preact-render-to-string": "4.1.0",
     "rqt": "3.1.2",
     "snapshot-context": "2.0.4",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.7.2"
+    "zoroaster": "3.8.0"
   },
   "dependencies": {
-    "@a-la/jsx": "1.4.2",
+    "@a-la/jsx": "1.4.3",
     "@wrote/exists": "1.0.1",
     "@wrote/read": "1.0.2",
     "catchment": "3.2.2",
