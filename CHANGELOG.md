@@ -1,3 +1,9 @@
+## 2 March 2019
+
+### 1.4.3
+
+- [deps] Update dependencies (pass through `true` boolean attribute).
+
 ## 26 February 2019
 
 ### 1.4.2
