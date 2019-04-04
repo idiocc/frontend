@@ -1,3 +1,9 @@
+## 4 April 2019
+
+### [1.4.4](https://github.com/idiocc/frontend/compare/v1.4.3...v1.4.4)
+
+- [deps] Unfix dependencies.
+
 ## 2 March 2019
 
 ### 1.4.3
