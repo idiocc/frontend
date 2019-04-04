@@ -44,7 +44,7 @@ The middleware can be used in any `Koa` application, or within the [`idio` web s
 ```jsx
 /* yarn example/ */
 import core from '@idio/core'
-import render from 'preact-render-to-string'
+import render from '@depack/render'
 import frontend from '@idio/frontend'
 
 (async () => {
@@ -59,7 +59,7 @@ import frontend from '@idio/frontend'
         directory: 'example/frontend',
       },
     },
-  })
+  }, { port: process.env.PORT })
   router.get('/', async (ctx) => {
     ctx.body = '<!doctype html>\n' + render(
       <html>
@@ -88,7 +88,7 @@ example/frontend
 import { render } from 'preact'
 import Component from './Component'
 // linked node_modules are also resolved
-import { Form, Input } from '@depack/form'
+import Form, { Input } from '@depack/form'
 
 render(<Component test="Welcome"/>, document.body)
 render(<Form>
@@ -129,22 +129,19 @@ body {
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
     <th>
-      © <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a>
-      2019
-    </th><th>
-        <a href="https://idio.cc">
-          <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio" />
-        </a>
-      </th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      <a href="https://idio.cc">
+        <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio" />
       </a>
     </th>
     <th>
-      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
+      </a>
     </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 

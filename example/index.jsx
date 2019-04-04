@@ -1,6 +1,6 @@
 /* yarn example/ */
 import core from '@idio/core'
-import render from 'preact-render-to-string'
+import render from '@depack/render'
 import frontend from '../src'
 
 (async () => {
@@ -15,7 +15,7 @@ import frontend from '../src'
         directory: 'example/frontend',
       },
     },
-  })
+  }, { port: process.env.PORT })
   router.get('/', async (ctx) => {
     ctx.body = '<!doctype html>\n' + render(
       <html>

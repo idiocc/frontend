@@ -20,23 +20,23 @@ The middleware constructor will initialise the middleware function to serve file
 
 The middleware can be used in any `Koa` application, or within the [`idio` web server](https://idio.cc).
 
-%EXAMPLE: example/example.jsx, ../src => @idio/frontend%
+%EXAMPLE: example, ../src => @idio/frontend%
 
 %TREE example/frontend%
 
 *The entry point*
 
-%EXAMPLE: example/frontend/index.jsx%
+%EXAMPLE: example/frontend%
 
 *The component*
 
-%EXAMPLE: example/frontend/Component.jsx%
+%EXAMPLE: example/frontend/Component%
 
 *The style*
 
 %EXAMPLE: example/frontend/style.css%
 
-<!-- %FORK example example/example% -->
+<!-- %FORK example% -->
 ![Chrome Example](docs/Example1.gif)
 
 %~%

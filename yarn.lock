@@ -7,38 +7,15 @@
   resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.1.tgz#ef36b5f3c129e0901d5752a86999a9910f6b5e7a"
   integrity sha512-ZxWfYmzeFt0CUDylMM8ZiZwSDOrZHyDnf5iVkimZKOfB5VwNEhC52NZCv5zctMFI2y3H4+jsePq6fXHc46FrFw==
 
-"@a-la/export@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.3.0.tgz#aaa22530315f85557331ddd2fc096b1b20d11afb"
+"@a-la/export@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.3.1.tgz#f7d0d49bd43fc00e2699efaa5c179a3f540f8a26"
+  integrity sha512-SVDftald2k04trpyZPE80FNhIRCz0lJoLOh3PtYK6H+smux5bhJYF1XIr0LTWQkAy2wwk5Xa0Pr5FLL2ETH4Rw==
 
 "@a-la/import@1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.7.0.tgz#169849ac4ac50558867f89e38f841dc2eee51ae8"
   integrity sha512-4iLDtywkxKaRupaLcc/ZNSxE0HWiag3z/9DsfWU0smdwXmgfkcqM9lGwhGM4vkB3YqXTOD3MtGRxxjrOIjDtjQ==
-
-"@a-la/jsx@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.2.2.tgz#0515c98d4d9eb763fabde1c3665c4aa994cf5b05"
-  integrity sha512-U8PBd1Y7G8WpCz7xFp3tyymy/n4VvZ43T2xLv6amTT2T0/TZ6fySB+m71K/f7ucCCaWl1F20IRrdPohx5umJjQ==
-  dependencies:
-    "@a-la/detect-jsx" "1.0.1"
-    restream "3.4.1"
-
-"@a-la/jsx@1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.2.tgz#ba8d45a6947c040faff0e19b5d7f7f598a9989c2"
-  integrity sha512-7zQ9veYS+JMcLCJGLhxTS+g/9ms88ijkJWi4OhvmgZZLbGA8Mh4c1NPEPdEU1GWS4R9br6HXTw9GxpunHQgrqA==
-  dependencies:
-    "@a-la/detect-jsx" "1.0.1"
-    restream "3.5.0"
-
-"@a-la/jsx@1.4.3":
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.3.tgz#1c1582bf76011812a8de6573ca2bf679ca9a06df"
-  integrity sha512-qsRiySDr5ZfruJqkSHHroMVs3c99dKvTp4chzEz33ZETGmA9hQcPPiAnw0be37+B01UHlIu/jWl5DtypHxrkKA==
-  dependencies:
-    "@a-la/detect-jsx" "1.0.1"
-    restream "3.5.0"
 
 "@a-la/jsx@1.4.4":
   version "1.4.4"
@@ -47,6 +24,14 @@
   dependencies:
     "@a-la/detect-jsx" "1.0.1"
     restream "3.5.0"
+
+"@a-la/jsx@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.6.tgz#350c27ed25fdefd44a1a742d2739d936f723677f"
+  integrity sha512-7/JslAXO0rvt6n+a+TS44Pa1GyR+VDr6R0sJY6GiygPE6jEviYvp7Ihk/3UFyiH4MpfvbkiMqTZnffi31cYoug==
+  dependencies:
+    "@a-la/detect-jsx" "1.0.1"
+    restream "3.5.1"
 
 "@a-la/markers@1.0.3":
   version "1.0.3"
@@ -58,17 +43,39 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.0.tgz#36ff9c9f66e6cb1eb0bfa90341be21cba70c7ea6"
 
-"@artdeco/clean-stack@1.0.1":
+"@artdeco/clean-stack@1.0.1", "@artdeco/clean-stack@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.1.tgz#7e4d3bb1b0ac62173b00e4bba7091f7847cdb088"
   integrity sha512-ZSavD8NpWA1/1SRCKrx8LZ5WfbKS1kRUIFOERJvR1jXqCAcbM3xWSP2VdCKEh4lCwWghSWQkotbpK6n+o1Y/xQ==
 
-"@idio/core@1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@idio/core/-/core-1.3.4.tgz#d23d022169733bf4985501dcdf1b0a6eab13ee72"
-  integrity sha512-q+RswJwPtdlesmnzZxkk/FMhPum6kFJ7MmE91f9dB41h1B2/RPUZ/8R1xhpFTgU1LWmgRcGrk9hvnFWLlvuJdQ==
+"@depack/cache@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@depack/cache/-/cache-1.0.0.tgz#7b8c7473dc96b410f719af80ae0be5ded9e55ad3"
+  integrity sha512-SG3coCeNzpc10hVCfIcklhynJ2qzIL9bPr0QsHRlVqNlfThqr90JZYEgOatxB62PHdrkyGc4fEFTn32QTuaRGA==
   dependencies:
-    "@idio/frontend" "1.4.2"
+    erte "^1.1.7"
+    makepromise "^3.0.3"
+    resolve-dependency "^1.0.2"
+    static-analysis "^1.3.3"
+
+"@depack/detect@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@depack/detect/-/detect-1.0.1.tgz#912a0384f8ba01c9bab3e73bb6c4581783cb3c91"
+  integrity sha512-Kz4YvMdlZTKMw1BGX10iUkQm11AegAaJR9TfbEqOYJApEQqQSKWT6W7JH5KGFbVQvWkOp/06+t68+uKeAlJpmA==
+  dependencies:
+    mismatch "1.1.0"
+
+"@depack/render@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@depack/render/-/render-1.1.4.tgz#8586d55f60502c8bfae7bbb0bd0a0513670fbcbd"
+  integrity sha512-/dotKRTngUMOZpVwZvdMYZz6NID6fJENTaG1sa14UbAS3bleGa7OeXie5468Huw/NRZcGPf/390ndegXbdNSpA==
+
+"@idio/core@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@idio/core/-/core-1.3.5.tgz#bda6b4b0867fc5424d90cc9cf8500d5bd3616e67"
+  integrity sha512-NC/BqED+yCzu9OL8ZcA4glpRn83mPrHFCjSwWVfpHwfKweUjKRf0RKRqXZ49ARNbeHJ/EuWj+Bc0vrVsZswSvA==
+  dependencies:
+    "@idio/frontend" "1.4.3"
     "@koa/cors" "2.2.3"
     "@types/koa" "2.0.48"
     "@types/koa-router" "7.0.40"
@@ -87,12 +94,12 @@
     koa-static "5.0.0"
     server-destroy "1.0.1"
 
-"@idio/frontend@1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-1.4.2.tgz#005b2fb9be9f7726a33bd65768008efc52b42e56"
-  integrity sha512-FDGWDYuhkvadqELlDP6OznyGpE/5QF5kfnJHbHeQR9klrZvXlB+2Wkaz5V83ugmIYF4XZdlORHavOF6LZRNFOA==
+"@idio/frontend@1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-1.4.3.tgz#bb1f35a48d80a9b8280db31f251986744278542d"
+  integrity sha512-IuvnwEQ71HenI7ChztQNc2C12XRMOukBAx1w9KQgxSOgnfGwAmG805dYrx9MIL8qpWYri+AsEQjpgFu7ndJddw==
   dependencies:
-    "@a-la/jsx" "1.4.3"
+    "@a-la/jsx" "1.4.4"
     "@wrote/exists" "1.0.1"
     "@wrote/read" "1.0.2"
     catchment "3.2.2"
@@ -248,12 +255,26 @@
   dependencies:
     makepromise "3.0.2"
 
+"@wrote/ensure-path@1.0.6", "@wrote/ensure-path@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.6.tgz#344275f42a8cb5a01daf1a191033f1cdfc28f60d"
+  integrity sha512-E5O0j94sc2Jm4BiMtxEH5A0B++3uT3kfFqWbhii8+Gjf6D8tD2xYCeTIj9pJm8510pXzfzGXxfHYwEFF/a9dpg==
+  dependencies:
+    makepromise "3.0.3"
+
 "@wrote/exists@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@wrote/exists/-/exists-1.0.1.tgz#6c72c49abf02af9bee1e1977a2257421704a51fe"
   integrity sha512-fpUumy6miIM9Hz9n6eo2yjvhwnD/oeUX6AHLV2BtJv+3MqdzoZnFjHL1Sf0Rh/veNfdVF8zLJa4zQtTvnsL22g==
   dependencies:
     makepromise "3.0.2"
+
+"@wrote/exists@1.0.3", "@wrote/exists@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wrote/exists/-/exists-1.0.3.tgz#53b0643b8625610647905b63a3ccd858ead36aeb"
+  integrity sha512-XFuRB0e3bSQ5+Tb5vt75LDPmvT5bljmtgYUEq4N0ks+MHihxbVEGqOed4PukPFYjSyAXxeXot/KP7OEGLTkFOg==
+  dependencies:
+    makepromise "3.0.3"
 
 "@wrote/read-dir-structure@1.0.1":
   version "1.0.1"
@@ -268,6 +289,13 @@
   dependencies:
     makepromise "3.0.2"
 
+"@wrote/read-dir-structure@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.3.tgz#f2f65da8cef15e2083edd812f748d3277a91754c"
+  integrity sha512-UljeWxX/8s4AEsgPaFxuhGCVnlLQ7XWZ8XjhiJLQqPV6H3qXTY6dF7L8u23WzoDXta+Sxhs5Iem27RV6WVYTJw==
+  dependencies:
+    makepromise "3.0.3"
+
 "@wrote/read@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.2.tgz#6d1d2b2f3e2e1830007384b06c31fb58ec77cf21"
@@ -275,44 +303,63 @@
   dependencies:
     catchment "3.2.1"
 
-"@wrote/rm@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@wrote/rm/-/rm-1.1.2.tgz#98b0fa0c9eebe6f82b5dc75ce872441639f6cdd4"
-  integrity sha512-+yl+infL+EeF6ijKzWwqas/KRUwIe7ifEdkV43DXlyPQhtxccyNDNJ2WYUGzFhoDEafegdDweozV+vSu5av6Gg==
+"@wrote/read@1.0.3", "@wrote/read@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wrote/read/-/read-1.0.3.tgz#6d47d2e9c545bee74be2d0155d6c726984ad8b53"
+  integrity sha512-DHAEMi1LcJdMIMZvvh+dCiFsfmclZxyQQCAaLAXGTF3E16JwEHkxrJT/UI5OKaofUoi/QXYGvhF8NIg7w6r9Tg==
   dependencies:
-    "@wrote/read-dir-structure" "1.0.2"
-    makepromise "3.0.2"
+    catchment "3.2.3"
 
-"@wrote/write@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@wrote/write/-/write-1.0.2.tgz#0a781e76d530a9bf2846af9709aaad209d09ba14"
-  integrity sha512-2i9KXxypTP/3716suS7aYUE62EeqcOJl/edtCNvjJbcaVm2NtXskcY7HVUTVAkXpEA53ewjqIvn8giw0hw5Edg==
+"@wrote/rm@1.1.3", "@wrote/rm@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@wrote/rm/-/rm-1.1.3.tgz#f7448585b36b1952d97bac2e0d2ed1bbec84a1ed"
+  integrity sha512-UgyJKpDGw39PvpY2vjLp6SCXFolT60NXbu33+NeNhe6hFT/6bXb+RIVsHRaRc3NxAmlmxMefTpgJ0UL0oVnJBQ==
   dependencies:
-    erotic "2.0.2"
+    "@wrote/read-dir-structure" "1.0.3"
+    makepromise "3.0.3"
 
-"@wrote/wrote@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@wrote/wrote/-/wrote-1.2.1.tgz#42c58a6136b719efda847d7beef505491c41a496"
-  integrity sha512-wVlkJ1Vabifxhd4uNOph2dcFQCrSU4ECVTWqK17yPdv0QcBSmvoOMAh5IfysGNpJ5rEEAcbd9o/EkpTvj5iJCA==
+"@wrote/write@1.0.3", "@wrote/write@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wrote/write/-/write-1.0.3.tgz#1bc141ad12035674aece77262b385cf2db6ba68e"
+  integrity sha512-OzerBfRaQ+WBBYrnTq33eMYe0jnHEyZv2PxZlmpvUGY53lvoYpTdAuTwaPLVDb1hKKJWUjx1vx7RjANEkqZ/Yw==
   dependencies:
-    "@wrote/ensure-path" "1.0.5"
-    "@wrote/exists" "1.0.1"
-    "@wrote/read" "1.0.2"
-    "@wrote/read-dir-structure" "1.0.2"
-    "@wrote/rm" "1.1.2"
-    "@wrote/write" "1.0.2"
+    erotic "2.0.3"
 
-"@zoroaster/fork@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@zoroaster/fork/-/fork-1.1.0.tgz#fd142ac5b13861d2babc9e59446c3f6de4662d4e"
-  integrity sha512-uzZEfm6mKQ0MxxoEJvqVZ9vtNzhArDpgS1dCFZj+uwDGAfFGsTL386p7k1NZTJ0ruC0BKVFbOWxRFLZxlyGZzA==
+"@wrote/wrote@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@wrote/wrote/-/wrote-1.2.2.tgz#40db06f01ed71f62cfd59b01497848bef1d6655f"
+  integrity sha512-1YDe+r4GKmkUBAr6If7XcFEBWBPGOCNDriG2dw6F6Nia6SuLu347cTzP2WNjmTBO5fjorIVEQpSxRQtwbQ0CVw==
+  dependencies:
+    "@wrote/ensure-path" "1.0.6"
+    "@wrote/exists" "1.0.3"
+    "@wrote/read" "1.0.3"
+    "@wrote/read-dir-structure" "1.0.3"
+    "@wrote/rm" "1.1.3"
+    "@wrote/write" "1.0.3"
+
+"@zoroaster/fork@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@zoroaster/fork/-/fork-1.2.0.tgz#a9edc3a83a1c476dc70173d8beccb9a2aac14535"
+  integrity sha512-vdqQkD7R1RAS3re/KNT+4TzeAJEpPU5fFgdm7me29oQh4NM1uQ6lfpb7wIjFhF2qk3Zmu2mCFWjOWWl+48TkeQ==
   dependencies:
     assert-diff "2.0.3"
     catchment "3.2.2"
-    erte "1.1.6"
+    erte "1.1.7"
     forkfeed "1.0.0"
     mismatch "1.0.3"
-    spawncommand "2.1.0"
+    spawncommand "2.1.1"
+
+"@zoroaster/mask@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-1.3.0.tgz#92f92d517a6e010c3971c851bf3f0b18b8f30f2b"
+  integrity sha512-amlYReAEd0lbv/PBQ60PYlm2uD/axrxSdoNEfrWGT61Ga7y+qQwTpJJw78C/rvQDFMZX3+8s780bG0zt97rUpQ==
+  dependencies:
+    "@zoroaster/fork" "1.2.0"
+    assert-diff "2.0.3"
+    assert-throws "3.1.1"
+    catchment "3.2.2"
+    erte "1.1.7"
+    mismatch "1.0.3"
 
 "@zoroaster/reducer@1.1.0":
   version "1.1.0"
@@ -329,61 +376,22 @@ accepts@^1.3.5:
     mime-types "~2.1.18"
     negotiator "0.6.1"
 
-alamode@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.7.0.tgz#96ffc52eabb65b3cdfca3a9927826e61413a281b"
-  integrity sha512-YioKrWvZtr+/zGtO/GDBFyt7zAPm6WS5xWws9yyk74P2s5Zizpnw5weJOpU8R1Qa6MpuegaQbAV5y0xamDTc9A==
+alamode@^1.9.1, alamode@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.9.2.tgz#49e5534b5160e4ff984f802452d9b5a45914f6cf"
+  integrity sha512-0AxhY4tBB4fcrIGgTrijGP6eoXAj4Vxi0/XCZv5YVa2mlvg7p03wKc+8hI/d7xdFdRDjxE673HunGbWxxau4BQ==
   dependencies:
-    "@a-la/export" "1.3.0"
+    "@a-la/export" "1.3.1"
     "@a-la/import" "1.7.0"
-    "@a-la/jsx" "1.2.2"
-    "@a-la/markers" "1.0.3"
-    "@wrote/ensure-path" "1.0.3"
-    "@wrote/read-dir-structure" "1.0.1"
-    argufy "1.2.1"
-    catchment "3.2.0"
-    pirates "4.0.0"
-    restream "3.4.1"
-    source-map "0.7.3"
-    usually "1.1.0"
-    which-stream "1.0.1"
-
-alamode@1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.8.2.tgz#6d2bf4afbc62eddb1e6cbd05550b9cd319ff93cf"
-  integrity sha512-KsIBUayIlEclF3tJtsiLdTI9BR9r25pH6rRI3dNNdejLZwkID5Uu6zR1Cxebp9NriJuEx1C1YWtO+5LNTdUn/A==
-  dependencies:
-    "@a-la/export" "1.3.0"
-    "@a-la/import" "1.7.0"
-    "@a-la/jsx" "1.4.2"
+    "@a-la/jsx" "^1.4.6"
     "@a-la/markers" "1.0.3"
     "@wrote/clone" "1.1.0"
-    "@wrote/wrote" "1.2.1"
-    argufy "1.3.2"
-    catchment "3.2.2"
-    erte "1.1.6"
-    pirates "4.0.0"
-    restream "3.5.0"
-    source-map "0.7.3"
-    usually "1.1.0"
-    which-stream "1.0.1"
-
-alamode@1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.8.3.tgz#7e8827ae670cd161a9dadb597813019e2e14526c"
-  integrity sha512-IPLohndlw/dvQFTJVQZAFW+eke4JCUOnEmoatoqIMmcM/e/bzrvHcyeFxvZ//Tq82ijgFJdjHV6eAzPNC2iedg==
-  dependencies:
-    "@a-la/export" "1.3.0"
-    "@a-la/import" "1.7.0"
-    "@a-la/jsx" "1.4.3"
-    "@a-la/markers" "1.0.3"
-    "@wrote/clone" "1.1.0"
-    "@wrote/wrote" "1.2.1"
-    argufy "1.3.2"
-    catchment "3.2.2"
-    erte "1.1.6"
+    "@wrote/wrote" "^1.2.2"
+    argufy "^1.3.2"
+    catchment "^3.2.3"
+    erte "^1.1.7"
     pirates "4.0.1"
-    restream "3.5.0"
+    restream "^3.5.1"
     source-map "0.7.3"
     usually "1.1.0"
     which-stream "1.0.1"
@@ -408,11 +416,7 @@ append-field@^0.1.0:
   resolved "https://registry.yarnpkg.com/append-field/-/append-field-0.1.0.tgz#6ddc58fa083c7bc545d3c5995b2830cc2366d44a"
   integrity sha1-bdxY+gg8e8VF08WZWygwzCNm1Eo=
 
-argufy@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.2.1.tgz#34985fe1087dee7fd96c92fad17c0dd137991d95"
-
-argufy@1.3.2:
+argufy@1.3.2, argufy@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.3.2.tgz#05387dbf12b6fdf15de0678413e6926b018987df"
   integrity sha512-ut80hITGI6bpaguzWZ3pZ9akshUzh2iSeGoIeqHYfJZeBafmd5guuzLxRzJ29vc2qbbUaunOxJ89DydEWhj5BA==
@@ -498,21 +502,6 @@ catchment@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.0.1.tgz#11dab5fea86d412343e797e052b21091b7e83a55"
 
-catchment@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.1.1.tgz#dad005e4383cb56f0108d8ea1f877608df22be59"
-  dependencies:
-    "@artdeco/clean-stack" "1.0.0"
-    erotic "2.0.1"
-
-catchment@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.2.0.tgz#1b846c4a4acd488061b1b054274edd2f5111cd8d"
-  integrity sha512-mGhiTkSgPaKAEeB0lVLRM+TWlzkoPq5SGvAgsjNayfBzQjqwRdPIUs2Y1ksvU5WsP5JdtcPVFyyGLM6K8xnQqA==
-  dependencies:
-    "@artdeco/clean-stack" "1.0.0"
-    erotic "2.0.1"
-
 catchment@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.2.1.tgz#43b1aa1f183538fb8fc556b5dc5e0885bfe707d1"
@@ -528,6 +517,14 @@ catchment@3.2.2:
   dependencies:
     "@artdeco/clean-stack" "1.0.1"
     erotic "2.0.2"
+
+catchment@3.2.3, catchment@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.2.3.tgz#9200b45d2edfc655bc34eb4a8b95ea9302b261e3"
+  integrity sha512-cUy3mmxKSk27ZH2pjRZFhpLrJfahkTOCVF6xsTtJgcsZrMu/v0DPeAr2KQL4cVXbQCY3/4GXxdKr4TKgRzKLaw==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.1"
+    erotic "2.0.3"
 
 catchment@^1.0.0:
   version "1.0.0"
@@ -547,6 +544,11 @@ chalk@^1.1.3:
 clean-stack@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-1.3.0.tgz#9e821501ae979986c46b1d66d2d432db2fd4ae31"
+
+clearr@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/clearr/-/clearr-1.0.0.tgz#47f2a0a24aa910ef6b54e998732b825e3b4f90a0"
+  integrity sha512-OaDCLwxycJoODRWeNZT2j152jBp59wND+N+WkgkO3UhZM4cGXWwqPNUA1xmZXeKpt9pjdRcsn8L+mw0SZJ/wWg==
 
 cli-color@~0.1.6:
   version "0.1.7"
@@ -696,25 +698,31 @@ difflib@~0.2.1:
   dependencies:
     heap ">= 0.2.0"
 
-documentary@1.21.4:
-  version "1.21.4"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.21.4.tgz#8dbeded99a04bd3b98acb64914d7c6239b63d4b8"
-  integrity sha512-Ly9t/VLOiXoxJ9GjFH2gGOsyA6OlkF57ZdVOOr1E1uXrIZVQs83NIkCCURPxiyu+kfepkiD7FmXbhu8fZebXsw==
+documentary@^1.23.3:
+  version "1.23.3"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.23.3.tgz#abc7b9f860a830f405a88c4e5cc70b7deb1073f9"
+  integrity sha512-3qU3ZDvp/X/+9+3eWDJp8ehVFNlhEAmFT51nz5pPMPMqK5RMQs5RpGNfF+MRwghC7Ra36157S5UVmqyVo8F8fA==
   dependencies:
+    "@depack/cache" "^1.0.0"
+    "@depack/render" "^1.1.4"
     "@wrote/clone" "1.1.0"
-    "@wrote/ensure-path" "1.0.5"
-    alamode "1.7.0"
+    "@wrote/ensure-path" "^1.0.6"
+    "@wrote/write" "^1.0.3"
+    alamode "^1.9.2"
     argufy "1.3.2"
-    catchment "3.2.2"
-    erte "1.1.6"
-    mismatch "1.0.3"
-    pedantry "2.2.0"
+    catchment "^3.2.3"
+    clearr "1.0.0"
+    erte "1.1.7"
+    makepromise "^3.0.3"
+    mismatch "1.1.0"
+    pedantry "2.3.1"
     preact "8.4.2"
-    preact-render-to-string "4.1.0"
-    restream "3.5.0"
-    rexml "1.2.0"
-    spawncommand "2.1.0"
-    typal "1.2.0"
+    resolve-dependency "^1.0.2"
+    restream "^3.5.1"
+    rexml "1.3.0"
+    spawncommand "^2.1.1"
+    static-analysis "^1.3.3"
+    typal "1.2.2"
     which-stream "1.0.1"
 
 dreamopt@~0.6.0:
@@ -760,6 +768,13 @@ erotic@2.0.2:
   dependencies:
     "@artdeco/clean-stack" "1.0.1"
 
+erotic@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/erotic/-/erotic-2.0.3.tgz#a4cd02e3448ca416851fbb65f4a5b1da3e135abe"
+  integrity sha512-fT5PdhM8TxSg212dCscDbR/yyVi8viAEd9y5dSFgniMZCPmJcpVb4bgJGtNax/BFUyYkvnLGOHpCaEPqFiQHOw==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.1"
+
 error-inject@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/error-inject/-/error-inject-1.0.0.tgz#e2b3d91b54aed672f309d950d154850fa11d4f37"
@@ -771,10 +786,10 @@ erte@1.1.4:
   dependencies:
     diff "3.5.0"
 
-erte@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/erte/-/erte-1.1.6.tgz#78f1eade69151dde1acaa5bd3970d57ba2d45f72"
-  integrity sha512-NQ6KXfFeGPM7ct2cCKVyz2K2xxM19ugXIYMzTt5eTR70KYnyK2jjZzkNf5aahZplPaBH8B68ySc6MfLO+Jdb7w==
+erte@1.1.7, erte@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/erte/-/erte-1.1.7.tgz#6402500055d615a57493048729f524c1072749d9"
+  integrity sha512-GFYXicFCaoQHhIQ1KrIbihebMpH1BeXcRkbKDKzCcW4UgczhoyWzCvd79MlAeHGuJ8+Jirtm8tHC91AQ0GPa0A==
   dependencies:
     diff "4.0.1"
 
@@ -809,6 +824,21 @@ fpj@1.0.0:
   dependencies:
     "@wrote/exists" "1.0.1"
     "@wrote/read" "1.0.2"
+
+fpj@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fpj/-/fpj-1.0.1.tgz#0679a623253acc3c793cf004985722e2b74ff312"
+  integrity sha512-1mKQDArdDDPxILccMfAzZMk4BDpTO/avSGK+zqV75NfEhRmV3JxGacv0vQLwN4uCSdqQNszhPxrolSwJ986aJg==
+  dependencies:
+    "@wrote/exists" "1.0.3"
+    "@wrote/read" "1.0.3"
+
+frame-of-mind@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/frame-of-mind/-/frame-of-mind-1.0.0.tgz#9dddf046f057ad7caa11c11e57894640d5e5656c"
+  integrity sha512-iwmcna8jfyWNiCIoMl7by9lwvVTlKCDN66NMjz+8RHjC+3dyP5KbkQ59GN0Q3C2CJeV2nvo0Vuc8Yk2f9/ghOw==
+  dependencies:
+    paddys "1.0.1"
 
 fresh@~0.5.2:
   version "0.5.2"
@@ -1101,6 +1131,13 @@ makepromise@3.0.2:
   dependencies:
     erotic "2.0.2"
 
+makepromise@3.0.3, makepromise@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.0.3.tgz#57df379fbaf36b44987179c92916181acabd82d1"
+  integrity sha512-KWY9GjgtPNbIfnV0X/cspebWCx8chNOI9Y+/pv1VT0tDnnH+4FPAWGCFJKMISkDgYmkl/yjxdsvGQTEGpMnd9Q==
+  dependencies:
+    erotic "2.0.3"
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -1131,6 +1168,11 @@ minimist@0.0.8:
 mismatch@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.0.3.tgz#416cbe164971a8eafc6f3a68c7c63a77bdf06bfb"
+
+mismatch@1.1.0, mismatch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.1.0.tgz#0f5cee695d3afa0f909f87fab34fe9ac63f8c064"
+  integrity sha512-/nVtAFATS/DPGc4qrlNQzNrxg3b64NOwZbhlrEm9tLlGduq54uMCZhlqSF5Kmy/dhQeoPZDu1iCUcOUruGcO3g==
 
 mkdirp@^0.5.1:
   version "0.5.1"
@@ -1203,6 +1245,11 @@ only@~0.0.2:
   resolved "https://registry.yarnpkg.com/only/-/only-0.0.2.tgz#2afde84d03e50b9a8edc444e30610a70295edfb4"
   integrity sha1-Kv3oTQPlC5qO3EROMGEKcCle37Q=
 
+paddys@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/paddys/-/paddys-1.0.1.tgz#7ffc8ca89ffc7435b46932fe4d84dd2fd74e83b5"
+  integrity sha512-1i7tv+zItDe3iO6Df2kdSOYXQIku5Je0dNwAq/FfEmhO3gM6coGehqNhnqmgN+DBe/OFO4JFgDH1RaSh+bMi2A==
+
 parseurl@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
@@ -1225,17 +1272,12 @@ path-to-regexp@^1.1.1:
   dependencies:
     isarray "0.0.1"
 
-pedantry@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-2.2.0.tgz#bba0dd81b77e08fcc153fc9e53dc60671686a304"
+pedantry@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-2.3.1.tgz#953e5de705f157136a6031187b1ec4fba5f36827"
+  integrity sha512-X4Vqc+TWMRlSnEp/JwgpFhY2k9tWw0Qh+HQUAiDRItmW5b3gEn/q3RzxZHaUbf22xZJvRX0dIj89GJuBFCX2nA==
   dependencies:
-    "@wrote/read-dir-structure" "1.0.1"
-
-pirates@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.0.tgz#850b18781b4ac6ec58a43c9ed9ec5fe6796addbd"
-  dependencies:
-    node-modules-regexp "^1.0.0"
+    "@wrote/read-dir-structure" "1.0.2"
 
 pirates@4.0.1:
   version "4.0.1"
@@ -1244,22 +1286,10 @@ pirates@4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
-preact-render-to-string@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-4.1.0.tgz#70d98a8385cb86558366c558aad7311ebecb881d"
-  integrity sha512-FlFBJRxo8z4cp6VsDmeYjIEx4ZK2clFJnKIvIj8K1IQCRm7ZgJ/SZ1+BotT86/Nc+V1pNtFabHoUi6gpjx5Pug==
-  dependencies:
-    pretty-format "^3.8.0"
-
 preact@8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.4.2.tgz#1263b974a17d1ea80b66590e41ef786ced5d6a23"
   integrity sha512-TsINETWiisfB6RTk0wh3/mvxbGRvx+ljeBccZ4Z6MPFKgu/KFGyf2Bmw3Z/jlXhL5JlNKY6QAbA9PVyzIy9//A==
-
-pretty-format@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
-  integrity sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
@@ -1313,10 +1343,10 @@ readable-stream@^2.2.2:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-reloquent@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/reloquent/-/reloquent-1.0.6.tgz#56cb87f43209e421a129df48ba621a658c08b1d4"
-  integrity sha1-VsuH9DIJ5CGhKd9IumIaZYwIsdQ=
+reloquent@1.2.4, reloquent@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/reloquent/-/reloquent-1.2.4.tgz#7d06f719b4b8df892d1888909a938b528cfd1181"
+  integrity sha512-HHAHlhd6Ed/wn3fxPFjP5tUdQ58JEDdf2elE1e5h80wmN8X3/U1KuMJ+uLKWr/Q71AnWFNXV5IQ7bfjezqOl8w==
   dependencies:
     promto "1.0.1"
 
@@ -1326,6 +1356,20 @@ resolve-dependency@1.0.0:
   integrity sha512-Q7jtB7N7zp0TA6L7uXbo+Pv03VvDBkZRbNkyHxfn8o0eACIpwNfr0O9UZ2umVFyYKRl9fRkqocdRwXtaOfTYYQ==
   dependencies:
     "@wrote/exists" "1.0.1"
+
+resolve-dependency@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/resolve-dependency/-/resolve-dependency-1.0.1.tgz#97c8e7dbea0a305a11fb740467fdc1613d76a3e5"
+  integrity sha512-O3Fn//q6bKqXoE4erVzHGvjAPJCa4so3H1L7E47ww4LsAjVP5xWfujPZYDUU1MXVVLXhKs2j++5RhsslfHoF4g==
+  dependencies:
+    "@wrote/exists" "1.0.1"
+
+resolve-dependency@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/resolve-dependency/-/resolve-dependency-1.0.2.tgz#b63cc30b257908f29b7ab48a8becbb2cd857204b"
+  integrity sha512-BertcwHa6pc1QcwUPtfphpP+bn2cuKMeqiXM+fvvRG+/vV1nYlav0HtMYlYkbY1f99QWswI3pL8OaXRpy7neJw==
+  dependencies:
+    "@wrote/exists" "1.0.3"
 
 resolve-path@^1.4.0:
   version "1.4.0"
@@ -1344,13 +1388,6 @@ restream@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.1.tgz#36084997bd3e765c2da484700e16b850c2f9ffb4"
 
-restream@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/restream/-/restream-3.4.1.tgz#3ae08677176a2ba484a55b7e2ec2105d7847f07e"
-  integrity sha512-aWur+X3dItQjmw2c7KPiyy2BEw20+0d1nk0IAgVEqcvNrGh7MZ4stZ1KnSr5ekcHwI9VDP/3lJ6N2+nLIZduLA==
-  dependencies:
-    "@artdeco/clean-stack" "1.0.0"
-
 restream@3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/restream/-/restream-3.5.0.tgz#8790f4592b4ef5cd84855c243bac2899d90044b4"
@@ -1358,14 +1395,17 @@ restream@3.5.0:
   dependencies:
     "@artdeco/clean-stack" "1.0.1"
 
-rexml@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.1.0.tgz#d005c515528aa0c81a39cd456a0da40321ab3fe8"
+restream@3.5.1, restream@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/restream/-/restream-3.5.1.tgz#569ef5b3c1b3e177058d4ce12be9b6323ca969b8"
+  integrity sha512-z3SLUpAE/i/N9xFraDXME69RuRA4E50SEVsNXpY5fBSiznLKP4JxCcjKX2KYW6SRID/BqF8dyVtNVvOseGUB6g==
+  dependencies:
+    "@artdeco/clean-stack" "1.0.1"
 
-rexml@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.2.0.tgz#f78ada4db77b77b5ade1c16ba9e7da6975192438"
-  integrity sha512-kXVHg5xCKMgtuy9jiCHHzwVQyokla58YQ9Y5JIK6cLcuUWx9dh+D91RRzHybN/4UfEY9QC93C/gP+btRM99EaQ==
+rexml@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.3.0.tgz#70d773c2e69da392112784e5ef7a65e77bef9612"
+  integrity sha512-FCoo+tfyqX7cw0ruRaCIz2rLoDL1IRNmCUF6e1P8v2G/RPB6t0EiJPZ2A8DxNJfGG5Hc9PPF7JRnm18Q0pKbIg==
 
 rndm@1.2.0:
   version "1.2.0"
@@ -1399,15 +1439,16 @@ setprototypeof@1.1.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
   integrity sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==
 
-snapshot-context@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/snapshot-context/-/snapshot-context-2.0.4.tgz#b8121d9bff2eded0462a74fa503186fdaea17444"
-  integrity sha512-uwbNvHhpQ5LtPTF87+r5PcAXz7k+Rs2fkC41b9niYQYzrc6HZQE01N43uBypr3WBRfimlnrf2e2qVSM0cOEW1Q==
+snapshot-context@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/snapshot-context/-/snapshot-context-2.2.1.tgz#beec7c044f142973fdbbb84136151e9ff5f1ec60"
+  integrity sha512-COKO04xXoq2Ru3AWL78ddgO+hpAy0vNaHinVwKazI6xbIZ/7KVfgvdqhgOJrajHxi/a451AXHowiEtvjn/Aq3A==
   dependencies:
     assert-diff "2.0.3"
-    erotic "1.2.1"
-    erte "1.1.4"
-    reloquent "1.0.6"
+    erotic "2.0.2"
+    erte "1.1.7"
+    frame-of-mind "1.0.0"
+    reloquent "1.2.4"
     wrote "1.4.0"
 
 source-map@0.7.3:
@@ -1420,11 +1461,24 @@ spawncommand@1.1.0:
   dependencies:
     catchment "^1.0.0"
 
-spawncommand@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-2.1.0.tgz#a5ef60ae7892e8718a9c717fc52fe5f54521e0de"
+spawncommand@2.1.1, spawncommand@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-2.1.1.tgz#297393c728c236d2ef11925cdf6795e44479a71e"
+  integrity sha512-4uvLpHyUsts2OBPG5/juVhuwVPj8GBD3FfjcR0fMheV5TW7TYCUnbGbjAqnv19D31SbjG14bOoAVBMY4nB2XEg==
   dependencies:
-    catchment "3.1.1"
+    catchment "3.2.2"
+
+static-analysis@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/static-analysis/-/static-analysis-1.3.3.tgz#ff2ef8075fb194a439a2ba8d13d00dd00ca60e05"
+  integrity sha512-GlnahzMf1pWf6/0pwR+lDyccKjXBxhdh9lzgrYB4DoqFi9H8qOoNrtnmFfM82ZkuVxEKefpGbLVbUGdBOcMLCg==
+  dependencies:
+    "@depack/detect" "1.0.1"
+    "@wrote/read" "1.0.3"
+    erotic "2.0.3"
+    fpj "1.0.0"
+    mismatch "1.1.0"
+    resolve-dependency "1.0.1"
 
 "statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.0.0, statuses@^1.5.0:
   version "1.5.0"
@@ -1484,12 +1538,13 @@ tsscmp@1.0.5:
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
   integrity sha1-fcSjOvcVgatDN9qR2FylQn69mpc=
 
-typal@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.2.0.tgz#b9e24fa8d187adf7819c12595cd142a80be18f5f"
+typal@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.2.2.tgz#6f17ee3c9535fa9acf71e6e1728768c8fe7b1f6b"
+  integrity sha512-eyZOfl2coNYdNkWRi4zXZP181112AWkX9sF7SZSDnypmv3opxACqMMXYIE/jsHObJ04RJM0OdmuVj+nfICzYDQ==
   dependencies:
     mismatch "1.0.3"
-    rexml "1.1.0"
+    rexml "1.3.0"
 
 type-is@^1.6.16, type-is@^1.6.4:
   version "1.6.16"
@@ -1528,7 +1583,7 @@ urijs@^1.19.0:
   resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.1.tgz#5b0ff530c0cbde8386f6342235ba5ca6e995d25a"
   integrity sha512-xVrGVi94ueCJNrBSTjWqjvtgvl3cyOTThp2zaMaFNGp3F542TR6sM3f2o8RqZl+AwteClSVmoCyt0ka4RjQOQg==
 
-usually@1.1.0:
+usually@1.1.0, usually@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/usually/-/usually-1.1.0.tgz#c79965c264596cd3ead181f84dae64dee24b60d6"
   integrity sha512-xGl7nUfT/DifxhZg97MTwjsl795RX0UiNWPvaItg8viTSRujH2D4jSi93yeuKxLDhJyEMId6cnyiD2SdEQ2jLw==
@@ -1579,22 +1634,25 @@ ylru@^1.2.0:
   resolved "https://registry.yarnpkg.com/ylru/-/ylru-1.2.1.tgz#f576b63341547989c1de7ba288760923b27fe84f"
   integrity sha512-faQrqNMzcPCHGVC2aaOINk13K+aaBDUPjGWl0teOXywElLjyVAB6Oe2jj62jHYtwsU49jXhScYbvPENK+6zAvQ==
 
-zoroaster@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.8.0.tgz#9d0ba6bab18048edb684f9b7d16105028b9f25ee"
-  integrity sha512-sDf6VkKVgM8HW0MRc0SqM78CJUwlx4jV8gbqIgw19c9Rytx4W+rgHRgqrnjmACpFv2/63AqdcLJJwiMnlcpjYg==
+zoroaster@^3.11.4:
+  version "3.11.4"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.11.4.tgz#6bb5a5e2ba24921c219d7e02299f758a396729e4"
+  integrity sha512-4o0lIDoZMucKZ+dl46K+m3wmrI3Ebxej8Ln6OKtUjJe0o0ggZ85fEr//kTPioWOnkuJm+1UoqHy58bw6l4WOFg==
   dependencies:
-    "@artdeco/clean-stack" "1.0.1"
-    "@zoroaster/fork" "1.1.0"
+    "@artdeco/clean-stack" "^1.0.1"
+    "@wrote/exists" "^1.0.3"
+    "@wrote/rm" "^1.1.3"
+    "@zoroaster/mask" "1.3.0"
     "@zoroaster/reducer" "1.1.0"
-    alamode "1.8.2"
-    argufy "1.3.2"
+    alamode "^1.9.1"
+    argufy "^1.3.2"
     assert-diff "2.0.3"
     assert-throws "3.1.1"
-    catchment "3.2.2"
-    erte "1.1.6"
-    forkfeed "1.0.0"
-    makepromise "3.0.2"
-    mismatch "1.0.3"
-    spawncommand "2.1.0"
-    usually "1.1.0"
+    catchment "^3.2.3"
+    erte "^1.1.7"
+    makepromise "^3.0.3"
+    mismatch "^1.1.0"
+    reloquent "^1.2.4"
+    snapshot-context "2.2.1"
+    spawncommand "^2.1.1"
+    usually "^1.1.0"

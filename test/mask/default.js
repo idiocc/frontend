@@ -1,10 +1,10 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import rqt from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
-import { splitFrom } from '../../src/lib';
+import { splitFrom } from '../../src/lib'
 
-const ts = makeTestSuite('test/result/index.jsx', {
+const ts = makeTestSuite('test/result/index', {
   /**
    * @param {string}
    * @param {Context} context
@@ -25,7 +25,7 @@ const ts = makeTestSuite('test/result/index.jsx', {
   context: Context,
 })
 
-export const node_modules = makeTestSuite('test/result/node_modules.jsx', {
+export const node_modules = makeTestSuite('test/result/node_modules', {
   /**
    * @param {string}
    * @param {Context} context
