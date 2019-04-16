@@ -52,7 +52,7 @@
     "documentary": "^1.23.4",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
-    "rqt": "3.1.2",
+    "rqt": "^3.1.3",
     "temp-context": "^2.1.3",
     "yarn-s": "1.1.0",
     "zoroaster": "^3.11.5"
@@ -63,6 +63,7 @@
     "@wrote/read": "^1.0.4",
     "catchment": "^3.3.0",
     "fpj": "^1.1.0",
+    "makepromise": "^3.1.0",
     "resolve-dependency": "^1.0.2",
     "restream": "^3.6.0"
   }

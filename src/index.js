@@ -2,6 +2,8 @@ import read from '@wrote/read'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
 import exists from '@wrote/exists'
+import makePromise from 'makepromise'
+import { lstat } from 'fs'
 import { patchSource } from './lib'
 
 /**
@@ -14,12 +16,13 @@ export default async function frontend(config = {}) {
   const {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
+    log,
   } = config
-  /** @type {import('koa').Middleware} */
   const e = await exists(directory)
   if (!e) {
     throw new Error(`Frontend directory ${directory} does not exist.`)
   }
+  /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
     const p = ctx.path.replace('/', '')
     if ( p == directory
@@ -31,8 +34,25 @@ export default async function frontend(config = {}) {
         ctx.redirect(`/${path}`)
         return
       }
+      /** @type {import('fs').Stats} */
+      let ls
+      try {
+        ls = await makePromise(lstat, path)
+      } catch (err) {
+        ctx.status = 404
+        return
+      }
+      ctx.status = 200
+      ctx.etag = ls.mtime.getTime()
+      if (ctx.fresh) {
+        ctx.status = 304
+        return
+      }
       let body = await read(path)
+      let start = new Date().getTime()
       body = await patch(path, body, pragma)
+      let end = new Date().getTime()
+      if (log) log('%s patched in %sms', path, end - start)
       ctx.type = 'application/javascript'
       ctx.body = body
     } else {

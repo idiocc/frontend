@@ -2,6 +2,8 @@ let read = require('@wrote/read'); if (read && read.__esModule) read = read.defa
 let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
 let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
 let exists = require('@wrote/exists'); if (exists && exists.__esModule) exists = exists.default;
+let makePromise = require('makepromise'); if (makePromise && makePromise.__esModule) makePromise = makePromise.default;
+const { lstat } = require('fs');
 const { patchSource } = require('./lib');
 
 /**
@@ -14,12 +16,13 @@ const { patchSource } = require('./lib');
   const {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
+    log,
   } = config
-  /** @type {import('koa').Middleware} */
   const e = await exists(directory)
   if (!e) {
     throw new Error(`Frontend directory ${directory} does not exist.`)
   }
+  /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
     const p = ctx.path.replace('/', '')
     if ( p == directory
@@ -31,8 +34,25 @@ const { patchSource } = require('./lib');
         ctx.redirect(`/${path}`)
         return
       }
+      /** @type {import('fs').Stats} */
+      let ls
+      try {
+        ls = await makePromise(lstat, path)
+      } catch (err) {
+        ctx.status = 404
+        return
+      }
+      ctx.status = 200
+      ctx.etag = ls.mtime.getTime()
+      if (ctx.fresh) {
+        ctx.status = 304
+        return
+      }
       let body = await read(path)
+      let start = new Date().getTime()
       body = await patch(path, body, pragma)
+      let end = new Date().getTime()
+      if (log) log('%s patched in %sms', path, end - start)
       ctx.type = 'application/javascript'
       ctx.body = body
     } else {

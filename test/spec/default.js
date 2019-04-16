@@ -2,6 +2,7 @@ import { equal, throws } from 'zoroaster/assert'
 import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
+import { deepEqual } from 'assert';
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
@@ -46,6 +47,32 @@ const T = {
     })
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
     return res
+  },
+  async 'supports caching'({ start, directory }) {
+    const logged = []
+    const { url } = await start({
+      _frontend: {
+        use: true,
+        middlewareConstructor(app, config) {
+          return frontend(config)
+        },
+        config: { directory, log(...args) {
+          logged.push(args)
+        } },
+      },
+    })
+    const u = `${url}/node_modules/@idio/preact-fixture/src/index.js`
+    const { headers }  = await aqt(u)
+    const { statusCode }  = await aqt(u, {
+      headers: {
+        'If-None-Match': headers.etag,
+      },
+      justHeaders: true,
+    })
+    equal(statusCode, 304)
+    const [[l, p]] = logged
+    equal(l, '%s patched in %sms')
+    equal(p, 'node_modules/@idio/preact-fixture/src/index.js')
   },
 }
 
