@@ -1,3 +1,11 @@
+## 16 April 2019
+
+### [1.4.5](https://github.com/idiocc/frontend/compare/v1.4.4...v1.4.5)
+
+- [fix] Fix resolving paths with leading `/`, e.g., `import 'preact/devtools/`.
+- [deps] Up deps.
+- [test] Remove _SnapshotContext_.
+
 ## 4 April 2019
 
 ### [1.4.4](https://github.com/idiocc/frontend/compare/v1.4.3...v1.4.4)
