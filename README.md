@@ -32,6 +32,8 @@ import frontend from '@idio/frontend'
 
 The middleware constructor will initialise the middleware function to serve files from the specified directory (`frontend` by default). The files will be updated on-the-fly to fix their imports to relative paths (e.g., `preact` will be transformed into `/node_modules/preact/dist/preact.mjs`). Any CSS styles will also be served using an injector script.
 
+Files served with this middleware, either transpiler or plain JS, will be cached using their `mtime`. There is no need to compute `md5` because this middleware is means for the development purposes, whereas production code can be built with [_Depack_](https://artdecocode.com/depack/).
+
 __<a name="type-frontendconfig">`FrontendConfig`</a>__: Options for the middleware.
 
 |   Name    |   Type   |                                                                                                           Description                                                                                                            |           Default            |
