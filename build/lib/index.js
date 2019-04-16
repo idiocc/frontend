@@ -69,7 +69,7 @@ let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__e
 const getNodeModule = (from, path, pre) => {
   const modPath = join(from, path)
   const modRel = relative('', modPath)
-  return `${pre}'/${modRel}'`
+  return `${pre}'/${modRel}${modPath.endsWith('/') ? '/' : ''}'`
 }
 
 module.exports.splitFrom = splitFrom

@@ -1,12 +1,11 @@
 import { equal, throws } from 'zoroaster/assert'
 import rqt, { aqt } from 'rqt'
-import SnapshotContext from 'snapshot-context'
 import Context from '../context'
 import frontend from '../../src'
 
-/** @type {Object.<string, (c: Context, s:SnapshotContext)>} */
+/** @type {Object.<string, (c: Context)>} */
 const T = {
-  context: [Context, SnapshotContext],
+  context: Context,
   'is a function'() {
     equal(typeof frontend, 'function')
   },
@@ -35,9 +34,7 @@ const T = {
     } } = await aqt(`${url}/${directory}`, { justHeaders: 1 })
     equal(location, `/${directory}/index.jsx`)
   },
-  async 'updates the references in node_module'({ start, directory, SNAPSHOT_DIR },
-    { test, setDir }) {
-    setDir(SNAPSHOT_DIR)
+  async 'updates the references in node_module'({ start, directory }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -48,7 +45,7 @@ const T = {
       },
     })
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
-    await test('node_module.js', res)
+    return res
   },
 }
 

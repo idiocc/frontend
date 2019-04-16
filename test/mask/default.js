@@ -1,10 +1,11 @@
 import makeTestSuite from '@zoroaster/mask'
 import rqt from 'rqt'
 import Context from '../context'
+import TempContext from 'temp-context'
 import frontend from '../../src'
 import { splitFrom } from '../../src/lib'
 
-const ts = makeTestSuite('test/result/index', {
+export default makeTestSuite('test/result/default', {
   /**
    * @param {string}
    * @param {Context} context
@@ -23,6 +24,29 @@ const ts = makeTestSuite('test/result/index', {
     return res
   },
   context: Context,
+})
+
+export const modules = makeTestSuite('test/result/modules', {
+  /**
+   * @param {string}
+   * @param {Context} context
+   * @param {TempContext} t
+   */
+  async getResults(input, { start }, { write, TEMP }) {
+    const file = await write('test.jsx', input)
+    const { url } = await start({
+      _frontend: {
+        use: true,
+        middlewareConstructor(app, config) {
+          return frontend(config)
+        },
+        config: { directory: TEMP },
+      },
+    })
+    const res = await rqt(`${url}/${file}`)
+    return res
+  },
+  context: [Context, TempContext],
 })
 
 export const node_modules = makeTestSuite('test/result/node_modules', {
@@ -51,5 +75,3 @@ export const split = makeTestSuite('test/result/split.json', {
   getResults: splitFrom,
   jsonProps: ['expected'],
 })
-
-export default ts
