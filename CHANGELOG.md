@@ -1,5 +1,9 @@
 ## 16 April 2019
 
+### [1.5.0](https://github.com/idiocc/frontend/compare/v1.4.5...v1.5.0)
+
+- [feature] Implement caching using `mtime`.
+
 ### [1.4.5](https://github.com/idiocc/frontend/compare/v1.4.4...v1.4.5)
 
 - [fix] Fix resolving paths with leading `/`, e.g., `import 'preact/devtools/`.
