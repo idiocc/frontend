@@ -2,33 +2,21 @@ const { collect } = require('catchment');
 const { Replaceable } = require('restream');
 const { relative, join, dirname, resolve } = require('path');
 let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__esModule) findPackageJson = findPackageJson.default;
-
-       const splitFrom = (from) => {
-  let [scope, name, ...paths] = from.split('/')
-  if (!scope.startsWith('@') && name) {
-    paths = [name, ...paths]
-    name = scope
-  } else if (!scope.startsWith('@')) {
-    name = scope
-  } else {
-    name = `${scope}/${name}`
-  }
-  return { name, paths: paths.join('/') }
-}
+let split = require('@depack/split'); if (split && split.__esModule) split = split.default;
 
 /**
  * Updates the source code of served JS files to point to the `/node_modules`, e.g., `import 'preact'` -> `import '/node_modules/preact/dist/preact.mjs'`.
  * @param {string} path
  * @param {string} source
  */
-       const patchSource = async (path, source) => {
+       const patchSource = async (path, source, mount) => {
   const replacement = async (m, pre, from) => {
     const dir = dirname(path)
     // ignore local deps which are resolved by middleware
     if (/^[/.]/.test(from)) {
       return m
     }
-    const { name, paths } = splitFrom(from)
+    const { name, paths } = split(from)
     const {
       packageJson,
     } = await findPackageJson(dir, name)
@@ -36,7 +24,7 @@ let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__e
     const realFrom = dirname(abs)
     // explicit dep, e.g., @depack/example/src/index.jsx
     if (paths) {
-      return getNodeModule(realFrom, paths, pre)
+      return getNodeModule(realFrom, paths, pre, mount)
     }
     // try module
     const { module: mod } = require(abs)
@@ -45,7 +33,7 @@ let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__e
       const d = getNodeModule(realFrom, 'src', pre)
       return d
     }
-    return getNodeModule(realFrom, mod, pre)
+    return getNodeModule(realFrom, mod, pre, mount)
   }
   const rs = new Replaceable([
     {
@@ -66,11 +54,11 @@ let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__e
 /**
  * Returns the import statement with the path to the dependency on the file system.
  */
-const getNodeModule = (from, path, pre) => {
+const getNodeModule = (from, path, pre, mount) => {
   const modPath = join(from, path)
-  const modRel = relative('', modPath)
+  let modRel = relative('', modPath)
+  if (mount) modRel = relative(mount, modRel)
   return `${pre}'/${modRel}${modPath.endsWith('/') ? '/' : ''}'`
 }
 
-module.exports.splitFrom = splitFrom
 module.exports.patchSource = patchSource

@@ -3,7 +3,6 @@ import rqt from 'rqt'
 import Context from '../context'
 import TempContext from 'temp-context'
 import frontend from '../../src'
-import { splitFrom } from '../../src/lib'
 
 export default makeTestSuite('test/result/default', {
   /**
@@ -69,9 +68,4 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
   },
   context: Context,
   splitRe: /^\/\/\/ /mg,
-})
-
-export const split = makeTestSuite('test/result/split.json', {
-  getResults: splitFrom,
-  jsonProps: ['expected'],
 })

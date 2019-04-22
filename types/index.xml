@@ -1,7 +1,10 @@
-<types>
-  <type name="FrontendConfig" desc="Options for the middleware.">
+<types namespace="_frontend">
+  <type name="Config" desc="Options for the middleware.">
     <prop string name="directory" default="frontend">
       The directory from which to serve files.
+    </prop>
+    <prop string name="mount" default=".">
+      Where to mount the middleware (relative to what folder is the directory).
     </prop>
     <prop string name="pragma" default="import { h } from 'preact'">
       The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`.

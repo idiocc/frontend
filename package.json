@@ -13,8 +13,9 @@
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "b": "alamode src -o build -s",
-    "d": "yarn-s d1",
-    "d1": "NODE_DEBUG=doc doc src/index.js -g",
+    "d": "yarn-s d1 externs",
+    "d1": "typal src/index.js -c",
+    "externs": "typal externs.js -e",
     "build": "yarn-s d b doc",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "alanode",
@@ -49,22 +50,23 @@
     "@idio/core": "^1.3.6",
     "@idio/preact-fixture": "1.0.0",
     "alamode": "^1.9.3",
-    "documentary": "^1.23.4",
+    "documentary": "^1.24.1",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "rqt": "^3.1.3",
     "temp-context": "^2.1.3",
     "yarn-s": "1.1.0",
-    "zoroaster": "^3.11.5"
+    "zoroaster": "^3.11.6"
   },
   "dependencies": {
     "@a-la/jsx": "^1.4.7",
-    "@wrote/exists": "^1.0.3",
+    "@depack/split": "^1.0.0",
+    "@wrote/exists": "^1.0.4",
     "@wrote/read": "^1.0.4",
     "catchment": "^3.3.0",
-    "fpj": "^1.1.0",
+    "fpj": "^1.2.1",
     "makepromise": "^3.1.0",
-    "resolve-dependency": "^1.0.2",
-    "restream": "^3.6.0"
+    "resolve-dependency": "^1.0.3",
+    "restream": "^3.7.1"
   }
 }
