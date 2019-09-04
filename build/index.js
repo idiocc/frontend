@@ -9,9 +9,10 @@ const { patchSource } = require('./lib');
 
 /**
  * The Middleware To Serve Front-End JavaScript.
- * @param {!_frontend.Config} [config] Options for the middleware.
- * @param {string} [config.directory="frontend"] The directory from which to serve files. Default `frontend`.
- * @param {string} [config.mount="."] Where to mount the middleware (relative to what folder is the directory). Default `.`.
+ * @param {!_idio.FrontEndConfig} [config] Options for the middleware.
+ * @param {string|!Array<string>} [config.directory="frontend"] The directory or directories from which to serve files. Default `frontend`.
+ * @param {string} [config.mount="."] The directory on which to mount. The dirname must be inside the mount. E.g., to serve `example/src/index.js` from `/src/index.js`, the **mount** is `example/src` and **directory** is `src`. Default `.`.
+ * @param {!Object<string, string>} [config.override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
  * @param {string} [config.pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */
 async function frontend(config = {}) {
@@ -22,15 +23,21 @@ async function frontend(config = {}) {
     override = {},
     log,
   } = config
-  const dir = join(mount, directory)
-  const e = await exists(dir)
-  if (!e)
-    throw new Error(`Frontend directory ${dir} does not exist.`)
+  const dirs = Array.isArray(directory) ? directory : [directory]
+
+  await dirs.reduce(async (acc, current) => {
+    await acc
+    const dir = join(mount, current)
+    const e = await exists(dir)
+    if (!e)
+      throw new Error(`Frontend directory ${current} does not exist.`)
+  }, {})
+
   /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
     let p = ctx.path.replace('/', '')
-    const canServe = p == directory
-      || p.startsWith(`${directory}/`)
+    const canServe = dirs.includes(p)
+      || dirs.some(d => p.startsWith(`${d}/`))
       || ctx.path.startsWith('/node_modules/')
     if (!canServe) {
       return await next()
@@ -97,16 +104,13 @@ __$styleInject(style)`
 }
 
 
-/* documentary types/index.xml */
+/* typal types/index.xml namespace */
 /**
- * @suppress {nonStandardJsDocs}
- * @typedef {_frontend.Config} Config Options for the middleware.
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {Object} _frontend.Config Options for the middleware.
- * @prop {string} [directory="frontend"] The directory from which to serve files. Default `frontend`.
- * @prop {string} [mount="."] Where to mount the middleware (relative to what folder is the directory). Default `.`.
+ * @typedef {_idio.FrontEndConfig} FrontEndConfig Options for the middleware.
+ * @typedef {Object} _idio.FrontEndConfig Options for the middleware.
+ * @prop {string|!Array<string>} [directory="frontend"] The directory or directories from which to serve files. Default `frontend`.
+ * @prop {string} [mount="."] The directory on which to mount. The dirname must be inside the mount. E.g., to serve `example/src/index.js` from `/src/index.js`, the **mount** is `example/src` and **directory** is `src`. Default `.`.
+ * @prop {!Object<string, string>} [override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
  * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */
 
