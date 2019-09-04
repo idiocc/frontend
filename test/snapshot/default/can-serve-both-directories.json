@@ -1,0 +1,4 @@
+{
+  "res": "import { h } from '/../../node_modules/preact/dist/preact.mjs'\nimport { render } from '/../../node_modules/preact/dist/preact.mjs'\nimport Component from './Component'\n\nrender(     h(Component,{},\n  `Hello World`\n), document.body)",
+  "res2": "import { h } from '/../../node_modules/preact/dist/preact.mjs'\nimport { render } from '/../../node_modules/preact/dist/preact.mjs'\nimport Component from './Component'\n\nrender(     h(Component,{},\n  `Hello World`\n), document.body)"
+}

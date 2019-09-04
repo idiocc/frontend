@@ -2,6 +2,7 @@ import { equal, throws } from '@zoroaster/assert'
 import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
+import { basename } from 'path'
 // import { deepEqual } from 'assert';
 
 /** @type {Object.<string, (c: Context)>} */
@@ -47,6 +48,23 @@ const T = {
     })
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
     return res
+  },
+  async 'can serve both directories'({ start, directory, directory2 }) {
+    const { url } = await start({
+      _frontend: {
+        use: true,
+        middlewareConstructor(app, config) {
+          return frontend(config)
+        },
+        config: {
+          directory: [basename(directory), basename(directory2)],
+          mount: 'test/fixture',
+        },
+      },
+    })
+    const res = await rqt(`${url}/frontend2/`)
+    const res2 = await rqt(`${url}/frontend/`)
+    return { res, res2 }
   },
   async 'supports caching'({ start, directory }) {
     const logged = []

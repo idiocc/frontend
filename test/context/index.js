@@ -31,6 +31,12 @@ export default class Context {
     return 'test/fixture/frontend'
   }
   /**
+   * The frontend directory from which to serve client JavaScript.
+   */
+  get directory2() {
+    return 'test/fixture/frontend2'
+  }
+  /**
    * Path to the fixture file.
    */
   get FIXTURE() {

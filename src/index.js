@@ -22,15 +22,21 @@ export default async function frontend(config = {}) {
     override = {},
     log,
   } = config
-  const dir = join(mount, directory)
-  const e = await exists(dir)
-  if (!e)
-    throw new Error(`Frontend directory ${dir} does not exist.`)
+  const dirs = Array.isArray(directory) ? directory : [directory]
+
+  await dirs.reduce(async (acc, current) => {
+    await acc
+    const dir = join(mount, current)
+    const e = await exists(dir)
+    if (!e)
+      throw new Error(`Frontend directory ${current} does not exist.`)
+  }, {})
+
   /** @type {import('koa').Middleware} */
   const m = async (ctx, next) => {
     let p = ctx.path.replace('/', '')
-    const canServe = p == directory
-      || p.startsWith(`${directory}/`)
+    const canServe = dirs.includes(p)
+      || dirs.some(d => p.startsWith(`${d}/`))
       || ctx.path.startsWith('/node_modules/')
     if (!canServe) {
       return await next()
