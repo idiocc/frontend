@@ -6,8 +6,8 @@
     <prop string name="mount" default=".">
       The directory on which to mount. The dirname must be inside the mount. E.g., to serve `example/src/index.js` from `/src/index.js`, the **mount** is `example/src` and **directory** is `src`.
     </prop>
-    <prop type="!Object<string, string>" name="override">
-      Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: 'node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
+    <prop type="!Object<string, string>" name="override" opt>
+      Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
     </prop>
     <prop string name="pragma" default="import { h } from 'preact'">
       The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`.

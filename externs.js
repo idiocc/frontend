@@ -1,7 +1,8 @@
 /* typal types/index.xml */
 /** @const */
-var _frontend = {}
+var _idio = {}
 /**
- * @typedef {{ directory: (string|undefined), mount: (string|undefined), pragma: (string|undefined) }}
+ * Options for the middleware.
+ * @typedef {{ directory: ((string|!Array<string>)|undefined), mount: (string|undefined), override: ((!Object<string, string>)|undefined), pragma: (string|undefined) }}
  */
-_frontend.Config
+_idio.FrontEndConfig
