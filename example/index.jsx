@@ -1,11 +1,11 @@
 /* yarn example/ */
-import core from '@idio/core'
+import idio from '@idio/idio'
 import render from '@depack/render'
 import frontend from '../src'
 
 (async () => {
-  const { url, router, app } = await core({
-    logger: { use: true },
+  const { url, app } = await idio({
+    // logger: { use: true },
     _frontend: {
       use: true,
       middlewareConstructor(_, config) {
@@ -16,16 +16,14 @@ import frontend from '../src'
       },
     },
   }, { port: process.env.PORT })
-  router.get('/', async (ctx) => {
-    ctx.body = '<!doctype html>\n' + render(
-      <html>
-        <head><title>Example</title></head>
-        <body>
-          Hello World
-          <script type="module" src="example/frontend"/>
-        </body>
-      </html>)
+  app.use(async (ctx) => {
+    ctx.body = render(<html>
+      <head><title>Example</title></head>
+      <body>
+        Hello World
+        <script type="module" src="example/frontend"/>
+      </body>
+    </html>, { addDoctype: true })
   })
-  app.use(router.routes())
   console.log('Started on %s', url)
 })()

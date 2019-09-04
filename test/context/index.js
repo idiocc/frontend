@@ -1,5 +1,5 @@
 import { join } from 'path'
-import core from '@idio/core'
+import idio from '@idio/idio'
 
 const FIXTURE = 'test/fixture'
 
@@ -9,11 +9,11 @@ const FIXTURE = 'test/fixture'
 export default class Context {
   /**
    * Start the server on a random port by default. The server will be destroyed automatically by the end of a test.
-   * @param {import('@idio/core').MiddlewareConfig} [middleware] Middleware configuration.
-   * @param {import('@idio/core').Config} [config] configuration object
+   * @param {import('@idio/idio').MiddlewareConfig} [middleware] Middleware configuration.
+   * @param {import('@idio/idio').Config} [config] configuration object
    */
   async start(middleware = {}, config = {}) {
-    const res = await core(middleware, {
+    const res = await idio(middleware, {
       port: 0,
       ...config,
     })
