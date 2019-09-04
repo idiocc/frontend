@@ -1,3 +1,11 @@
+## 5 September 2019
+
+### [1.6.0](https://github.com/idiocc/frontend/compare/v1.5.0...v1.6.0)
+
+- [feature] Add `mount` point.
+- [feature] Allow to pass multiple directories.
+- [feature] Support overriding of `node_modules`.
+
 ## 16 April 2019
 
 ### [1.5.0](https://github.com/idiocc/frontend/compare/v1.4.5...v1.5.0)
