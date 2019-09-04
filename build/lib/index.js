@@ -1,15 +1,15 @@
 const { collect } = require('catchment');
 const { Replaceable } = require('restream');
 const { relative, join, dirname, resolve } = require('path');
-let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__esModule) findPackageJson = findPackageJson.default;
-let split = require('@depack/split'); if (split && split.__esModule) split = split.default;
+const findPackageJson = require('fpj');
+const split = require('@depack/split');
 
 /**
  * Updates the source code of served JS files to point to the `/node_modules`, e.g., `import 'preact'` -> `import '/node_modules/preact/dist/preact.mjs'`.
  * @param {string} path
  * @param {string} source
  */
-       const patchSource = async (path, source, mount) => {
+const patchSource = async (path, source, { mount, override = {} }) => {
   const replacement = async (m, pre, from) => {
     const dir = dirname(path)
     // ignore local deps which are resolved by middleware
@@ -17,6 +17,7 @@ let split = require('@depack/split'); if (split && split.__esModule) split = spl
       return m
     }
     const { name, paths } = split(from)
+    if (override[name]) return `${pre}'${override[name]}'`
     const {
       packageJson,
     } = await findPackageJson(dir, name)

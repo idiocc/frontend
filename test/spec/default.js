@@ -1,8 +1,8 @@
-import { equal, throws } from 'zoroaster/assert'
+import { equal, throws } from '@zoroaster/assert'
 import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
-import { deepEqual } from 'assert';
+// import { deepEqual } from 'assert';
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {

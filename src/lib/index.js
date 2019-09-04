@@ -9,7 +9,7 @@ import split from '@depack/split'
  * @param {string} path
  * @param {string} source
  */
-export const patchSource = async (path, source, mount) => {
+export const patchSource = async (path, source, { mount, override = {} }) => {
   const replacement = async (m, pre, from) => {
     const dir = dirname(path)
     // ignore local deps which are resolved by middleware
@@ -17,6 +17,7 @@ export const patchSource = async (path, source, mount) => {
       return m
     }
     const { name, paths } = split(from)
+    if (override[name]) return `${pre}'${override[name]}'`
     const {
       packageJson,
     } = await findPackageJson(dir, name)

@@ -6,10 +6,9 @@ import frontend from '../../src'
 
 export default makeTestSuite('test/result/default', {
   /**
-   * @param {string}
    * @param {Context} context
    */
-  async getResults(input, { start, directory }) {
+  async getResults({ start, directory }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -19,7 +18,7 @@ export default makeTestSuite('test/result/default', {
         config: { directory },
       },
     })
-    const res = await rqt(`${url}/${directory}/${input}`)
+    const res = await rqt(`${url}/${directory}/${this.input}`)
     return res
   },
   context: Context,
@@ -27,12 +26,11 @@ export default makeTestSuite('test/result/default', {
 
 export const modules = makeTestSuite('test/result/modules', {
   /**
-   * @param {string}
    * @param {Context} context
    * @param {TempContext} t
    */
-  async getResults(input, { start }, { write, TEMP }) {
-    const file = await write('test.jsx', input)
+  async getResults({ start }, { write, TEMP }) {
+    const file = await write('test.jsx', this.input)
     const { url } = await start({
       _frontend: {
         use: true,
@@ -50,10 +48,9 @@ export const modules = makeTestSuite('test/result/modules', {
 
 export const node_modules = makeTestSuite('test/result/node_modules', {
   /**
-   * @param {string}
    * @param {Context} context
    */
-  async getResults(input, { start, directory }) {
+  async getResults({ start, directory }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -63,7 +60,7 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
         config: { directory },
       },
     })
-    const res = await rqt(`${url}/${input}`)
+    const res = await rqt(`${url}/${this.input}`)
     return res
   },
   context: Context,

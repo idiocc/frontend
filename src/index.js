@@ -19,6 +19,7 @@ export default async function frontend(config = {}) {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
     mount = '.',
+    override = {},
     log,
   } = config
   const dir = join(mount, directory)
@@ -57,7 +58,7 @@ export default async function frontend(config = {}) {
     }
     let body = await read(path)
     let start = new Date().getTime()
-    body = await patch(path, body, pragma, mount)
+    body = await patch(path, body, pragma, { mount, override })
     let end = new Date().getTime()
     if (log) log('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
@@ -66,7 +67,7 @@ export default async function frontend(config = {}) {
   return m
 }
 
-const patch = async (path, body, pragma, mount) => {
+const patch = async (path, body, pragma, { mount, override }) => {
   if (/\.jsx$/.test(path)) {
     body = await transpileJSX(body)
     if (pragma) body = `${pragma}\n${body}`
@@ -74,7 +75,7 @@ const patch = async (path, body, pragma, mount) => {
   if (/\.css$/.test(path)) {
     body = wrapCss(body)
   } else {
-    body = await patchSource(path, body, mount)
+    body = await patchSource(path, body, { mount, override } )
   }
   return body
 }

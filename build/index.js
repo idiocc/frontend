@@ -1,8 +1,8 @@
-let read = require('@wrote/read'); if (read && read.__esModule) read = read.default;
-let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
-let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
-let exists = require('@wrote/exists'); if (exists && exists.__esModule) exists = exists.default;
-let makePromise = require('makepromise'); if (makePromise && makePromise.__esModule) makePromise = makePromise.default;
+const read = require('@wrote/read');
+const transpileJSX = require('@a-la/jsx');
+const resolveDependency = require('resolve-dependency');
+const exists = require('@wrote/exists');
+const makePromise = require('makepromise');
 const { lstat } = require('fs');
 const { join, relative } = require('path');
 const { patchSource } = require('./lib');
@@ -14,11 +14,12 @@ const { patchSource } = require('./lib');
  * @param {string} [config.mount="."] Where to mount the middleware (relative to what folder is the directory). Default `.`.
  * @param {string} [config.pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  */
-               async function frontend(config = {}) {
+async function frontend(config = {}) {
   const {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
     mount = '.',
+    override = {},
     log,
   } = config
   const dir = join(mount, directory)
@@ -57,7 +58,7 @@ const { patchSource } = require('./lib');
     }
     let body = await read(path)
     let start = new Date().getTime()
-    body = await patch(path, body, pragma, mount)
+    body = await patch(path, body, pragma, { mount, override })
     let end = new Date().getTime()
     if (log) log('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
@@ -66,7 +67,7 @@ const { patchSource } = require('./lib');
   return m
 }
 
-const patch = async (path, body, pragma, mount) => {
+const patch = async (path, body, pragma, { mount, override }) => {
   if (/\.jsx$/.test(path)) {
     body = await transpileJSX(body)
     if (pragma) body = `${pragma}\n${body}`
@@ -74,7 +75,7 @@ const patch = async (path, body, pragma, mount) => {
   if (/\.css$/.test(path)) {
     body = wrapCss(body)
   } else {
-    body = await patchSource(path, body, mount)
+    body = await patchSource(path, body, { mount, override } )
   }
   return body
 }
