@@ -2,11 +2,10 @@
 
 - [ ] Add a new item to the todo list. -->
 
-## Copyright
+## Copyright & License
 
-<Footer
-  client="Idio"
-  clientLink="https://idio.cc"
-  clientLogo="https://avatars3.githubusercontent.com/u/40834161?s=100"/>
+GNU Affero General Public License v3.0
+
+<idio-footer />
 
 %~ -1%

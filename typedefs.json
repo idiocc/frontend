@@ -1,0 +1,10 @@
+{
+  "_idio.frontEnd": {
+    "link": "https://github.com/idiocc/frontend#frontendconfig-frontendconfig-_goamiddleware",
+    "description": "Create a middleware to serve **Front-End** _JavaScript_, including JSX and `node_modules`."
+  },
+  "_idio.FrontEndConfig": {
+    "link": "https://github.com/idiocc/frontend#type-frontendconfig",
+    "description": "Options for the middleware."
+  }
+}
