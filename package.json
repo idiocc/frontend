@@ -25,6 +25,7 @@
   },
   "files": [
     "compile",
+    "typedefs.json",
     "src",
     "types"
   ],

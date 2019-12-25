@@ -1,5 +1,9 @@
 ## 25 December 2019
 
+### [2.0.1](https://github.com/idiocc/frontend/compare/v2.0.0...v2.0.1)
+
+- [package] Add `typedefs.json` to _files_.
+
 ### [2.0.0](https://github.com/idiocc/frontend/compare/v1.6.0...v2.0.0)
 
 - [license] Update to _Affero GPL_.
