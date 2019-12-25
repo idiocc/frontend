@@ -1,3 +1,10 @@
+## 25 December 2019
+
+### [2.0.0](https://github.com/idiocc/frontend/compare/v1.6.0...v2.0.0)
+
+- [license] Update to _Affero GPL_.
+- [compile] Compile the package with `depack`.
+
 ## 5 September 2019
 
 ### [1.6.0](https://github.com/idiocc/frontend/compare/v1.5.0...v1.6.0)
