@@ -1,0 +1,9 @@
+<types namespace="_idio">
+  <import from="@typedefs/goa" name="Middleware" ns="_goa" />
+  <method name="frontEnd" return="!_goa.Middleware">
+    <arg type="_idio.FrontEndConfig" name="config" opt>
+      Options for the middleware.
+    </arg>
+    Create a middleware to serve **Front-End** _JavaScript_, including JSX and `node_modules`.
+  </method>
+</types>

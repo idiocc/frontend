@@ -1,15 +1,12 @@
 {
   "env": {
-    "test-build": {
+    "test-compile": {
       "import": {
         "replacement": {
           "from": "^((../)+)src",
-          "to": "$1build"
+          "to": "$1"
         }
       }
     }
-  },
-  "import": {
-    "alamodeModules": ["fpj", "@depack/split", "@wrote/read", "@a-la/jsx", "resolve-dependency", "@wrote/exists", "makepromise"]
   }
 }

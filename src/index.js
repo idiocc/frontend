@@ -1,39 +1,35 @@
 import read from '@wrote/read'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
-import exists from '@wrote/exists'
 import makePromise from 'makepromise'
-import { lstat } from 'fs'
+import { lstat, existsSync } from 'fs'
 import { join, relative } from 'path'
 import { patchSource } from './lib'
 
 /**
- * The Middleware To Serve Front-End JavaScript.
- * @param {!_idio.FrontEndConfig} [config] Options for the middleware.
- * @param {string|!Array<string>} [config.directory="frontend"] The directory or directories from which to serve files. Default `frontend`.
- * @param {string} [config.mount="."] The directory on which to mount. The dirname must be inside the mount. E.g., to serve `example/src/index.js` from `/src/index.js`, the **mount** is `example/src` and **directory** is `src`. Default `.`.
- * @param {!Object<string, string>} [config.override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
- * @param {string} [config.pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
+ * @type {!_idio.frontEnd}
  */
-export default async function frontend(config = {}) {
+function FrontEnd(config = {}) {
   const {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
     mount = '.',
     override = {},
-    log,
   } = config
+  let { log } = config
+  if (log === true) log = console.log
   const dirs = Array.isArray(directory) ? directory : [directory]
 
-  await dirs.reduce(async (acc, current) => {
-    await acc
+  dirs.forEach((current) => {
     const dir = join(mount, current)
-    const e = await exists(dir)
+    const e = existsSync(dir)
     if (!e)
       throw new Error(`Frontend directory ${current} does not exist.`)
-  }, {})
+  })
 
-  /** @type {import('koa').Middleware} */
+  /**
+   * @type {!_goa.Middleware}
+   */
   const m = async (ctx, next) => {
     let p = ctx.path.replace('/', '')
     const canServe = dirs.includes(p)
@@ -49,34 +45,42 @@ export default async function frontend(config = {}) {
       ctx.redirect(`/${mountPath}`)
       return
     }
-    /** @type {import('fs').Stats} */
+    /** @type {!fs.Stats} */
     let ls
     try {
-      ls = await makePromise(lstat, path)
+      ls = /** @type {!fs.Stats} */ (await makePromise(lstat, path))
     } catch (err) {
       ctx.status = 404
       return
     }
     ctx.status = 200
-    ctx.etag = ls.mtime.getTime()
+    ctx.etag = `${ls.mtime.getTime()}`
     if (ctx.fresh) {
       ctx.status = 304
-      return
+      return await next()
     }
     let body = await read(path)
     let start = new Date().getTime()
     body = await patch(path, body, pragma, { mount, override })
     let end = new Date().getTime()
-    if (log) log('%s patched in %sms', path, end - start)
+    if (log) /** @type {!Function} */ (log)('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
     ctx.body = body
   }
   return m
 }
 
+export default FrontEnd
+
+/**
+ * Patches the source code to map node_modules and transpile JSX.
+ * @param {string} path Path to the file.
+ * @param {string} body The source code to patch.
+ * @param {string} pragma Add this import to the body.
+ */
 const patch = async (path, body, pragma, { mount, override }) => {
   if (/\.jsx$/.test(path)) {
-    body = await transpileJSX(body)
+    body = transpileJSX(body)
     if (pragma) body = `${pragma}\n${body}`
   }
   if (/\.css$/.test(path)) {
@@ -87,6 +91,10 @@ const patch = async (path, body, pragma, { mount, override }) => {
   return body
 }
 
+/**
+ * Adds JS wrapper to add CSS dynamically.
+ * @param {string} style
+ */
 const wrapCss = (style) => {
   return `function __$styleInject(css = '') {
   const head = document.head
@@ -103,13 +111,15 @@ const style = \`${style}\`
 __$styleInject(style)`
 }
 
-
-/* typal types/index.xml namespace */
 /**
- * @typedef {_idio.FrontEndConfig} FrontEndConfig Options for the middleware.
- * @typedef {Object} _idio.FrontEndConfig Options for the middleware.
- * @prop {string|!Array<string>} [directory="frontend"] The directory or directories from which to serve files. Default `frontend`.
- * @prop {string} [mount="."] The directory on which to mount. The dirname must be inside the mount. E.g., to serve `example/src/index.js` from `/src/index.js`, the **mount** is `example/src` and **directory** is `src`. Default `.`.
- * @prop {!Object<string, string>} [override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
- * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').frontEnd} _idio.frontEnd
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@typedefs/goa').Middleware} _goa.Middleware
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('fs').Stats} fs.Stats
  */

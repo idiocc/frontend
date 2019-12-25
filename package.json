@@ -2,29 +2,33 @@
   "name": "@idio/frontend",
   "version": "1.6.0",
   "description": "The Middleware To Serve Front-End JavaScript.",
-  "main": "build/index.js",
+  "main": "compile/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "test-build": "ALAMODE_ENV=test-build yarn test",
+    "test-compile": "ALAMODE_ENV=test-compile yarn test",
     "lint": "eslint .",
     "doc": "doc -o README.md -n _idio -a -d",
+    "lib": "depack src/depack -o compile/front-end.js -a -c -s --source_map_include_content --externs http",
     "b": "alamode src -o build -s",
-    "d": "yarn-s d1 externs",
-    "d1": "typal src/index.js -u",
-    "externs": "typal externs.js -e",
+    "d": "yarn-s template d1 externs",
+    "template": "typal compile/template.js -T compile/index.js -t types",
+    "d1": "typal compile/index.js -u",
+    "externs": "typal types/externs.js -e",
     "build": "yarn-s d b doc",
     "up": "yarn-up -e preact",
     "e": "alanode",
     "example/": "alanode example/"
   },
   "files": [
-    "build",
-    "src"
+    "compile",
+    "src",
+    "types"
   ],
+  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/idiocc/frontend.git"
@@ -44,29 +48,30 @@
   "bugs": {
     "url": "https://github.com/idiocc/frontend/issues"
   },
-  "homepage": "https://github.com/idiocc/frontend#readme",
+  "homepage": "https://www.idio.cc",
   "devDependencies": {
+    "@a-la/jsx": "^1.6.0",
     "@depack/render": "^1.3.4",
+    "@depack/split": "^1.0.0",
+    "@externs/goa": "^1.0.1",
     "@idio/idio": "^0.4.0",
     "@idio/preact-fixture": "1.0.0",
+    "@typedefs/goa": "^0.1.5",
+    "@wrote/read": "^1.0.4",
     "alamode": "^3.3.0",
+    "catchment": "^3.3.0",
+    "depack": "^1.0.1",
     "documentary": "^1.35.8",
     "eslint-config-artdeco": "1.0.1",
+    "fpj": "^1.3.0",
+    "makepromise": "^3.1.0",
     "preact": "8.5.3",
+    "resolve-dependency": "^1.0.3",
+    "restream": "^3.7.4",
     "rqt": "^4.0.0",
     "temp-context": "^2.1.3",
     "yarn-s": "1.2.1",
     "zoroaster": "^4.1.2"
   },
-  "dependencies": {
-    "@a-la/jsx": "^1.6.0",
-    "@depack/split": "^1.0.0",
-    "@wrote/exists": "^1.0.5",
-    "@wrote/read": "^1.0.4",
-    "catchment": "^3.3.0",
-    "fpj": "^1.3.0",
-    "makepromise": "^3.1.0",
-    "resolve-dependency": "^1.0.3",
-    "restream": "^3.7.4"
-  }
+  "dependencies": {}
 }

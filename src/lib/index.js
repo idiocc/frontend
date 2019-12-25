@@ -54,6 +54,10 @@ export const patchSource = async (path, source, { mount, override = {} }) => {
 
 /**
  * Returns the import statement with the path to the dependency on the file system.
+ * @param {string} from File from which module was imported.
+ * @param {string} path The import path.
+ * @param {string} pre Text before import.
+ * @param {string} [mount]
  */
 const getNodeModule = (from, path, pre, mount) => {
   const modPath = join(from, path)
