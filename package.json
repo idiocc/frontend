@@ -52,11 +52,11 @@
   },
   "homepage": "https://www.idio.cc",
   "devDependencies": {
-    "@a-la/jsx": "^1.6.3",
+    "@a-la/jsx": "^1.7.0",
     "@depack/render": "^1.4.0",
     "@depack/split": "^1.0.0",
     "@externs/goa": "^1.0.1",
-    "@idio/idio": "^1.3.0",
+    "@idio/idio": "^1.4.0",
     "@idio/preact-fixture": "1.0.0",
     "@typedefs/goa": "^0.1.5",
     "@wrote/read": "^1.0.4",

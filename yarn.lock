@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.2.tgz#8bf79bb5f977a9b41581c37b4fc835cb3995f64c"
   integrity sha512-ud0BJXhJnI70hMksAa3e6HebyHuoa7YdP0W3kDXR326foLjiFSZVBwwY2YSqUKOL92Xek2R8sNtK4TPuTyNN4g==
 
-"@a-la/jsx@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.3.tgz#8c1049d254920bf6ba9d1b6c4f8d37e413983b22"
-  integrity sha512-ZT4M+gPck2XrSeikbVbUdw6fOykuJJ96DsbROP7cSI4klkkVsKMJfUCY4wbO9eKymokGe8sxTegRZjiXnwJ5WA==
+"@a-la/jsx@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.7.0.tgz#2f5a213a64e76f12673737b8b82030321d878dbb"
+  integrity sha512-WNIiQBZtxDOruKjl/4wQyzjqW3hh5MVvAzoWW+IIQwE242ozJExF0GgXVR/p2qhHhXgxTGNERYnogwfoceI2Cw==
   dependencies:
     "@a-la/detect-jsx" "^1.0.2"
     restream "^3.7.4"
@@ -45,10 +45,10 @@
   resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
   integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
 
-"@idio/idio@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@idio/idio/-/idio-1.3.0.tgz#1aba1e547f4b56818011d07b802edc0954167100"
-  integrity sha512-VDYFSBQdW/l6D5QCms/XoCqU8FqhcgZdToIQGiSX2i/PBmptrgQE9BIlaJEQPgcK7nYTKg70sOgCV6NnNfwwjA==
+"@idio/idio@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@idio/idio/-/idio-1.4.0.tgz#e9d70a0fa9cd9cff67edd4fc0cd444f3dfeb85b3"
+  integrity sha512-Y8UwEUGDD8nvwOSyU1dhraKLo7tkdgAlV4T8PqhFADoGfxQV43XD+zpu+/8NqGeNDZAl02InjFr0Lq1sOf1TyA==
   dependencies:
     mime-db "^1.43.0"
     text-decoding "^1.0.0"
