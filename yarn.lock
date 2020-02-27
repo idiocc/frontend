@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.2.tgz#8bf79bb5f977a9b41581c37b4fc835cb3995f64c"
   integrity sha512-ud0BJXhJnI70hMksAa3e6HebyHuoa7YdP0W3kDXR326foLjiFSZVBwwY2YSqUKOL92Xek2R8sNtK4TPuTyNN4g==
 
-"@a-la/jsx@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.7.0.tgz#2f5a213a64e76f12673737b8b82030321d878dbb"
-  integrity sha512-WNIiQBZtxDOruKjl/4wQyzjqW3hh5MVvAzoWW+IIQwE242ozJExF0GgXVR/p2qhHhXgxTGNERYnogwfoceI2Cw==
+"@a-la/jsx@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.7.2.tgz#e60dab2811980259c6a9377db018b6de7c671fd4"
+  integrity sha512-Wr0jN+v91BOeYatPv6F0KMW6kNbnK4DvCwozWkhvGndUq/dzFOLY9am8lOLndalwXGxJtAMr+c9n6pYwiPhkkw==
   dependencies:
     "@a-la/detect-jsx" "^1.0.2"
     restream "^3.7.4"
@@ -185,6 +185,11 @@ mime-db@^1.43.0:
   version "1.43.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.43.0.tgz#0a12e0502650e473d735535050e7c8f4eb4fae58"
   integrity sha512-+5dsGEEovYbT8UY9yD7eE4XTc4UwJ1jBYlgaQQF38ENsKR3wj/8q8RFZrF9WIZpB2V1ArTVFUva8sAul1NzRzQ==
+
+mismatch@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.2.0.tgz#3f5021861e8084e36a14c2c1f9489941cd18f790"
+  integrity sha512-kuw1k8ZHS+12fBVAVOBXMBJBXcNGnByFTJIDzH4W4v84OocejZ/qzxmT4ll9CLX5OD23NXr+NvrQDus0BsQ8xw==
 
 pedantry@^2.3.1:
   version "2.5.2"

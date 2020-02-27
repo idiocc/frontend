@@ -1,17 +1,18 @@
 import { equal, throws } from '@zoroaster/assert'
+import Zoroaster from 'zoroaster'
 import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
 import { basename } from 'path'
 // import { deepEqual } from 'assert';
 
-/** @type {Object.<string, (c: Context)>} */
+/** @type {Object.<string, (c: Context, z: Zoroaster)>} */
 const T = {
-  context: Context,
+  context: [Context, Zoroaster],
   'is a function'() {
     equal(typeof frontend, 'function')
   },
-  async 'throws error when directory does not exist'() {
+  async'throws error when directory does not exist'() {
     await throws({
       async fn() {
         await frontend({
@@ -21,7 +22,7 @@ const T = {
       message: 'Frontend directory test-error does not exist.',
     })
   },
-  async 'redirects to the index file'({ start, directory }) {
+  async'redirects to the index file'({ start, directory }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -36,7 +37,7 @@ const T = {
     } } = await aqt(`${url}/${directory}`, { justHeaders: 1 })
     equal(location, `/${directory}/index.jsx`)
   },
-  async 'updates the references in node_module'({ start, directory }) {
+  async'updates the references in node_module'({ start, directory }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -49,7 +50,7 @@ const T = {
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
     return res
   },
-  async 'can serve both directories'({ start, directory, directory2 }) {
+  async'can serve both directories'({ start, directory, directory2 }) {
     const { url } = await start({
       _frontend: {
         use: true,
@@ -66,7 +67,22 @@ const T = {
     const res2 = await rqt(`${url}/frontend/`)
     return { res, res2 }
   },
-  async 'supports caching'({ start, directory }) {
+  async'serves CSS'({ start, directory }, { snapshotExtension }) {
+    snapshotExtension('js')
+    const { url } = await start({
+      _frontend: {
+        use: true,
+        middlewareConstructor() {
+          return frontend({
+            directory,
+          })
+        },
+      },
+    })
+    const res = await rqt(`${url}/${directory}/style.css`)
+    return res
+  },
+  async'supports caching'({ start, directory }) {
     const logged = []
     const { url } = await start({
       _frontend: {

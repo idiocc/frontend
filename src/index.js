@@ -1,10 +1,14 @@
+/* eslint-disable quote-props */
 import read from '@wrote/read'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
 import makePromise from 'makepromise'
 import { lstat, existsSync } from 'fs'
 import { join, relative } from 'path'
+import mismatch from 'mismatch'
 import { patchSource } from './lib'
+import __$styleInject from './inject-css'
+import { EOL } from 'os'
 
 /**
  * @type {!_idio.frontEnd}
@@ -15,6 +19,8 @@ function FrontEnd(config = {}) {
     pragma = 'import { h } from \'preact\'',
     mount = '.',
     override = {},
+    jsxOptions,
+    exportClasses = true,
   } = config
   let { log } = config
   if (log === true) log = console.log
@@ -61,7 +67,9 @@ function FrontEnd(config = {}) {
     }
     let body = await read(path)
     let start = new Date().getTime()
-    body = await patch(path, body, pragma, { mount, override })
+    body = await patch(path, body, pragma, {
+      mount, override, jsxOptions, exportClasses,
+    })
     let end = new Date().getTime()
     if (log) /** @type {!Function} */ (log)('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
@@ -78,15 +86,16 @@ export default FrontEnd
  * @param {string} body The source code to patch.
  * @param {string} pragma Add this import to the body.
  */
-const patch = async (path, body, pragma, { mount, override }) => {
+const patch = async (path, body, pragma, config) => {
+  const { jsxOptions, exportClasses } = config
   if (/\.jsx$/.test(path)) {
-    body = transpileJSX(body)
+    body = transpileJSX(body, jsxOptions)
     if (pragma) body = `${pragma}\n${body}`
   }
   if (/\.css$/.test(path)) {
-    body = wrapCss(body)
+    body = wrapCss(body, exportClasses)
   } else {
-    body = await patchSource(path, body, { mount, override } )
+    body = await patchSource(path, body, config)
   }
   return body
 }
@@ -95,20 +104,21 @@ const patch = async (path, body, pragma, { mount, override }) => {
  * Adds JS wrapper to add CSS dynamically.
  * @param {string} style
  */
-const wrapCss = (style) => {
-  return `function __$styleInject(css = '') {
-  const head = document.head
-  const style = document.createElement('style')
-  style.type = 'text/css'
-  if (style.styleSheet){
-    style.styleSheet.cssText = css
-  } else {
-    style.appendChild(document.createTextNode(css))
+const wrapCss = (style, exportClasses = true) => {
+  let classes = []
+  if (exportClasses) {
+    const c = style.split(/\r?\n/)
+      .filter((a) => {
+        return /^\S/.test(a)
+      }).join(EOL)
+    classes = mismatch(/\.([\w\d_-]+)/g, c, ['className'])
+      .map(({ 'className': cl }) => cl)
+      .filter((v, i, a) => a.indexOf(v) == i)
   }
-  head.appendChild(style)
-}
-const style = \`${style}\`
-__$styleInject(style)`
+  return `(${__$styleInject.toString()})(\`${style}\`)
+${classes.map((cl) => {
+    return `export const $${cl} = '${cl}'`
+  }).join('\n')}`.trim()
 }
 
 /**

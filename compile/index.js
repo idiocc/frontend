@@ -8,6 +8,8 @@ const _frontend = require('./front-end')
  * @param {!Object<string, string>} [config.override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
  * @param {string} [config.pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  * @param {boolean|!Function} [config.log=false] Log to console when source files were patched. Default `false`.
+ * @param {!_alaJsx.Config} [config.jsxOptions] Options for the transpiler.
+ * @param {boolean} [config.exportClasses=true] When serving CSS, also export class names. Default `true`.
  * @return {!_goa.Middleware}
  */
 function $frontend(config) {
@@ -18,6 +20,7 @@ module.exports = $frontend
 
 /* typal types/index.xml namespace */
 /**
+ * @typedef {import('@a-la/jsx').Config} _alaJsx.Config
  * @typedef {_idio.FrontEndConfig} FrontEndConfig Options for the middleware.
  * @typedef {Object} _idio.FrontEndConfig Options for the middleware.
  * @prop {string|!Array<string>} [directory="frontend"] The directory or directories from which to serve files. Default `frontend`.
@@ -25,6 +28,8 @@ module.exports = $frontend
  * @prop {!Object<string, string>} [override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
  * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
+ * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
+ * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
  */
 
 /* typal types/api.xml namespace */

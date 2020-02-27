@@ -1,4 +1,5 @@
 <types namespace="_idio">
+  <import from="@a-la/jsx" ns="_alaJsx" name="Config" />
   <type name="FrontEndConfig" desc="Options for the middleware.">
     <prop type="string|!Array<string>" name="directory" default="frontend">
       The directory or directories from which to serve files.
@@ -14,6 +15,12 @@
     </prop>
     <prop type="boolean|!Function" name="log" default="false">
       Log to console when source files were patched.
+    </prop>
+    <prop opt type="!_alaJsx.Config" name="jsxOptions">
+      Options for the transpiler.
+    </prop>
+    <prop boolean name="exportClasses" default="true">
+      When serving CSS, also export class names.
     </prop>
   </type>
 </types>
