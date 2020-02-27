@@ -1,11 +1,13 @@
 # @idio/frontend
 
 [![npm version](https://badge.fury.io/js/%40idio%2Ffrontend.svg)](https://www.npmjs.com/package/@idio/frontend)
+![Node.js CI](https://github.com/idiocc/frontend/workflows/Node.js%20CI/badge.svg)
 
 `@idio/frontend` is The Middleware To Serve Front-End JavaScript. It allows to set-up the modern front-end development environment where `node_modules` are served alongside compiled JSX code (without using _Babel_, see [`@a-la/jsx`](https://github.com/a-la/jsx)).
 
 ```sh
-yarn add -E @idio/frontend
+yarn add @idio/frontend
+npm i @idio/frontend
 ```
 
 ## Table Of Contents
@@ -140,24 +142,17 @@ GNU Affero General Public License v3.0
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
+      <a href="https://www.artd.eco">
         <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://idio.cc">Idio</a> 2020</th>
     <th>
       <a href="https://idio.cc">
         <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio">
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
-          alt="Tech Nation Visa">
-      </a>
-    </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 
