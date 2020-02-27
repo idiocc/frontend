@@ -68,7 +68,7 @@ const T = {
     return { res, res2 }
   },
   async'serves CSS'({ start, directory }, { snapshotExtension }) {
-    snapshotExtension('js')
+    snapshotExtension(process.env.ALAMODE_ENV == 'test-compile' ? 'jsx' : 'js')
     const { url } = await start({
       _frontend: {
         use: true,

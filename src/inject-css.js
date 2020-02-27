@@ -1,6 +1,6 @@
 /* eslint-env browser */
 
-export default function __$styleInject(css = '') {
+export default function(css = '') {
   const head = document.head
   const style = document.createElement('style')
   style.type = 'text/css'

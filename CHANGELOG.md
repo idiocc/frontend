@@ -1,3 +1,10 @@
+## 28 February 2020
+
+### [2.1.0](https://github.com/idiocc/frontend/compare/v2.0.2...v2.1.0)
+
+- [feature] Update JSX transpiler and pass options to it.
+- [feature] Export class names from CSS.
+
 ## 27 February 2020
 
 ### [2.0.2](https://github.com/idiocc/frontend/compare/v2.0.1...v2.0.2)

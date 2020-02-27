@@ -1,4 +1,4 @@
-(function __$styleInject(css = '') {
+(function(css = '') {
   const head = document.head
   const style = document.createElement('style')
   style.type = 'text/css'
