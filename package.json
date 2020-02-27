@@ -1,6 +1,6 @@
 {
   "name": "@idio/frontend",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The Middleware To Serve Front-End JavaScript.",
   "main": "compile/index.js",
   "module": "src/index.js",
