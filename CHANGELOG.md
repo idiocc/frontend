@@ -1,3 +1,10 @@
+## 27 February 2020
+
+### [2.0.2](https://github.com/idiocc/frontend/compare/v2.0.1...v2.0.2)
+
+- [fix] Upd dependencies to fix Node 12.
+- [ci] Add _Github Actions_.
+
 ## 25 December 2019
 
 ### [2.0.1](https://github.com/idiocc/frontend/compare/v2.0.0...v2.0.1)
