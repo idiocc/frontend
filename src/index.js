@@ -31,14 +31,15 @@ function FrontEnd(config = {}) {
   } = config
   let { log } = config
   if (log === true) log = console.log
-  const dirs = Array.isArray(directory) ? directory : [directory]
+  let dirs = Array.isArray(directory) ? directory : [directory]
 
   // check if all dirs exist
-  dirs.forEach((current) => {
+  dirs = dirs.map((current) => {
     const dir = join(mount, current)
     const e = existsSync(dir)
     if (!e)
       throw new Error(`Frontend directory ${current} does not exist.`)
+    return current.replace(/\\/g, '/')
   })
 
   let CLIENTS = {}, WATCHING

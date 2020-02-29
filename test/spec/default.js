@@ -4,6 +4,7 @@ import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import frontend from '../../src'
 import { basename } from 'path'
+import { EOL } from 'os'
 // import { deepEqual } from 'assert';
 
 /** @type {Object.<string, (c: Context, z: Zoroaster)>} */
@@ -48,7 +49,7 @@ const T = {
       },
     })
     const res = await rqt(`${url}/node_modules/@idio/preact-fixture/src/index.js`)
-    return res
+    return res.replace(/\r?\n/g, EOL)
   },
   async'can serve both directories'({ start, directory, directory2 }) {
     const { url } = await start({
