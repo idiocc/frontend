@@ -223,7 +223,7 @@ if (window.idioHotReload) {
 }
 ```
 
-The API provided for the reload is implemented in a JS file served from `/hot-reload.js` path. It has 2 functions:
+The API provided for the reload is implemented in a JS file served from [`/hot-reload.js`](/src/listener.js) path. It has 2 functions:
 
 - `idioAddHotReload`: the function to execute to rerender the app, which needs to be implemented by the developer.
 - `idioHotReload`: the function to register that a module can be hot-reloaded. Called by auto-generated code from the `frontend` middleware.
