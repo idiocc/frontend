@@ -12,7 +12,7 @@ import { patchSource } from './lib'
 import __$styleInject from './inject-css'
 import { HR, getClasses } from './lib/hr'
 
-const watch = require(/* dpck */ 'node-watch')
+let watch
 
 const listener = readFileSync(join(__dirname, 'listener.js'))
 
@@ -103,6 +103,13 @@ function FrontEnd(config = {}) {
       if (path.startsWith('node_modules') && hotReload.ignoreNodeModules) {
         // continue
       } else {
+        try {
+          if (!watch) watch = require(/* dpck */ 'node-watch')
+        } catch (err) {
+          console.log('Could not require node-watch for front-end hot reload.')
+          console.log('Did you install node-watch?')
+          return ctx.body = body
+        }
         if (!(path in WATCHING)) {
           const watcher = watch(path, (type, filename) => {
             console.log('File %s changed', filename)
