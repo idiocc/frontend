@@ -114,7 +114,7 @@ function FrontEnd(config = {}) {
         if (path.endsWith('jsx')) {
           const classes = getClasses(body)
           const hr = HR(path, classes)
-          body += `\n\n${hr}`
+          body += `${EOL}${EOL}${hr}`
         }
       }
     }
@@ -136,7 +136,7 @@ const patch = async (path, body, pragma, config) => {
   const { jsxOptions, exportClasses } = config
   if (/\.jsx$/.test(path)) {
     body = transpileJSX(body, jsxOptions)
-    if (pragma) body = `${pragma}\n${body}`
+    if (pragma) body = `${pragma}${EOL}${body}`
   }
   if (/\.css$/.test(path)) {
     body = wrapCss(body, exportClasses)
@@ -164,7 +164,7 @@ const wrapCss = (style, exportClasses = true) => {
   return `(${__$styleInject.toString()})(\`${style}\`)
 ${classes.map((cl) => {
     return `export const $${cl} = '${cl}'`
-  }).join('\n')}`.trim()
+  }).join(EOL)}`.trim()
 }
 
 /**

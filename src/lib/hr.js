@@ -1,5 +1,6 @@
 import { basename } from 'path'
 import mismatch from 'mismatch'
+import { EOL } from 'os'
 
 /**
  * Returns exported clasess.
@@ -32,7 +33,7 @@ if (window.idioHotReload) {
     return {
       module,
       classes: {
-${s.map(t => `        ${t}`).join('\n')}
+${s.map(t => `        ${t}`).join(EOL)}
       },
     }
   })
