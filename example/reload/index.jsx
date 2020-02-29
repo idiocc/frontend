@@ -11,7 +11,7 @@ import start from '../start'
       watchers,
     },
   })
-  const res = await rqt(`${url}/example/reload/App`)
+  const res = await rqt(`${url}/example/reload/Example`)
   console.log(res)
   Object.values(watchers).forEach(a => {
     a.close()

@@ -12,7 +12,7 @@ _For example, there's a simple component:_
 
 _When hot reload is enabled, it's going to have an additional code at the bottom of the file when served via **front-end** middleware:_
 
-<fork lang="jsx">example/reload/Example</fork>
+<fork lang="jsx">example/reload</fork>
 
 The API provided for the reload is implemented in a JS file served from `/hot-reload.js` path. It has 2 functions:
 

@@ -170,12 +170,12 @@ This package supports hot reload of modules, mainly for the purpose of developin
 __<a name="type-hotreload">`HotReload`</a>__: Options for hot reload (real-time automatic update of code in browser).
 
 
-|       Name        |                                                                                                                      Type                                                                                                                       |                                   Description                                    |     Default      |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------- |
-| path              | <em>string</em>                                                                                                                                                                                                                                 | The path from which to serve the operational module that provides admin methods. | `/hot-reload.js` |
-| ignoreNodeModules | <em>boolean</em>                                                                                                                                                                                                                                | Whether to ignore paths from `node_modules`.                                     | `true`           |
-| watchers          | <em>!Object&lt;string, [!fs.FSWatcher](#type-fsfswatcher)&gt;</em>                                                                                                                                                                              | Pass an empty object here so that references to _FSWatchers_ can be saved.       | -                |
-| __getServer*__    | <em>() => <a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">http.Server</a></em> | The function used to get the server to enable web socket connection.             | -                |
+|       Name        |                                                                                                                       Type                                                                                                                       |                                   Description                                    |     Default      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ---------------- |
+| path              | <em>string</em>                                                                                                                                                                                                                                  | The path from which to serve the operational module that provides admin methods. | `/hot-reload.js` |
+| ignoreNodeModules | <em>boolean</em>                                                                                                                                                                                                                                 | Whether to ignore paths from `node_modules`.                                     | `true`           |
+| watchers          | <em>!Object&lt;string, [!fs.FSWatcher](#type-fsfswatcher)&gt;</em>                                                                                                                                                                               | Pass an empty object here so that references to _FSWatchers_ can be saved.       | -                |
+| __getServer*__    | <em>() => <a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em> | The function used to get the server to enable web socket connection.             | -                |
 
 The middleware will append some code at the end of each original file, and when an update is detected, it will use dynamic import to get references to new methods and classes. When dealing with classes, the prototype of the original class will be changed at run-time. E.g., if a render method is changed, after updating the prototype and rerendering the whole app, a new `render` method will be used.
 
@@ -196,7 +196,31 @@ export default class Example extends Component {
 _When hot reload is enabled, it's going to have an additional code at the bottom of the file when served via **front-end** middleware:_
 
 ```jsx
+import { h } from '/node_modules/preact/dist/preact.mjs'
+import { Component } from '/node_modules/preact/dist/preact.mjs'
 
+export default class Example extends Component {
+  render({ test }) {
+    return (h('div',{id:test},
+      `Hello World`
+    ))
+  }
+}
+
+/* IDIO HOT RELOAD */
+if (window.idioHotReload) {
+  let i = 0
+  idioHotReload('example/reload/Example.jsx', async () => {
+    i++
+    const module = await import(`./Example?ihr=${i}`)
+    return {
+      module,
+      classes: {
+        'default': Example,
+      },
+    }
+  })
+}
 ```
 
 The API provided for the reload is implemented in a JS file served from `/hot-reload.js` path. It has 2 functions:
