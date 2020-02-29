@@ -50,6 +50,7 @@ export const modules = makeTestSuite('test/result/modules', {
       throw new Error(`GET ${URL}: ${statusCode}\n${statusMessage}`)
     }
     return body
+      .replace(/\r?\n/g, EOL)
   },
   context: [Context, TempContext],
 })
@@ -71,8 +72,7 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
     const input = this.input.replace(/'(.+)'/, '$1')
     const res = await rqt(`${url}/${input}`)
     return res
-      .replace(/\r\n/g, '\n')
-      .replace(/\n/g, EOL)
+      .replace(/\r?\n/g, EOL)
   },
   context: Context,
   splitRe: /^\/\/\/ /mg,

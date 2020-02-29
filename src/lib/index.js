@@ -63,6 +63,6 @@ const getNodeModule = (from, path, pre, mount) => {
   const modPath = join(from, path)
   let modRel = relative('', modPath)
   if (mount) modRel = relative(mount, modRel)
-  return `${pre}'/${modRel}${modPath.endsWith('/') ? '/' : ''}'`
+  return `${pre}'/${modRel}${/[/\\]$/.test(modPath) ? '/' : ''}'`
     .replace(/\\/g, '/')
 }
