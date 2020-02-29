@@ -1,5 +1,5 @@
 import makeTestSuite from '@zoroaster/mask'
-import rqt from 'rqt'
+import rqt, { aqt } from 'rqt'
 import Context from '../context'
 import TempContext from 'temp-context'
 import { EOL } from 'os'
@@ -19,8 +19,11 @@ export default makeTestSuite('test/result/default', {
         config: { directory },
       },
     })
-    const res = await rqt(`${url}/${directory}/${this.input}`)
-    return res
+    const { body, statusCode, statusMessage } = await aqt(`${url}/${directory}/${this.input}`)
+    if (statusCode != 200) {
+      throw new Error(`GET ${this.input}: ${statusCode}\n${statusMessage}`)
+    }
+    return body
   },
   context: Context,
 })
@@ -36,14 +39,17 @@ export const modules = makeTestSuite('test/result/modules', {
     const { url } = await start({
       _frontend: {
         use: true,
-        middlewareConstructor(app, config) {
-          return frontend(config)
+        middlewareConstructor() {
+          return frontend({ directory: TEMP })
         },
-        config: { directory: TEMP },
       },
     })
-    const res = await rqt(`${url}/${file}`)
-    return res
+    const URL = `${url}/${file}`
+    const { body, statusCode, statusMessage } = await aqt(URL)
+    if (statusCode != 200) {
+      throw new Error(`GET ${URL}: ${statusCode}\n${statusMessage}`)
+    }
+    return body
   },
   context: [Context, TempContext],
 })
