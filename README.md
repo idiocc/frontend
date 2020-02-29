@@ -68,7 +68,7 @@ import frontend from '@idio/frontend'
 /**
  * @param {import('..').FrontEndConfig} options
  */
-export default async (options = {}) => {
+export default async (options = {}, src = 'example/frontend') => {
   const { url, app, router, server } = await idio({
     // logger: { use: true },
     _frontend: {
@@ -86,8 +86,9 @@ export default async (options = {}) => {
       <head><title>Example</title></head>
       <body>
         Hello World
+        <div id="app" />
         <script src="/hot-reload.js"/>
-        <script type="module" src="example/frontend"/>
+        <script type="module" src={src}/>
       </body>
     </html>, { addDoctype: true })
   })
@@ -191,6 +192,10 @@ export default class Example extends Component {
     </div>)
   }
 }
+
+export const Example2 = () => {
+  return (<span>Open Source!</span>)
+}
 ```
 
 _When hot reload is enabled, it's going to have an additional code at the bottom of the file when served via **front-end** middleware:_
@@ -207,12 +212,20 @@ export default class Example extends Component {
   }
 }
 
+export let Example2 = () => {
+  return (h('span',{},`Open Source!`))
+}
+
 /* IDIO HOT RELOAD */
 if (window.idioHotReload) {
   let i = 0
   idioHotReload('example/reload/Example.jsx', async () => {
     i++
     const module = await import(`./Example?ihr=${i}`)
+    if(`${Example2}` != `${module['Example2']}`) {
+      console.log('Export %s updated', 'Example2')
+      Example2 = module['Example2']
+    }
     return {
       module,
       classes: {
@@ -232,11 +245,16 @@ After an update is done, the app needs to be rerendered. This is why we have to 
 
 ```jsx
 import { render, Component } from 'preact'
-import Example from './Example'
+import Example, { Example2 } from './Example'
 
 class App extends Component {
   render() {
-    return (<Example test="example"/>)
+    return (<html>
+      <body>
+        <Example test="example"/>
+        <Example2 />
+      </body>
+    </html>)
   }
 }
 

@@ -4,7 +4,7 @@ import frontend from '../src'
 /**
  * @param {import('..').FrontEndConfig} options
  */
-export default async (options = {}) => {
+export default async (options = {}, src = 'example/frontend') => {
   const { url, app, router, server } = await idio({
     // logger: { use: true },
     _frontend: {
@@ -22,8 +22,9 @@ export default async (options = {}) => {
       <head><title>Example</title></head>
       <body>
         Hello World
+        <div id="app" />
         <script src="/hot-reload.js"/>
-        <script type="module" src="example/frontend"/>
+        <script type="module" src={src}/>
       </body>
     </html>, { addDoctype: true })
   })

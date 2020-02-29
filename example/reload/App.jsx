@@ -1,9 +1,14 @@
 import { render, Component } from 'preact'
-import Example from './Example'
+import Example, { Example2 } from './Example'
 
 class App extends Component {
   render() {
-    return (<Example test="example"/>)
+    return (<html>
+      <body>
+        <Example test="example"/>
+        <Example2 />
+      </body>
+    </html>)
   }
 }
 

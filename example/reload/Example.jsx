@@ -7,3 +7,7 @@ export default class Example extends Component {
     </div>)
   }
 }
+
+export const Example2 = () => {
+  return (<span>Open Source!</span>)
+}

@@ -22,11 +22,6 @@ window.idioHotReload = (path, callback) => {
   listeners[path] = callback
 }
 
-const PREACT_PROPS = ['setState', 'forceUpdate', 'render', 'componentWillMount',
-  'componentDidMount', 'componentWillUnmount', 'getChildContext',
-  'componentWillReceiveProps', 'shouldComponentUpdate', 'componentWillUpdate',
-  'componentDidUpdate']
-
 ws.addEventListener('message', async (event) => {
   const { message, event: e } = JSON.parse(event.data)
   console.log('Received %s:', e, message)
@@ -34,14 +29,31 @@ ws.addEventListener('message', async (event) => {
   const cb = listeners[filename]
   if (cb) {
     const { module, classes = {} } = await cb()
-    Object.entries(classes).forEach(([key, Cl]) => {
+    Object.entries(classes).forEach(([key, Class]) => {
       const NewClass = module[key]
       if (!NewClass) {
         console.error('A class with key %s wasn\'t exported by new module.', key)
         return
       }
-      PREACT_PROPS.forEach((prop) => {
-        Cl.prototype[prop] = NewClass.prototype[prop]
+      const { prototype: OriginalPrototype } = Class
+      const { prototype: NewPrototype } = NewClass
+      Object.getOwnPropertyNames(OriginalPrototype).forEach((prop) => {
+        if (!(prop in NewPrototype)) {
+          console.log('Removing %s from %s', prop, Class.name)
+          delete Class.prototype[prop]
+        }
+      })
+      Object.getOwnPropertyNames(NewPrototype).forEach((prop) => {
+        if (prop == 'constructor') return
+        const old = OriginalPrototype[prop]
+        const newP = NewPrototype[prop]
+        if (!old) {
+          console.log('Adding %s to %s', prop, Class.name)
+          OriginalPrototype[prop] = newP
+        } else if (`${old}` != `${newP}`) {
+          console.log('Change of %s in %s', prop, Class.name)
+          OriginalPrototype[prop] = newP
+        }
       })
     })
     reloaders.forEach((rcb) => {

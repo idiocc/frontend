@@ -10,12 +10,16 @@ import start from '../start'
       getServer: () => server,
       watchers,
     },
-  })
+  }, 'example/reload/App')
   const res = await rqt(`${url}/example/reload/Example`)
   console.log(res)
-  Object.values(watchers).forEach(a => {
-    a.close()
-  })
   /* end example */
-  await app.destroy()
+  if (!process.env.LIVE)
+    /* start example */
+    // stop watching files
+    Object.values(watchers).forEach(a => {
+      a.close()
+    })
+    /* end example */
+  if (!process.env.LIVE) await app.destroy()
 })()

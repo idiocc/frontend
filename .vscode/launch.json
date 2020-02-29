@@ -32,10 +32,11 @@
       "program": "${workspaceFolder}/node_modules/alamode/build/alanode.js",
       "env": {
         "NODE_DEBUG": "@idio/frontend",
+        "LIVE": "@idio/frontend",
       },
       "console": "integratedTerminal",
       "args": [
-        "example"
+        "example/reload"
       ],
       "skipFiles": [
         "<node_internals>/**/*.js"

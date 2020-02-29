@@ -8,9 +8,10 @@ import { join, relative } from 'path'
 import mismatch from 'mismatch'
 import websocket from '@idio/websocket'
 import { EOL } from 'os'
+import { c } from 'erte'
 import { patchSource } from './lib'
 import __$styleInject from './inject-css'
-import { HR, getClasses } from './lib/hr'
+import { HR, getClasses, getAssignments } from './lib/hr'
 
 let watch
 
@@ -100,7 +101,8 @@ function FrontEnd(config = {}) {
     ctx.type = 'application/javascript'
 
     if (hotReload && !ctx.query.ihr) {
-      if (path.startsWith('node_modules') && hotReload.ignoreNodeModules) {
+      const { ignoreNodeModules = true } = hotReload
+      if (path.startsWith('node_modules') && ignoreNodeModules) {
         // continue
       } else {
         try {
@@ -112,7 +114,7 @@ function FrontEnd(config = {}) {
         }
         if (!(path in WATCHING)) {
           const watcher = watch(path, (type, filename) => {
-            console.log('File %s changed', filename)
+            console.log('%s File %s changed', c('[frontend]', 'grey'), c(filename, 'yellow'))
             Object.values(CLIENTS).forEach((v) => {
               v('update', { filename })
             })
@@ -121,7 +123,9 @@ function FrontEnd(config = {}) {
         }
         if (path.endsWith('jsx')) {
           const classes = getClasses(body)
-          const hr = HR(path, classes)
+          const assignments = getAssignments(body)
+          const hr = HR(path, classes, assignments)
+          body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
           body += `${EOL}${EOL}${hr}`
         }
       }
@@ -161,11 +165,11 @@ const patch = async (path, body, pragma, config) => {
 const wrapCss = (style, exportClasses = true) => {
   let classes = []
   if (exportClasses) {
-    const c = style.split(/\r?\n/)
+    const t = style.split(/\r?\n/)
       .filter((a) => {
         return /^\S/.test(a)
       }).join(EOL)
-    classes = mismatch(/\.([\w\d_-]+)/g, c, ['className'])
+    classes = mismatch(/\.([\w\d_-]+)/g, t, ['className'])
       .map(({ 'className': cl }) => cl)
       .filter((v, i, a) => a.indexOf(v) == i)
   }
