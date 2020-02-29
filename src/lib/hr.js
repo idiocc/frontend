@@ -28,7 +28,7 @@ if (window.idioHotReload) {
   let i = 0
   idioHotReload('${path}', async () => {
     i++
-    const module = await import(\`./${basename(path).replace(/\.jsx?$/, '')}?i=\${i}\`)
+    const module = await import(\`./${basename(path).replace(/\.jsx?$/, '')}?ihr=\${i}\`)
     return {
       module,
       classes: {

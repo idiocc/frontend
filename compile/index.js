@@ -38,12 +38,11 @@ module.exports = $frontend
 /**
  * @typedef {import('http').Server} http.Server
  * @typedef {import('fs').FSWatcher} fs.FSWatcher
- * @typedef {_idio.HotReload} HotReload `＠record`
- * @typedef {Object} _idio.HotReload `＠record`
+ * @typedef {_idio.HotReload} HotReload `＠record` Options for hot reload (real-time automatic update of code in browser).
+ * @typedef {Object} _idio.HotReload `＠record` Options for hot reload (real-time automatic update of code in browser).
  * @prop {string} [path="/hot-reload.js"] The path from which to serve the operational module that provides admin methods. Default `/hot-reload.js`.
  * @prop {boolean} [ignoreNodeModules=true] Whether to ignore paths from `node_modules`. Default `true`.
  * @prop {!Object<string, !fs.FSWatcher>} [watchers] Pass an empty object here so that references to _FSWatchers_ can be saved.
- * @prop {*} [clients] Pass an empty object here so that references to _WebSocket_ connections can be saved.
  * @prop {() => http.Server} getServer The function used to get the server to enable web socket connection.
  */
 

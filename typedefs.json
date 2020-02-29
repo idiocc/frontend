@@ -9,6 +9,6 @@
   },
   "_idio.HotReload": {
     "link": "https://github.com/idiocc/frontend#type-hotreload",
-    "description": null
+    "description": "Options for hot reload (real-time automatic update of code in browser)."
   }
 }

@@ -1,4 +1,10 @@
 /* yarn example/ */
 import start from './start'
 
-start()
+(async () => {
+  const { server } = await start({
+    hotReload: {
+      getServer: () => server,
+    },
+  })
+})()

@@ -39,9 +39,9 @@ function FrontEnd(config = {}) {
       throw new Error(`Frontend directory ${current} does not exist.`)
   })
 
-  let CLIENTS, WATCHING
+  let CLIENTS = {}, WATCHING
   if (hotReload) {
-    ({ clients: CLIENTS = {}, watchers: WATCHING = {} } = hotReload)
+    ({ watchers: WATCHING = {} } = hotReload)
   }
 
   let upgraded = false
@@ -49,12 +49,12 @@ function FrontEnd(config = {}) {
    * @type {!_goa.Middleware}
    */
   const m = async (ctx, next) => {
-    if (hotReload && ctx.path == hotReload.path) {
+    if (hotReload && ctx.path == (hotReload.path || '/hot-reload.js')) {
       ctx.type = 'js'
       ctx.body = listener
       if (!upgraded) {
         const server = hotReload.getServer()
-        websocket(server, { clients: CLIENTS })
+        CLIENTS = websocket(server)
         upgraded = true
       }
       return
@@ -96,7 +96,7 @@ function FrontEnd(config = {}) {
     if (log) /** @type {!Function} */ (log)('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
 
-    if (hotReload) {
+    if (hotReload && !ctx.query.ihr) {
       if (path.startsWith('node_modules') && hotReload.ignoreNodeModules) {
         // continue
       } else {

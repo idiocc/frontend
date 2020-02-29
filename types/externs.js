@@ -14,6 +14,7 @@ _idio.FrontEndConfig
 
 /* typal types/hot-reload.xml */
 /**
+ * Options for hot reload (real-time automatic update of code in browser).
  * @record
  */
 _idio.HotReload
@@ -32,11 +33,6 @@ _idio.HotReload.prototype.ignoreNodeModules
  * @type {(!Object<string, !fs.FSWatcher>)|undefined}
  */
 _idio.HotReload.prototype.watchers
-/**
- * Pass an empty object here so that references to _WebSocket_ connections can be saved.
- * @type {(*)|undefined}
- */
-_idio.HotReload.prototype.clients
 /**
  * The function used to get the server to enable web socket connection.
  * @return {http.Server}

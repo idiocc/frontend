@@ -1,7 +1,7 @@
 <types namespace="_idio">
   <import from="http" name="Server" />
   <import from="fs" name="FSWatcher" />
-  <record name="HotReload">
+  <record name="HotReload" desc="Options for hot reload (real-time automatic update of code in browser).">
     <fn name="getServer" return="http.Server">
       The function used to get the server to enable web socket connection.
     </fn>
@@ -14,8 +14,8 @@
     <prop type="!Object<string, !fs.FSWatcher>" name="watchers" opt>
       Pass an empty object here so that references to _FSWatchers_ can be saved.
     </prop>
-    <prop name="clients" opt>
+    <prop1 name="clients" opt>
       Pass an empty object here so that references to _WebSocket_ connections can be saved.
-    </prop>
+    </prop1>
   </record>
 </types>
