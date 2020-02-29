@@ -60,7 +60,8 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
         config: { directory },
       },
     })
-    const res = await rqt(`${url}/${this.input}`)
+    const input = this.input.replace(/'(.+)'/, '$1')
+    const res = await rqt(`${url}/${input}`)
     return res
   },
   context: Context,

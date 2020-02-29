@@ -33,6 +33,7 @@ function FrontEnd(config = {}) {
   if (log === true) log = console.log
   const dirs = Array.isArray(directory) ? directory : [directory]
 
+  // check if all dirs exist
   dirs.forEach((current) => {
     const dir = join(mount, current)
     const e = existsSync(dir)
@@ -67,10 +68,10 @@ function FrontEnd(config = {}) {
     if (!canServe) {
       return next()
     }
-    p = join(mount, p)
+    p = join(mount, p).replace(/\\/g, '/')
     const { path, isDir } = await resolveDependency(p)
     if (isDir && !p.endsWith('/')) {
-      const mountPath = mount ? relative(mount, path) : path
+      const mountPath = mount ? relative(mount, path).replace(/\\/g, '/') : path
       ctx.redirect(`/${mountPath}`)
       return
     }
