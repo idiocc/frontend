@@ -18,7 +18,7 @@ Files served with this middleware, either transpiler or plain JS, will be cached
 
 The middleware can be used in any _Koa application, or within the [`idio` web server](https://www.idio.cc).
 
-%EXAMPLE: example, ../src => @idio/frontend%
+%EXAMPLE: example/start, ../src => @idio/frontend%
 
 %TREE example/frontend%
 

@@ -16,6 +16,8 @@ npm i @idio/frontend
 - [API](#api)
 - [`frontEnd(config=: FrontEndConfig): !_goa.Middleware`](#frontendconfig-frontendconfig-_goamiddleware)
   * [`FrontEndConfig`](#type-frontendconfig)
+- [Hot Reload](#hot-reload)
+  * [`HotReload`](#type-hotreload)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -55,39 +57,44 @@ __<a name="type-frontendconfig">`FrontEndConfig`</a>__: Options for the middlewa
 | log           | <em>(boolean \| !Function)</em>                 | Log to console when source files were patched.                                                                                                                                                                                                                                           | `false`                      |
 | jsxOptions    | <em>[!_alaJsx.Config](#type-_alajsxconfig)</em> | Options for the transpiler.                                                                                                                                                                                                                                                              | -                            |
 | exportClasses | <em>boolean</em>                                | When serving CSS, also export class names.                                                                                                                                                                                                                                               | `true`                       |
+| hotReload     | <em>[!HotReload](#type-hotreload)</em>          | Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.                                                                                                                                            | -                            |
 
 The middleware can be used in any _Koa application, or within the [`idio` web server](https://www.idio.cc).
 
 ```jsx
-/* yarn example/ */
-import idio from '@idio/idio'
-import render from '@depack/render'
+import idio, { render } from '@idio/idio'
 import frontend from '@idio/frontend'
 
-(async () => {
-  const { url, app } = await idio({
+/**
+ * @param {import('..').FrontEndConfig} options
+ */
+export default async (options = {}) => {
+  const { url, app, router, server } = await idio({
     // logger: { use: true },
     _frontend: {
       use: true,
-      middlewareConstructor(_, config) {
-        return frontend(config)
-      },
-      config: {
-        directory: 'example/frontend',
+      middlewareConstructor() {
+        return frontend({
+          directory: ['example/frontend', 'example/reload'],
+          ...options,
+        })
       },
     },
   }, { port: process.env.PORT })
-  app.use(async (ctx) => {
+  router.get('/', async (ctx) => {
     ctx.body = render(<html>
       <head><title>Example</title></head>
       <body>
         Hello World
+        <script src="/hot-reload.js"/>
         <script type="module" src="example/frontend"/>
       </body>
     </html>, { addDoctype: true })
   })
-  console.log('Started on %s', url)
-})()
+  app.use(router.routes())
+  console.error('Started on %s', url)
+  return { app, url, server }
+}
 ```
 
 ```m
@@ -105,22 +112,41 @@ import Component from './Component'
 // linked node_modules are also resolved
 import Form, { Input } from '@depack/form'
 
-render(<Component test="Welcome"/>, document.body)
-render(<Form>
+const component = <Component test="Welcome"/>
+const form = (<Form>
   <Input placeholder="hello world"/>
-</Form>, document.body)
+</Form>)
+
+const c = render(component, document.body)
+const f = render(form, document.body)
+
+/* IDIO HOT RELOAD */
+window['idioAddHotReload'] && window['idioAddHotReload'](() => {
+  render(component, document.body, c)
+  render(form, document.body, f)
+})
 ```
 
 *The component*
 
 ```jsx
+import { Component } from 'preact'
 import './style.css'
 
-const Component = ({ test }) => {
-  return <div>{test}</div>
+export default class Example extends Component {
+  constructor() {
+    super()
+    this.state = {
+      count: 0,
+    }
+  }
+  render({ test }) {
+    const { count } = this.state
+    return (<div onClick={() => {
+      this.setState({ count: count + 1 })
+    }}>{test} + updated + {count}</div>)
+  }
 }
-
-export default Component
 ```
 
 *The style*
@@ -135,6 +161,79 @@ body {
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
+
+## Hot Reload
+
+This package supports hot reload of modules, mainly for the purpose of developing _Preact_ apps.
+
+__<a name="type-hotreload">`HotReload`</a>__
+
+
+|       Name        |                                                                                                                      Type                                                                                                                      |                                      Description                                      |     Default      |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------- |
+| path              | <em>string</em>                                                                                                                                                                                                                                | The path from which to serve the operational module that provides admin methods.      | `/hot-reload.js` |
+| ignoreNodeModules | <em>boolean</em>                                                                                                                                                                                                                               | Whether to ignore paths from `node_modules`.                                          | `true`           |
+| watchers          | <em>!Object&lt;string, [!fs.FSWatcher](#type-fsfswatcher)&gt;</em>                                                                                                                                                                             | Pass an empty object here so that references to _FSWatchers_ can be saved.            | -                |
+| clients           | <em>*</em>                                                                                                                                                                                                                                     | Pass an empty object here so that references to _WebSocket_ connections can be saved. | -                |
+| __getServer*__    | <em>() => <a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-odd.png" alt="Node.JS Docs">http.Server</a></em> | The function used to get the server to enable web socket connection.                  | -                |
+
+The middleware will append some code at the end of each original file, and when an update is detected, it will use dynamic import to get references to new methods and classes. When dealing with classes, the prototype of the original class will be changed at run-time. E.g., if a render method is changed, after updating the prototype and rerendering the whole app, a new `render` method will be used.
+
+_For example, there's a simple component:_
+
+```jsx
+import { Component } from 'preact'
+
+export default class Example extends Component {
+  render({ test }) {
+    return (<div id={test}>
+      Hello World
+    </div>)
+  }
+}
+```
+
+_When hot reload is enabled, it's going to have an additional code at the bottom of the file when served via **front-end** middleware:_
+
+```jsx
+
+```
+
+The API provided for the reload is implemented in a JS file served from `/hot-reload.js` path. It has 2 functions:
+
+- `idioAddHotReload`: the function to execute to rerender the app, which needs to be implemented by the developer.
+- `idioHotReload`: the function to register that a module can be hot-reloaded. Called by auto-generated code from the `frontend` middleware.
+
+After an update is done, the app needs to be rerendered. This is why we have to update the entry file to our application a little bit:
+
+```jsx
+import { render, Component } from 'preact'
+import Example from './Example'
+
+class App extends Component {
+  render() {
+    return (<Example test="example"/>)
+  }
+}
+
+const app = (<App />)
+const a = render(app, window.app)
+
+/* IDIO HOT RELOAD */
+window['idioAddHotReload'] && window['idioAddHotReload'](() => {
+  render(app, document.body, a)
+})
+```
+
+In this case, we created a component and passed it for initial render into a container. The return of this function can then be used inside the `idioAddHotReload` listener to rerender the component [without](https://github.com/developit/preact/issues/1259) it loosing its state.
+
+At the moment, the following works:
+
+- update classes only, exported like `export default class` and `export class`.
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License

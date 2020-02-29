@@ -11,4 +11,6 @@ module.exports = $frontend
 
 /* typal types/index.xml namespace */
 
+/* typal types/hot-reload.xml namespace */
+
 /* typal types/api.xml namespace */

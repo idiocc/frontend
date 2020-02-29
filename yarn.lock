@@ -25,11 +25,6 @@
   resolved "https://registry.yarnpkg.com/@depack/nodejs/-/nodejs-1.1.4.tgz#36195f33fef7a6b9b1f93a043a52a87fac087729"
   integrity sha512-vtmNtylOPNjFkQHOgC1M8Ru9c211FgtD3sG3KGS9dvlcHDUAiNoJ52gVwOep5Tkp0I4qmwPx3oyTV6OwKchmlg==
 
-"@depack/render@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@depack/render/-/render-1.4.0.tgz#0227ff73cee22247c55598b54b4c61aeb7081d91"
-  integrity sha512-IOGV7HeT75O3iUsxaEi+wFg59OwHVKf8LDvB9I+qjfytnbjjVzluhinPY+E7L2+FIwxno8vKTiZ2VTGY6oBfBg==
-
 "@depack/split@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@depack/split/-/split-1.0.0.tgz#37fea28d9bc6f01e5a2da87d393f402781bb7e99"

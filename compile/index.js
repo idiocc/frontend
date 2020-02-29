@@ -10,9 +10,7 @@ const _frontend = require('./front-end')
  * @param {boolean|!Function} [config.log=false] Log to console when source files were patched. Default `false`.
  * @param {!_alaJsx.Config} [config.jsxOptions] Options for the transpiler.
  * @param {boolean} [config.exportClasses=true] When serving CSS, also export class names. Default `true`.
- * @param {boolean|string?} [config.hotReload=false] Enable hot reload for modules. When `true` is set, the operational module with
- * required logic is served from `/hot-reload.js`, which can be overridden if
- * another path is passed as a string. Default `false`.
+ * @param {!_idio.HotReload} [config.hotReload] Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.
  * @return {!_goa.Middleware}
  */
 function $frontend(config) {
@@ -33,9 +31,20 @@ module.exports = $frontend
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
  * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
  * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
- * @prop {boolean|string?} [hotReload=false] Enable hot reload for modules. When `true` is set, the operational module with
- * required logic is served from `/hot-reload.js`, which can be overridden if
- * another path is passed as a string. Default `false`.
+ * @prop {!_idio.HotReload} [hotReload] Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.
+ */
+
+/* typal types/hot-reload.xml namespace */
+/**
+ * @typedef {import('http').Server} http.Server
+ * @typedef {import('fs').FSWatcher} fs.FSWatcher
+ * @typedef {_idio.HotReload} HotReload `＠record`
+ * @typedef {Object} _idio.HotReload `＠record`
+ * @prop {string} [path="/hot-reload.js"] The path from which to serve the operational module that provides admin methods. Default `/hot-reload.js`.
+ * @prop {boolean} [ignoreNodeModules=true] Whether to ignore paths from `node_modules`. Default `true`.
+ * @prop {!Object<string, !fs.FSWatcher>} [watchers] Pass an empty object here so that references to _FSWatchers_ can be saved.
+ * @prop {*} [clients] Pass an empty object here so that references to _WebSocket_ connections can be saved.
+ * @prop {() => http.Server} getServer The function used to get the server to enable web socket connection.
  */
 
 /* typal types/api.xml namespace */

@@ -22,10 +22,8 @@
     <prop boolean name="exportClasses" default="true">
       When serving CSS, also export class names.
     </prop>
-    <prop type="boolean|string?" name="hotReload" default="false">
-      Enable hot reload for modules. When `true` is set, the operational module with
-      required logic is served from `/hot-reload.js`, which can be overridden if
-      another path is passed as a string.
+    <prop type="!_idio.HotReload" name="hotReload" opt>
+      Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.
     </prop>
   </type>
 </types>

@@ -8,9 +8,9 @@ import { join, relative } from 'path'
 import mismatch from 'mismatch'
 import websocket from '@idio/websocket'
 import watch from 'node-watch'
+import { EOL } from 'os'
 import { patchSource } from './lib'
 import __$styleInject from './inject-css'
-import { EOL } from 'os'
 import { HR, getClasses } from './lib/hr'
 
 const listener = readFileSync(join(__dirname, 'listener.js'))
@@ -26,11 +26,10 @@ function FrontEnd(config = {}) {
     override = {},
     jsxOptions,
     exportClasses = true,
-    getServer,
+    hotReload,
   } = config
-  let { log, hotReload } = config
+  let { log } = config
   if (log === true) log = console.log
-  if (hotReload === true) hotReload = '/hot-reload.js'
   const dirs = Array.isArray(directory) ? directory : [directory]
 
   dirs.forEach((current) => {
@@ -40,19 +39,23 @@ function FrontEnd(config = {}) {
       throw new Error(`Frontend directory ${current} does not exist.`)
   })
 
-  let clients
-  let watching = {}
+  let CLIENTS, WATCHING
+  if (hotReload) {
+    ({ clients: CLIENTS = {}, watchers: WATCHING = {} } = hotReload)
+  }
 
+  let upgraded = false
   /**
    * @type {!_goa.Middleware}
    */
   const m = async (ctx, next) => {
-    if (ctx.path == hotReload) {
+    if (hotReload && ctx.path == hotReload.path) {
       ctx.type = 'js'
       ctx.body = listener
-      if (!clients) {
-        const server = getServer()
-        clients = websocket(server)
+      if (!upgraded) {
+        const server = hotReload.getServer()
+        websocket(server, { clients: CLIENTS })
+        upgraded = true
       }
       return
     }
@@ -94,21 +97,23 @@ function FrontEnd(config = {}) {
     ctx.type = 'application/javascript'
 
     if (hotReload) {
-      if (!path.startsWith('node_modules')) {
-        if (!(path in watching)) {
-          watch(path, (type, filename) => {
+      if (path.startsWith('node_modules') && hotReload.ignoreNodeModules) {
+        // continue
+      } else {
+        if (!(path in WATCHING)) {
+          const watcher = watch(path, (type, filename) => {
             console.log('File %s changed', filename)
-            Object.values(clients).forEach((v) => {
+            Object.values(CLIENTS).forEach((v) => {
               v('update', { filename })
             })
           })
-          watching[path] = true
+          WATCHING[path] = watcher
         }
-      }
-      if (path.endsWith('jsx')) {
-        const classes = getClasses(body)
-        const hr = HR(path, classes)
-        body += `\n\n${hr}`
+        if (path.endsWith('jsx')) {
+          const classes = getClasses(body)
+          const hr = HR(path, classes)
+          body += `\n\n${hr}`
+        }
       }
     }
 

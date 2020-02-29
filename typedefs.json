@@ -6,5 +6,9 @@
   "_idio.FrontEndConfig": {
     "link": "https://github.com/idiocc/frontend#type-frontendconfig",
     "description": "Options for the middleware."
+  },
+  "_idio.HotReload": {
+    "link": "https://github.com/idiocc/frontend#type-hotreload",
+    "description": null
   }
 }

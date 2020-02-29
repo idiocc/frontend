@@ -1,0 +1,21 @@
+<types namespace="_idio">
+  <import from="http" name="Server" />
+  <import from="fs" name="FSWatcher" />
+  <record name="HotReload">
+    <fn name="getServer" return="http.Server">
+      The function used to get the server to enable web socket connection.
+    </fn>
+    <prop string name="path" default="/hot-reload.js">
+      The path from which to serve the operational module that provides admin methods.
+    </prop>
+    <prop boolean name="ignoreNodeModules" default="true">
+      Whether to ignore paths from `node_modules`.
+    </prop>
+    <prop type="!Object<string, !fs.FSWatcher>" name="watchers" opt>
+      Pass an empty object here so that references to _FSWatchers_ can be saved.
+    </prop>
+    <prop name="clients" opt>
+      Pass an empty object here so that references to _WebSocket_ connections can be saved.
+    </prop>
+  </record>
+</types>
