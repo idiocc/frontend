@@ -2,6 +2,7 @@ import makeTestSuite from '@zoroaster/mask'
 import rqt from 'rqt'
 import Context from '../context'
 import TempContext from 'temp-context'
+import { EOL } from 'os'
 import frontend from '../../src'
 
 export default makeTestSuite('test/result/default', {
@@ -63,6 +64,8 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
     const input = this.input.replace(/'(.+)'/, '$1')
     const res = await rqt(`${url}/${input}`)
     return res
+      .replace(/\r\n/g, '\n')
+      .replace(/\n/g, EOL)
   },
   context: Context,
   splitRe: /^\/\/\/ /mg,
