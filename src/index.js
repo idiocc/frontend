@@ -164,7 +164,7 @@ const wrapCss = (style, exportClasses = true) => {
   return `(${__$styleInject.toString()})(\`${style}\`)
 ${classes.map((cl) => {
     return `export const $${cl} = '${cl}'`
-  }).join(EOL)}`.trim()
+  }).join(EOL)}`.replace(/\n/g, EOL).trim()
 }
 
 /**

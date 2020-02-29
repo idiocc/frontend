@@ -31,7 +31,8 @@ export const modules = makeTestSuite('test/result/modules', {
    * @param {TempContext} t
    */
   async getResults({ start }, { write, TEMP }) {
-    const file = await write('test.jsx', this.input)
+    const file = (await write('test.jsx', this.input))
+      .replace(/\\/g, '/')
     const { url } = await start({
       _frontend: {
         use: true,

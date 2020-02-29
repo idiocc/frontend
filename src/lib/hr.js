@@ -37,5 +37,5 @@ ${s.map(t => `        ${t}`).join(EOL)}
       },
     }
   })
-}`
+}`.replace(/\n/g, EOL)
 }
