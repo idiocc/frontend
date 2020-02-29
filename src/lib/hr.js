@@ -17,7 +17,7 @@ export const getClasses = (content) => {
 /**
  * Returns the code to append to modules to reload classes.
  * @param {string} path Path to the module.
- * @param {Object} classes The object with classes
+ * @param {!Object} classes The object with classes
  */
 export const HR = (path, classes) => {
   const s = Object.entries(classes).map(([k, v]) => {

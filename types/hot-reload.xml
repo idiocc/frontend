@@ -2,7 +2,7 @@
   <import from="http" name="Server" />
   <import from="fs" name="FSWatcher" />
   <record name="HotReload" desc="Options for hot reload (real-time automatic update of code in browser).">
-    <fn name="getServer" return="http.Server">
+    <fn name="getServer" return="!http.Server">
       The function used to get the server to enable web socket connection.
     </fn>
     <prop string name="path" default="/hot-reload.js">

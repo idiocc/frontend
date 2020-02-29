@@ -80,7 +80,7 @@ const T = {
       },
     })
     const res = await rqt(`${url}/${directory}/style.css`)
-    return res
+    return res.replace(/^\(function\s\(/, '(function(')
   },
   async'supports caching'({ start, directory }) {
     const logged = []

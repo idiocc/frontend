@@ -7,11 +7,12 @@ import { lstat, existsSync, readFileSync } from 'fs'
 import { join, relative } from 'path'
 import mismatch from 'mismatch'
 import websocket from '@idio/websocket'
-import watch from 'node-watch'
 import { EOL } from 'os'
 import { patchSource } from './lib'
 import __$styleInject from './inject-css'
 import { HR, getClasses } from './lib/hr'
+
+const watch = require(/* dpck */ 'node-watch')
 
 const listener = readFileSync(join(__dirname, 'listener.js'))
 

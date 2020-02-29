@@ -43,7 +43,7 @@ module.exports = $frontend
  * @prop {string} [path="/hot-reload.js"] The path from which to serve the operational module that provides admin methods. Default `/hot-reload.js`.
  * @prop {boolean} [ignoreNodeModules=true] Whether to ignore paths from `node_modules`. Default `true`.
  * @prop {!Object<string, !fs.FSWatcher>} [watchers] Pass an empty object here so that references to _FSWatchers_ can be saved.
- * @prop {() => http.Server} getServer The function used to get the server to enable web socket connection.
+ * @prop {() => !http.Server} getServer The function used to get the server to enable web socket connection.
  */
 
 /* typal types/api.xml namespace */

@@ -35,7 +35,7 @@ _idio.HotReload.prototype.ignoreNodeModules
 _idio.HotReload.prototype.watchers
 /**
  * The function used to get the server to enable web socket connection.
- * @return {http.Server}
+ * @return {!http.Server}
  */
 _idio.HotReload.prototype.getServer = function() {}
 
