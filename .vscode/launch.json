@@ -29,13 +29,13 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Example",
-      "program": "${workspaceFolder}/example/index.js",
+      "program": "${workspaceFolder}/node_modules/alamode/build/alanode.js",
       "env": {
         "NODE_DEBUG": "@idio/frontend",
       },
       "console": "integratedTerminal",
       "args": [
-        "example/example"
+        "example"
       ],
       "skipFiles": [
         "<node_internals>/**/*.js"

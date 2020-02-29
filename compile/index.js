@@ -10,6 +10,9 @@ const _frontend = require('./front-end')
  * @param {boolean|!Function} [config.log=false] Log to console when source files were patched. Default `false`.
  * @param {!_alaJsx.Config} [config.jsxOptions] Options for the transpiler.
  * @param {boolean} [config.exportClasses=true] When serving CSS, also export class names. Default `true`.
+ * @param {boolean|string?} [config.hotReload=false] Enable hot reload for modules. When `true` is set, the operational module with
+ * required logic is served from `/hot-reload.js`, which can be overridden if
+ * another path is passed as a string. Default `false`.
  * @return {!_goa.Middleware}
  */
 function $frontend(config) {
@@ -30,6 +33,9 @@ module.exports = $frontend
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
  * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
  * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
+ * @prop {boolean|string?} [hotReload=false] Enable hot reload for modules. When `true` is set, the operational module with
+ * required logic is served from `/hot-reload.js`, which can be overridden if
+ * another path is passed as a string. Default `false`.
  */
 
 /* typal types/api.xml namespace */

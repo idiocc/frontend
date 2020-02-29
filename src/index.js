@@ -3,12 +3,17 @@ import read from '@wrote/read'
 import transpileJSX from '@a-la/jsx'
 import resolveDependency from 'resolve-dependency'
 import makePromise from 'makepromise'
-import { lstat, existsSync } from 'fs'
+import { lstat, existsSync, readFileSync } from 'fs'
 import { join, relative } from 'path'
 import mismatch from 'mismatch'
+import websocket from '@idio/websocket'
+import watch from 'node-watch'
 import { patchSource } from './lib'
 import __$styleInject from './inject-css'
 import { EOL } from 'os'
+import { HR, getClasses } from './lib/hr'
+
+const listener = readFileSync(join(__dirname, 'listener.js'))
 
 /**
  * @type {!_idio.frontEnd}
@@ -21,9 +26,11 @@ function FrontEnd(config = {}) {
     override = {},
     jsxOptions,
     exportClasses = true,
+    getServer,
   } = config
-  let { log } = config
+  let { log, hotReload } = config
   if (log === true) log = console.log
+  if (hotReload === true) hotReload = '/hot-reload.js'
   const dirs = Array.isArray(directory) ? directory : [directory]
 
   dirs.forEach((current) => {
@@ -33,16 +40,28 @@ function FrontEnd(config = {}) {
       throw new Error(`Frontend directory ${current} does not exist.`)
   })
 
+  let clients
+  let watching = {}
+
   /**
    * @type {!_goa.Middleware}
    */
   const m = async (ctx, next) => {
+    if (ctx.path == hotReload) {
+      ctx.type = 'js'
+      ctx.body = listener
+      if (!clients) {
+        const server = getServer()
+        clients = websocket(server)
+      }
+      return
+    }
     let p = ctx.path.replace('/', '')
     const canServe = dirs.includes(p)
       || dirs.some(d => p.startsWith(`${d}/`))
       || ctx.path.startsWith('/node_modules/')
     if (!canServe) {
-      return await next()
+      return next()
     }
     p = join(mount, p)
     const { path, isDir } = await resolveDependency(p)
@@ -73,6 +92,26 @@ function FrontEnd(config = {}) {
     let end = new Date().getTime()
     if (log) /** @type {!Function} */ (log)('%s patched in %sms', path, end - start)
     ctx.type = 'application/javascript'
+
+    if (hotReload) {
+      if (!path.startsWith('node_modules')) {
+        if (!(path in watching)) {
+          watch(path, (type, filename) => {
+            console.log('File %s changed', filename)
+            Object.values(clients).forEach((v) => {
+              v('update', { filename })
+            })
+          })
+          watching[path] = true
+        }
+      }
+      if (path.endsWith('jsx')) {
+        const classes = getClasses(body)
+        const hr = HR(path, classes)
+        body += `\n\n${hr}`
+      }
+    }
+
     ctx.body = body
   }
   return m

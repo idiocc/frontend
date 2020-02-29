@@ -56,8 +56,9 @@
     "@depack/render": "^1.4.0",
     "@depack/split": "^1.0.0",
     "@externs/goa": "^1.0.1",
-    "@idio/idio": "^1.4.0",
+    "@idio/idio": "^1.4.1",
     "@idio/preact-fixture": "1.0.0",
+    "@idio/websocket": "^1.1.1",
     "@typedefs/goa": "^0.1.5",
     "@wrote/read": "^1.0.4",
     "alamode": "^3.5.2",
@@ -76,5 +77,7 @@
     "yarn-s": "1.2.3",
     "zoroaster": "^4.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "node-watch": "^0.6.3"
+  }
 }

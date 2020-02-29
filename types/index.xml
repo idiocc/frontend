@@ -22,5 +22,10 @@
     <prop boolean name="exportClasses" default="true">
       When serving CSS, also export class names.
     </prop>
+    <prop type="boolean|string?" name="hotReload" default="false">
+      Enable hot reload for modules. When `true` is set, the operational module with
+      required logic is served from `/hot-reload.js`, which can be overridden if
+      another path is passed as a string.
+    </prop>
   </type>
 </types>

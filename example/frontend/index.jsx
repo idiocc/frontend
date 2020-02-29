@@ -3,7 +3,16 @@ import Component from './Component'
 // linked node_modules are also resolved
 import Form, { Input } from '@depack/form'
 
-render(<Component test="Welcome"/>, document.body)
-render(<Form>
+const component = <Component test="Welcome"/>
+const form = (<Form>
   <Input placeholder="hello world"/>
-</Form>, document.body)
+</Form>)
+
+const c = render(component, document.body)
+const f = render(form, document.body)
+
+/* IDIO HOT RELOAD */
+window['idioAddHotReload'] && window['idioAddHotReload'](() => {
+  render(component, document.body, c)
+  render(form, document.body, f)
+})

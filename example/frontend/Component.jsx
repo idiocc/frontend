@@ -1,7 +1,17 @@
+import { Component } from 'preact'
 import './style.css'
 
-const Component = ({ test }) => {
-  return <div>{test}</div>
+export default class Example extends Component {
+  constructor() {
+    super()
+    this.state = {
+      count: 0,
+    }
+  }
+  render({ test }) {
+    const { count } = this.state
+    return (<div onClick={() => {
+      this.setState({ count: count + 1 })
+    }}>{test} + updated + {count}</div>)
+  }
 }
-
-export default Component
