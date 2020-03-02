@@ -1,3 +1,13 @@
+## 2 March 2020
+
+### [2.2.1](https://github.com/idiocc/frontend/compare/v2.2.0...v2.2.1)
+
+- [doc] Doc SSR limitations.
+
+### [2.2.0](https://github.com/idiocc/frontend/compare/v2.2.0...v2.2.0)
+
+- [feature] Hot Reload for modules.
+
 ## 28 February 2020
 
 ### [2.1.0](https://github.com/idiocc/frontend/compare/v2.0.2...v2.1.0)

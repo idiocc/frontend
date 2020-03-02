@@ -27,6 +27,33 @@ In this case, we created a component and passed it for initial render into a con
 
 At the moment, the following works:
 
-- update classes only, exported like `export default class` and `export class`.
+- Update classes, exported like `export default class` and `export class`.
+- Update all other exports, exported like `export const [A] =` and `export let [B] = `. When exporting a _const_, it will be transpiled into a _let_, because otherwise it's impossible to update the binding.
+
+What doesn't work:
+
+- Defining a class or a function first, and then exporting it like:
+    ```js
+    class Example {}
+    const a = () => {}
+    export default Example
+    export { a }
+    ```
+- If you're binding a method in a constructor, it won't be unbound after an update, but it also won't be updated, since we don't have access to instances and only update prototypes.
+    ```js
+    class E extends Component {
+      constructor() {
+        super()
+        this.example = this.example.bind(this)
+      }
+      example() {
+        // callback
+      }
+      render() {
+        // example won't be reloaded since it was bound.
+        return (<div onClick={this.example}>)
+      }
+    }
+    ```
 
 %~%
