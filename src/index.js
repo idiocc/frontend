@@ -176,7 +176,7 @@ const wrapCss = (style, { exportClasses = true, path = '' } = {}) => {
     .replace(/[/\\]/g, '-')
     .replace(/[^\w\d_-]/g, '')
   const inj = __$styleInject.toString()
-    .replace(/FRONTEND_STYLE_ID/g, styleId)
+    .replace(/FRONTEND-STYLE-ID/g, styleId)
   return `(${inj})(\`${style}\`)
 ${classes.map((cl) => {
     return `export const $${cl} = '${cl}'`
