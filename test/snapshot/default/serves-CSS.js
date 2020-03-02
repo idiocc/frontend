@@ -1,13 +1,19 @@
 (function(css = '') {
-  const head = document.head
-  const style = document.createElement('style')
+  let style
+  if (window['test-fixture-frontend-style']) {
+    style = window['test-fixture-frontend-style']
+    style.innerText = ''
+  } else {
+    style = document.createElement('style')
+    style.id = 'test-fixture-frontend-style'
+    document.head.appendChild(style)
+  }
   style.type = 'text/css'
   if (style.styleSheet){
     style.styleSheet.cssText = css
   } else {
     style.appendChild(document.createTextNode(css))
   }
-  head.appendChild(style)
 })(`.Image {
   text-align: center;
 }`)

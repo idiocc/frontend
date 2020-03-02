@@ -1,4 +1,5 @@
 import { Component } from 'preact'
+import { $Example } from './style.css'
 
 export default class Example extends Component {
   constructor() {
@@ -9,7 +10,8 @@ export default class Example extends Component {
     console.log('clicked')
   }
   render({ test }) {
-    return (<div id={test} onClick={this.example}>
+    return (<div id={test} onClick={this.example}
+      className={$Example}>
       Hello World
     </div>)
   }

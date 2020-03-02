@@ -121,13 +121,11 @@ function FrontEnd(config = {}) {
           })
           WATCHING[path] = watcher
         }
-        if (path.endsWith('jsx')) {
-          const classes = getClasses(body)
-          const assignments = getAssignments(body)
-          const hr = HR(path, classes, assignments)
-          body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
-          body += `${EOL}${EOL}${hr}`
-        }
+        const classes = getClasses(body)
+        const assignments = getAssignments(body)
+        const hr = HR(path, classes, assignments)
+        body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
+        body += `${EOL}${EOL}${hr}`
       }
     }
 
@@ -151,7 +149,7 @@ const patch = async (path, body, pragma, config) => {
     if (pragma) body = `${pragma}${EOL}${body}`
   }
   if (/\.css$/.test(path)) {
-    body = wrapCss(body, exportClasses)
+    body = wrapCss(body, { exportClasses, path })
   } else {
     body = await patchSource(path, body, config)
   }
@@ -162,7 +160,7 @@ const patch = async (path, body, pragma, config) => {
  * Adds JS wrapper to add CSS dynamically.
  * @param {string} style
  */
-const wrapCss = (style, exportClasses = true) => {
+const wrapCss = (style, { exportClasses = true, path = '' } = {}) => {
   let classes = []
   if (exportClasses) {
     const t = style.split(/\r?\n/)
@@ -173,7 +171,13 @@ const wrapCss = (style, exportClasses = true) => {
       .map(({ 'className': cl }) => cl)
       .filter((v, i, a) => a.indexOf(v) == i)
   }
-  return `(${__$styleInject.toString()})(\`${style}\`)
+  const styleId = path
+    .replace(/\.css$/, '')
+    .replace(/[/\\]/g, '-')
+    .replace(/[^\w\d_-]/g, '')
+  const inj = __$styleInject.toString()
+    .replace(/FRONTEND_STYLE_ID/g, styleId)
+  return `(${inj})(\`${style}\`)
 ${classes.map((cl) => {
     return `export const $${cl} = '${cl}'`
   }).join(EOL)}`.replace(/\r?\n/g, EOL).trim()

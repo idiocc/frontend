@@ -184,6 +184,7 @@ _For example, there's a simple component:_
 
 ```jsx
 import { Component } from 'preact'
+import { $Example } from './style.css'
 
 export default class Example extends Component {
   constructor() {
@@ -194,7 +195,8 @@ export default class Example extends Component {
     console.log('clicked')
   }
   render({ test }) {
-    return (<div id={test} onClick={this.example}>
+    return (<div id={test} onClick={this.example}
+      className={$Example}>
       Hello World
     </div>)
   }
@@ -210,10 +212,19 @@ _When hot reload is enabled, it's going to have an additional code at the bottom
 ```jsx
 import { h } from '/node_modules/preact/dist/preact.mjs'
 import { Component } from '/node_modules/preact/dist/preact.mjs'
+import { $Example } from './style.css'
 
 export default class Example extends Component {
+  constructor() {
+    super()
+    this.example = this.example.bind(this)
+  }
+  example() {
+    console.log('clicked')
+  }
   render({ test }) {
-    return (h('div',{id:test},
+    return (  h('div',{id:test, onClick:this.example,
+      className:$Example},
       `Hello World`
     ))
   }
@@ -280,6 +291,7 @@ At the moment, the following works:
 
 - Update classes, exported like `export default class` and `export class`.
 - Update all other exports, exported like `export const [A] =` and `export let [B] = `. When exporting a _const_, it will be transpiled into a _let_, because otherwise it's impossible to update the binding.
+- Update styles dynamically upon changes to the CSS files.
 
 What doesn't work:
 

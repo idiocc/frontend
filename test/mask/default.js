@@ -77,3 +77,31 @@ export const node_modules = makeTestSuite('test/result/node_modules', {
   context: Context,
   splitRe: /^\/\/\/ /mg,
 })
+
+export const hotReload = makeTestSuite('test/result/hot-reload', {
+  /**
+   * @param {Context} context
+   */
+  async getResults({ start, watchers }) {
+    const dir = 'test/fixture/hot-reload'
+    const { url } = await start({
+      _frontend: {
+        use: true,
+        middlewareConstructor() {
+          return frontend({
+            directory: dir,
+            hotReload: {
+              watchers,
+            },
+          })
+        },
+      },
+    })
+    const input = this.input.replace(/'(.+)'/, '$1')
+    const res = await rqt(`${url}/${dir}/${input}`)
+    return res
+      .replace(/\r?\n/g, EOL)
+  },
+  context: Context,
+  splitRe: /^\/\/ /mg,
+})

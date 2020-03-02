@@ -29,6 +29,7 @@ At the moment, the following works:
 
 - Update classes, exported like `export default class` and `export class`.
 - Update all other exports, exported like `export const [A] =` and `export let [B] = `. When exporting a _const_, it will be transpiled into a _let_, because otherwise it's impossible to update the binding.
+- Update styles dynamically upon changes to the CSS files.
 
 What doesn't work:
 

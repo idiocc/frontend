@@ -23,12 +23,20 @@ export default class Context {
   }
   async _destroy() {
     if (this.app) await this.app.destroy()
+    if (this._watchers) Object.values(this._watchers).forEach((w) => {
+      w.close()
+    })
   }
   /**
    * The frontend directory from which to serve client JavaScript.
    */
   get directory() {
     return 'test/fixture/frontend'
+  }
+  get watchers() {
+    if (this._watchers) return this._watchers
+    this._watchers = {}
+    return this._watchers
   }
   /**
    * The frontend directory from which to serve client JavaScript.
