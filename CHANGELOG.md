@@ -1,5 +1,10 @@
 ## 2 March 2020
 
+### [2.2.2](https://github.com/idiocc/frontend/compare/v2.2.1...v2.2.2)
+
+- [fix] Hot reload JS files too.
+- [feature] Hot reload CSS.
+
 ### [2.2.1](https://github.com/idiocc/frontend/compare/v2.2.0...v2.2.1)
 
 - [doc] Doc SSR limitations.
