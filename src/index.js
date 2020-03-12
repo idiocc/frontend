@@ -15,8 +15,8 @@ import { HR, getClasses, getAssignments } from './lib/hr'
 
 let watch, shouldNormalise
 
-const listener = readFileSync(join(__dirname, 'listener.js'))
-const moduleListener = readFileSync(join(__dirname, 'listener.mjs'))
+let listener, moduleListener
+// readFileSync(join(__dirname, 'listener.js'))
 
 /**
  * @type {!_idio.frontEnd}
@@ -69,6 +69,12 @@ function FrontEnd(config = {}) {
   const m = async (ctx, next) => {
     if (hotReload && hotReloadPaths.includes(ctx.path)) {
       ctx.type = 'js'
+      // read for the first time
+      if (hotReload.module && !moduleListener) {
+        moduleListener = readFileSync(join(__dirname, 'listener.mjs'))
+      } else if (!hotReload.module && !listener) {
+        listener = readFileSync(join(__dirname, 'listener.js'))
+      }
       ctx.body = hotReload.module ? moduleListener : listener
       if (!upgraded) {
         const server = hotReload.getServer()
