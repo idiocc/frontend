@@ -1,3 +1,9 @@
+## 12 March 2020
+
+### [2.3.0](https://github.com/idiocc/frontend/compare/v2.2.3...v2.3.0)
+
+- [fix] Fix hot-reload and serve it as a module.
+
 ## 2 March 2020
 
 ### [2.2.3](https://github.com/idiocc/frontend/compare/v2.2.2...v2.2.3)
