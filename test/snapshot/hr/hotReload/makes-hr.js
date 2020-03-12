@@ -5,14 +5,8 @@ if (idioHotReload) {
   idioHotReload('test/Component.jsx', async () => {
     _idio++
     const module = await import(`./Component?ihr=${_idio}`)
-    if(`${t}` != `${module['t']}`) {
-      console.log('Export %s updated', 't')
-      t = module['t']
-    }
-    if(`${i}` != `${module['i']}`) {
-      console.log('Export %s updated', 'i')
-      i = module['i']
-    }
+    t = module['t']
+    i = module['i']
     return {
       module,
       classes: {

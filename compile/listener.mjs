@@ -12,10 +12,9 @@ const reloaders = []
  * This must be called by the developer.
  * @param {!Function} cb The function to call on reload.
  */
-const idioAddHotReload = (cb) => {
+export default function idioAddHotReload(cb) {
   reloaders.push(cb)
 }
-window.idioAddHotReload = idioAddHotReload
 
 /**
  * Register a callback for hot reload.
@@ -23,12 +22,11 @@ window.idioAddHotReload = idioAddHotReload
  * @param {string} path The path to the module.
  * @param {!Function}
  */
-const idioHotReload = (path, callback) => {
+export const idioHotReload = (path, callback) => {
   // already registered for that path
   if (path in listeners) return
   listeners[path] = callback
 }
-window.idioHotReload = idioHotReload
 
 ws.addEventListener('message', async (event) => {
   const { message, event: e } = JSON.parse(event.data)

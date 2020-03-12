@@ -16,10 +16,7 @@ if (idioHotReload) {
   idioHotReload('test/fixture/hot-reload/Component.jsx', async () => {
     _idio++
     const module = await import(`./Component?ihr=${_idio}`)
-    if(`${Example}` != `${module['Example']}`) {
-      console.log('Export %s updated', 'Example')
-      Example = module['Example']
-    }
+    Example = module['Example']
     return {
       module,
       classes: {
