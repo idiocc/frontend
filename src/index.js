@@ -43,7 +43,7 @@ function FrontEnd(config = {}) {
     return current.replace(/\\/g, '/')
   })
 
-  let cw = {}
+  let cw = {}, hotReloadPaths
   if (hotReload) {
     if (!hotReload.path) hotReload.path = '/hot-reload'
     if (!('module' in hotReload)) hotReload.module = true
@@ -55,13 +55,13 @@ function FrontEnd(config = {}) {
 
     const { path: p } = hotReload
     override = { ...override, '@idio/hot-reload': p }
+
+    const { path: hotReloadPath } = hotReload
+    hotReloadPaths = [hotReloadPath, hotReloadPath.replace(/\.jsx?$/, '')]
+      .filter((v, i, a) => a.indexOf(v) == i)
   }
 
   let upgraded = false
-
-  const { path: hotReloadPath, module: mod = true } = hotReload || {}
-  const hotReloadPaths = [hotReloadPath, hotReloadPath.replace(/\.jsx?$/, '')]
-    .filter((v, i, a) => a.indexOf(v) == i)
 
   /**
    * @type {!_goa.Middleware}
@@ -69,7 +69,7 @@ function FrontEnd(config = {}) {
   const m = async (ctx, next) => {
     if (hotReload && hotReloadPaths.includes(ctx.path)) {
       ctx.type = 'js'
-      ctx.body = mod ? moduleListener : listener
+      ctx.body = hotReload.mod ? moduleListener : listener
       if (!upgraded) {
         const server = hotReload.getServer()
         cw.CLIENTS = websocket(server)

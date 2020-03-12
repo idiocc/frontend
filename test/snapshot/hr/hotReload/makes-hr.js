@@ -1,9 +1,10 @@
 /* IDIO HOT RELOAD */
-if (window.idioHotReload) {
-  let i = 0
+const idioHotReload = window.idioHotReload
+if (idioHotReload) {
+  let _idio = 0
   idioHotReload('test/Component.jsx', async () => {
-    i++
-    const module = await import(`./Component?ihr=${i}`)
+    _idio++
+    const module = await import(`./Component?ihr=${_idio}`)
     if(`${t}` != `${module['t']}`) {
       console.log('Export %s updated', 't')
       t = module['t']

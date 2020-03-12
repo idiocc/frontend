@@ -10,11 +10,12 @@ export let Example = () => {
 export default class Class {}
 
 /* IDIO HOT RELOAD */
-if (window.idioHotReload) {
-  let i = 0
+import { idioHotReload } from '/hot-reload'
+if (idioHotReload) {
+  let _idio = 0
   idioHotReload('test/fixture/hot-reload/Component.jsx', async () => {
-    i++
-    const module = await import(`./Component?ihr=${i}`)
+    _idio++
+    const module = await import(`./Component?ihr=${_idio}`)
     if(`${Example}` != `${module['Example']}`) {
       console.log('Export %s updated', 'Example')
       Example = module['Example']
