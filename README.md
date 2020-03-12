@@ -66,7 +66,7 @@ __<a name="type-frontendconfig">`FrontEndConfig`</a>__: Options for the middlewa
 | exportClasses | <em>boolean</em>                                                                                                                  | When serving CSS, also export class names.                                                                                                                                                                                                                                               | `true`                       |
 | hotReload     | <em><a href="#type-hotreload" title="Options for hot reload (real-time automatic update of code in browser).">!HotReload</a></em> | Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.                                                                                                                                            | -                            |
 
-The middleware can be used in any _Koa application, or within the [`idio` web server](https://www.idio.cc).
+The middleware can be used in any _Koa_ application, or within the [`idio` web server](https://www.idio.cc).
 
 ```jsx
 import idio, { render } from '@idio/idio'
@@ -126,13 +126,6 @@ const form = (<Form>
 
 let c = render(component, window['app'])
 let f = render(form, document.body)
-
-/* IDIO HOT RELOAD */
-import addHotReload from '@idio/hot-reload'
-addHotReload(() => {
-  c = render(component, document.body, c)
-  f = render(form, document.body, f)
-})
 ```
 
 *The component*

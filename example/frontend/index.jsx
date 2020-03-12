@@ -1,3 +1,4 @@
+/* start example */
 import { render } from 'preact'
 import Component from './Component'
 // linked node_modules are also resolved
@@ -10,6 +11,8 @@ const form = (<Form>
 
 let c = render(component, window['app'])
 let f = render(form, document.body)
+
+/* end example */
 
 /* IDIO HOT RELOAD */
 import addHotReload from '@idio/hot-reload'

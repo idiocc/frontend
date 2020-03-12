@@ -16,7 +16,7 @@ Files served with this middleware, either transpiler or plain JS, will be cached
 
 <typedef>types/index.xml</typedef>
 
-The middleware can be used in any _Koa application, or within the [`idio` web server](https://www.idio.cc).
+The middleware can be used in any _Koa_ application, or within the [`idio` web server](https://www.idio.cc).
 
 %EXAMPLE: example/start, ../src => @idio/frontend%
 
