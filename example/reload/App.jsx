@@ -1,5 +1,5 @@
 import { render, Component } from 'preact'
-import Example, { Example2 } from './Example'
+import Example, { Example2, Example3 } from './Example'
 
 class App extends Component {
   render() {
@@ -7,6 +7,7 @@ class App extends Component {
       <body>
         <Example test="example"/>
         <Example2 />
+        <Example3 />
       </body>
     </html>)
   }

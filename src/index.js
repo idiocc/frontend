@@ -69,7 +69,7 @@ function FrontEnd(config = {}) {
   const m = async (ctx, next) => {
     if (hotReload && hotReloadPaths.includes(ctx.path)) {
       ctx.type = 'js'
-      ctx.body = hotReload.mod ? moduleListener : listener
+      ctx.body = hotReload.module ? moduleListener : listener
       if (!upgraded) {
         const server = hotReload.getServer()
         cw.CLIENTS = websocket(server)
@@ -137,14 +137,14 @@ const patchHotReload = (path, body, hotReload, cw) => {
   try {
     if (!watch) watch = require(/* dpck */ 'node-watch')
   } catch (err) {
-    console.log('%s node-watch is recommended for front-end hot reload.', fe)
-    console.log('%s Falling back to standard watch.', fe)
+    console.error('%s node-watch is recommended for front-end hot reload.', fe)
+    console.error('%s Falling back to standard watch.', fe)
     shouldNormalise = true
     watch = require(/* dpck */ 'fs').watch
   }
   if (!(path in cw.WATCHING)) {
     const watcher = watch(path, (type, filename) => {
-      console.log('%s File %s changed', fe, c(filename, 'yellow'))
+      console.error('%s File %s changed', fe, c(filename, 'yellow'))
       Object.values(cw.CLIENTS).forEach((v) => {
         const fn = shouldNormalise ? path : filename
         v('update', { filename: fn })
@@ -152,10 +152,16 @@ const patchHotReload = (path, body, hotReload, cw) => {
     })
     cw.WATCHING[path] = watcher
   }
-  const classes = getClasses(body)
+  const { classes, namedAssignments = [] } = getClasses(body)
   const assignments = getAssignments(body)
+  namedAssignments.forEach((na) => {
+    assignments[na] = na
+  })
   const hr = HR(path, classes, assignments, mod ? p : null)
-  body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
+  body = body.replace(/^export(\s+)const(\s+)(\S+)\s+=/gm, t => t.replace('const', 'let'))
+  if (namedAssignments.length) {
+    body = body.replace(new RegExp(`^const(\\s+(?:${namedAssignments.join('|')})\\s+)`, 'gm'), 'let$1')
+  }
   body += `${EOL}${EOL}${hr}`
 
   return body

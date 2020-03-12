@@ -7,23 +7,39 @@ import { HR, getClasses, getAssignments } from '../../src/lib/hr'
 /** @type {Object.<string, (c: Context, z: Zoroaster)>} */
 const T = {
   'gets classes'() {
-    const cl = getClasses(`
+    const { classes } = getClasses(`
 export default class Test {
   constructor() {}
 }
 export class C {}
 `)
-    deepEqual(cl, {
+    deepEqual(classes, {
       default: 'Test',
       C: 'C',
     })
   },
+  'gets classes with defered default export'() {
+    const { classes } = getClasses(`class Test {}
+export default Test
+`)
+    deepEqual(classes, {
+      default: 'Test',
+    })
+  },
+  'gets classes with defered named export'() {
+    const { classes } = getClasses(`class Test {}
+export { Test }
+`)
+    deepEqual(classes, {
+      Test: 'Test',
+    })
+  },
   'gets assignments'() {
-    const cl = getAssignments(`
+    const ass = getAssignments(`
 export const test = () => { 'test' }
 export let i = () => { 'i' }
 `)
-    deepEqual(cl, {
+    deepEqual(ass, {
       test: 'test',
       i: 'i',
     })
@@ -43,9 +59,9 @@ export class C {}
 export const t = () => {}
 export let i = () => {}
 `
-    const cl = getClasses(f)
+    const { classes } = getClasses(f)
     const as = getAssignments(f)
-    const res = HR('test/Component.jsx', cl, as)
+    const res = HR('test/Component.jsx', classes, as)
     return res
   },
 }

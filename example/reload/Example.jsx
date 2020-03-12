@@ -20,3 +20,9 @@ export default class Example extends Component {
 export const Example2 = () => {
   return (<span>Open Source!</span>)
 }
+
+const Example3 = () => {
+  return (<pre>Art Deco © {new Date().getFullYear()}</pre>)
+}
+
+export { Example3 }

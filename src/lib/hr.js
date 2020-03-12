@@ -8,11 +8,34 @@ import { EOL } from 'os'
  */
 export const getClasses = (content) => {
   const d = mismatch(/^export\s+(default\s+)?class\s+([^\s{]+)/gm, content, ['def', 'name'])
-  const dd = d.reduce((acc, { 'def': def, 'name': name }) => {
+  const classes = d.reduce((acc, { 'def': def, 'name': name }) => {
+    if (name == 'extends') return acc
     acc[def ? 'default' : name] = name
     return acc
   }, {})
-  return dd
+
+  const classNames = mismatch(/^class\s+([^\s{]+)/gm, content, ['name'])
+    .map(({ 'name': name }) => name)
+    .filter(name => name != 'extends')
+
+  const namedExports = mismatch(/^export\s+{([^}]+)}/gm, content, ['exp'])
+    .reduce((acc, { 'exp': exp }) => [...acc, ...exp.split(/\s+/).filter(Boolean)], [])
+
+  const { c: namedClasses, a: namedAssignments } = namedExports
+    .reduce(({ a, c }, name) => {
+      if (classNames.includes(name)) c.push(name)
+      else a.push(name)
+      return { a, c }
+    }, { a: [], c: [] })
+  namedClasses.forEach(className => classes[className] = className)
+
+  const d4 = mismatch(/^export\s+default\s+(\S+)/gm, content, ['name'])
+    .map(({ 'name': name }) => name)
+    .filter(name => classNames.includes(name))
+  const [deferedDefault] = d4
+  if (deferedDefault) classes['default'] = deferedDefault
+
+  return { classes, namedAssignments }
 }
 
 
@@ -47,10 +70,7 @@ if (idioHotReload) {
   idioHotReload('${path}', async () => {
     _idio++
     const module = await import(\`./${basename(path).replace(/\.jsx?$/, '')}?ihr=\${_idio}\`)
-${Object.keys(assignments).map(a => `    if(\`\${${a}}\` != \`\${module['${a}']}\`) {
-      console.log('Export %s updated', '${a}')
-      ${a} = module['${a}']
-    }`).join('\n')}
+${Object.keys(assignments).map(a => `    ${a} = module['${a}']`).join('\n')}
     return {
       module,${s.length ? `
       classes: {

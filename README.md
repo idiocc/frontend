@@ -5,6 +5,10 @@
 
 `@idio/frontend` is The Middleware To Serve Front-End JavaScript. It allows to set-up the modern front-end development environment where `node_modules` are served alongside compiled JSX code (without using _Babel_, see [`@a-la/jsx`](https://github.com/a-la/jsx)).
 
+<a href="https://www.idio.cc">
+  <img src="docs/frontend.gif" alt="Idio Frontend Middleware">
+</a>
+
 ```sh
 yarn add @idio/frontend
 npm i @idio/frontend
@@ -18,6 +22,9 @@ npm i @idio/frontend
   * [`FrontEndConfig`](#type-frontendconfig)
 - [Hot Reload](#hot-reload)
   * [`HotReload`](#type-hotreload)
+  * [Enabling Hot Reload](#enabling-hot-reload)
+  * [Status](#status)
+  * [Node-watch](#node-watch)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -87,7 +94,6 @@ export default async (options = {}, src = 'example/frontend') => {
       <body>
         Hello World
         <div id="app" />
-        <script src="/hot-reload.js"/>
         <script type="module" src={src}/>
       </body>
     </html>, { addDoctype: true })
@@ -118,13 +124,14 @@ const form = (<Form>
   <Input placeholder="hello world"/>
 </Form>)
 
-const c = render(component, document.body)
-const f = render(form, document.body)
+let c = render(component, window['app'])
+let f = render(form, document.body)
 
 /* IDIO HOT RELOAD */
-window['idioAddHotReload'] && window['idioAddHotReload'](() => {
-  render(component, document.body, c)
-  render(form, document.body, f)
+import addHotReload from '@idio/hot-reload'
+addHotReload(() => {
+  c = render(component, document.body, c)
+  f = render(form, document.body, f)
 })
 ```
 
@@ -171,12 +178,13 @@ This package supports hot reload of modules, mainly for the purpose of developin
 __<a name="type-hotreload">`HotReload`</a>__: Options for hot reload (real-time automatic update of code in browser).
 
 
-|       Name        |                                                                                                                       Type                                                                                                                       |                                   Description                                    |     Default      |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ---------------- |
-| path              | <em>string</em>                                                                                                                                                                                                                                  | The path from which to serve the operational module that provides admin methods. | `/hot-reload.js` |
-| ignoreNodeModules | <em>boolean</em>                                                                                                                                                                                                                                 | Whether to ignore paths from `node_modules`.                                     | `true`           |
-| watchers          | <em>!Object&lt;string, [!fs.FSWatcher](#type-fsfswatcher)&gt;</em>                                                                                                                                                                               | Pass an empty object here so that references to _FSWatchers_ can be saved.       | -                |
-| __getServer*__    | <em>() => <a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em> | The function used to get the server to enable web socket connection.             | -                |
+|       Name        |                                                                                                                      Type                                                                                                                       |                                   Description                                    |     Default      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------- |
+| path              | <em>string</em>                                                                                                                                                                                                                                 | The path from which to serve the operational module that provides admin methods. | `/hot-reload.js` |
+| module            | <em>boolean</em>                                                                                                                                                                                                                                | Whether to serve the hot-reload script as a module.                              | `true`           |
+| ignoreNodeModules | <em>boolean</em>                                                                                                                                                                                                                                | Whether to ignore paths from `node_modules`.                                     | `true`           |
+| watchers          | <em>!Object&lt;string, [!fs.FSWatcher](#type-fsfswatcher)&gt;</em>                                                                                                                                                                              | Pass an empty object here so that references to _FSWatchers_ can be saved.       | -                |
+| __getServer*__    | <em>() => <a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-odd.png" alt="Node.JS Docs">!http.Server</a></em> | The function used to get the server to enable web socket connection.             | -                |
 
 The middleware will append some code at the end of each original file, and when an update is detected, it will use dynamic import to get references to new methods and classes. When dealing with classes, the prototype of the original class will be changed at run-time. E.g., if a render method is changed, after updating the prototype and rerendering the whole app, a new `render` method will be used.
 
@@ -205,6 +213,12 @@ export default class Example extends Component {
 export const Example2 = () => {
   return (<span>Open Source!</span>)
 }
+
+const Example3 = () => {
+  return (<pre>Art Deco © {new Date().getFullYear()}</pre>)
+}
+
+export { Example3 }
 ```
 
 _When hot reload is enabled, it's going to have an additional code at the bottom of the file when served via **front-end** middleware:_
@@ -234,16 +248,21 @@ export let Example2 = () => {
   return (h('span',{},`Open Source!`))
 }
 
+let Example3 = () => {
+  return (h('pre',{},`Art Deco © `,new Date().getFullYear()))
+}
+
+export { Example3 }
+
 /* IDIO HOT RELOAD */
-if (window.idioHotReload) {
-  let i = 0
+import { idioHotReload } from '/hot-reload'
+if (idioHotReload) {
+  let _idio = 0
   idioHotReload('example/reload/Example.jsx', async () => {
-    i++
-    const module = await import(`./Example?ihr=${i}`)
-    if(`${Example2}` != `${module['Example2']}`) {
-      console.log('Export %s updated', 'Example2')
-      Example2 = module['Example2']
-    }
+    _idio++
+    const module = await import(`./Example?ihr=${_idio}`)
+    Example2 = module['Example2']
+    Example3 = module['Example3']
     return {
       module,
       classes: {
@@ -254,16 +273,20 @@ if (window.idioHotReload) {
 }
 ```
 
+Such code registers a listener to messages from the websocket connection.
+
+### Enabling Hot Reload
+
 The API provided for the reload is implemented in a JS file served from [`/hot-reload.js`](/src/listener.js) path. It has 2 functions:
 
-- `idioAddHotReload`: the function to execute to rerender the app, which needs to be implemented by the developer.
+- `idioAddHotReload`: the function to execute to rerender the app, which needs to be implemented by the developer. This should be imported in the application main entry point.
 - `idioHotReload`: the function to register that a module can be hot-reloaded. Called by auto-generated code from the `frontend` middleware.
 
 After an update is done, the app needs to be rerendered. This is why we have to update the entry file to our application a little bit:
 
 ```jsx
 import { render, Component } from 'preact'
-import Example, { Example2 } from './Example'
+import Example, { Example2, Example3 } from './Example'
 
 class App extends Component {
   render() {
@@ -271,6 +294,7 @@ class App extends Component {
       <body>
         <Example test="example"/>
         <Example2 />
+        <Example3 />
       </body>
     </html>)
   }
@@ -280,29 +304,58 @@ const app = (<App />)
 const a = render(app, window.app)
 
 /* IDIO HOT RELOAD */
-window['idioAddHotReload'] && window['idioAddHotReload'](() => {
+import addHotReload from '@idio/hot-reload'
+addHotReload(() => {
   render(app, document.body, a)
 })
 ```
 
 In this case, we created a component and passed it for initial render into a container. The return of this function can then be used inside the `idioAddHotReload` listener to rerender the component [without](https://github.com/developit/preact/issues/1259) it loosing its state.
 
+Therefore, to enable the reload, add the default export from `@idio/hot-reload`.
+
+```js
+import addHotReload from '@idio/hot-reload'
+addHotReload(() => {
+  render(app, document.body, a)
+})
+```
+
+The front-end middleware will rename it into `/hot-reload` path automatically, but when you're building the code with _Depack_, you should install [`@idio/hot-reload`](https://github.com/idiocc/hot-reload) package, which exports a default dummy function that doesn't do anything, and will be dropped by the compiler so that there's no additional bytes added to the bundle because of the hot reload.
+
+```js
+// @idio/hot-reload main:
+export default (cb) => {}
+```
+
+### Status
+
 At the moment, the following works:
 
-- Update classes, exported like `export default class` and `export class`.
-- Update all other exports, exported like `export const [A] =` and `export let [B] = `. When exporting a _const_, it will be transpiled into a _let_, because otherwise it's impossible to update the binding.
-- Update styles dynamically upon changes to the CSS files.
+- Updating classes, exported like the following:
+    ```js
+    export default class A {}
+
+    class B {}
+    class C {}
+    export default B
+    export { C }
+    ```
+- Updating all other exports. When exporting a _const_, it will be transpiled into a _let_, because otherwise it's impossible to update the binding.
+    ```js
+    export const A = () => {} // will become `let`
+    export let B = () => {}
+
+    const C = () => {} // will become let
+    let D = 'hello'
+
+    export { C, D }
+    ```
+- Update styles dynamically upon changes to CSS files.
 
 What doesn't work:
 
-- Defining a class or a function first, and then exporting it like:
-    ```js
-    class Example {}
-    const a = () => {}
-    export default Example
-    export { a }
-    ```
-- If you're binding a method in a constructor, it won't be unbound after an update, but it also won't be updated, since we don't have access to instances and only update prototypes.
+- If you're binding a method in a constructor, it won't be updated, since we don't have access to instances and only update prototypes. This actually doesn't work even in `react-hot-reload`.
     ```js
     class E extends Component {
       constructor() {
@@ -318,6 +371,10 @@ What doesn't work:
       }
     }
     ```
+
+### Node-watch
+
+It's recommended to install `node-watch` which is an improvement to the standard watcher, that deals with bouncing multiple instant refreshes that happen in some IDEs like _VS Code_.
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/3.svg?sanitize=true">
