@@ -23,7 +23,6 @@ export default async (options = {}, src = 'example/frontend') => {
       <body>
         Hello World
         <div id="app" />
-        <script src="/hot-reload.js"/>
         <script type="module" src={src}/>
       </body>
     </html>, { addDoctype: true })

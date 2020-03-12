@@ -6,8 +6,9 @@ import split from '@depack/split'
 
 /**
  * Updates the source code of served JS files to point to the `/node_modules`, e.g., `import 'preact'` -> `import '/node_modules/preact/dist/preact.mjs'`.
- * @param {string} path
- * @param {string} source
+ * @param {string} path The path to the file.
+ * @param {string} source The source code of the file.
+ * @param {_idio.FrontEndConfig} config The configuration.
  */
 export const patchSource = async (path, source, { mount, override = {} }) => {
   const replacement = async (m, pre, from) => {
@@ -66,3 +67,8 @@ const getNodeModule = (from, path, pre, mount) => {
   return `${pre}'/${modRel}${/[/\\]$/.test(modPath) ? '/' : ''}'`
     .replace(/\\/g, '/')
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../').FrontEndConfig} _idio.FrontEndConfig
+ */

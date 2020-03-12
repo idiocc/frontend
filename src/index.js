@@ -13,9 +13,10 @@ import { patchSource } from './lib'
 import __$styleInject from './inject-css'
 import { HR, getClasses, getAssignments } from './lib/hr'
 
-let watch
+let watch, shouldNormalise
 
 const listener = readFileSync(join(__dirname, 'listener.js'))
+const moduleListener = readFileSync(join(__dirname, 'listener.mjs'))
 
 /**
  * @type {!_idio.frontEnd}
@@ -25,12 +26,11 @@ function FrontEnd(config = {}) {
     directory = 'frontend',
     pragma = 'import { h } from \'preact\'',
     mount = '.',
-    override = {},
     jsxOptions,
     exportClasses = true,
     hotReload,
   } = config
-  let { log } = config
+  let { log, override = {} } = config
   if (log === true) log = console.log
   let dirs = Array.isArray(directory) ? directory : [directory]
 
@@ -43,22 +43,36 @@ function FrontEnd(config = {}) {
     return current.replace(/\\/g, '/')
   })
 
-  let CLIENTS = {}, WATCHING
+  let cw = {}
   if (hotReload) {
-    ({ watchers: WATCHING = {} } = hotReload)
+    if (!hotReload.path) hotReload.path = '/hot-reload'
+    if (!('module' in hotReload)) hotReload.module = true
+    if (!('ignoreNodeModules' in hotReload)) hotReload.ignoreNodeModules = true
+
+    const { watchers: WATCHING = {} } = hotReload
+    cw.WATCHING = WATCHING
+    cw.CLIENTS = {}
+
+    const { path: p } = hotReload
+    override = { ...override, '@idio/hot-reload': p }
   }
 
   let upgraded = false
+
+  const { path: hotReloadPath, module: mod = true } = hotReload || {}
+  const hotReloadPaths = [hotReloadPath, hotReloadPath.replace(/\.jsx?$/, '')]
+    .filter((v, i, a) => a.indexOf(v) == i)
+
   /**
    * @type {!_goa.Middleware}
    */
   const m = async (ctx, next) => {
-    if (hotReload && ctx.path == (hotReload.path || '/hot-reload.js')) {
+    if (hotReload && hotReloadPaths.includes(ctx.path)) {
       ctx.type = 'js'
-      ctx.body = listener
+      ctx.body = mod ? moduleListener : listener
       if (!upgraded) {
         const server = hotReload.getServer()
-        CLIENTS = websocket(server)
+        cw.CLIENTS = websocket(server)
         upgraded = true
       }
       return
@@ -89,7 +103,7 @@ function FrontEnd(config = {}) {
     ctx.etag = `${ls.mtime.getTime()}`
     if (ctx.fresh) {
       ctx.status = 304
-      return await next()
+      return next()
     }
     let body = await read(path)
     let start = new Date().getTime()
@@ -101,37 +115,50 @@ function FrontEnd(config = {}) {
     ctx.type = 'application/javascript'
 
     if (hotReload && !ctx.query.ihr) {
-      const { ignoreNodeModules = true } = hotReload
-      if (path.startsWith('node_modules') && ignoreNodeModules) {
-        // continue
-      } else {
-        try {
-          if (!watch) watch = require(/* dpck */ 'node-watch')
-        } catch (err) {
-          console.log('Could not require node-watch for front-end hot reload.')
-          console.log('Did you install node-watch?')
-          return ctx.body = body
-        }
-        if (!(path in WATCHING)) {
-          const watcher = watch(path, (type, filename) => {
-            console.log('%s File %s changed', c('[frontend]', 'grey'), c(filename, 'yellow'))
-            Object.values(CLIENTS).forEach((v) => {
-              v('update', { filename })
-            })
-          })
-          WATCHING[path] = watcher
-        }
-        const classes = getClasses(body)
-        const assignments = getAssignments(body)
-        const hr = HR(path, classes, assignments)
-        body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
-        body += `${EOL}${EOL}${hr}`
-      }
+      body = patchHotReload(path, body, hotReload, cw)
     }
 
     ctx.body = body
   }
   return m
+}
+
+/**
+ * @param {string} path
+ * @param {string} body
+ * @param {_idio.HotReload} hotReload
+ */
+const patchHotReload = (path, body, hotReload, cw) => {
+  const { ignoreNodeModules, module: mod, path: p } = hotReload
+  if (path.startsWith('node_modules') && ignoreNodeModules)
+    return body
+
+  const fe = c('[@idio/frontend]', 'grey')
+  try {
+    if (!watch) watch = require(/* dpck */ 'node-watch')
+  } catch (err) {
+    console.log('%s node-watch is recommended for front-end hot reload.', fe)
+    console.log('%s Falling back to standard watch.', fe)
+    shouldNormalise = true
+    watch = require(/* dpck */ 'fs').watch
+  }
+  if (!(path in cw.WATCHING)) {
+    const watcher = watch(path, (type, filename) => {
+      console.log('%s File %s changed', fe, c(filename, 'yellow'))
+      Object.values(cw.CLIENTS).forEach((v) => {
+        const fn = shouldNormalise ? path : filename
+        v('update', { filename: fn })
+      })
+    })
+    cw.WATCHING[path] = watcher
+  }
+  const classes = getClasses(body)
+  const assignments = getAssignments(body)
+  const hr = HR(path, classes, assignments, mod ? p : null)
+  body = body.replace(/export(\s+)const(\s+)(\S+)\s+=/, t => t.replace('const', 'let'))
+  body += `${EOL}${EOL}${hr}`
+
+  return body
 }
 
 export default FrontEnd
@@ -186,6 +213,10 @@ ${classes.map((cl) => {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').frontEnd} _idio.frontEnd
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').HotReload} _idio.HotReload
  */
 /**
  * @suppress {nonStandardJsDocs}

@@ -24,6 +24,11 @@ _idio.HotReload
  */
 _idio.HotReload.prototype.path
 /**
+ * Whether to serve the hot-reload script as a module. Default `true`.
+ * @type {boolean|undefined}
+ */
+_idio.HotReload.prototype.module
+/**
  * Whether to ignore paths from `node_modules`. Default `true`.
  * @type {boolean|undefined}
  */

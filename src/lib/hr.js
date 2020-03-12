@@ -34,26 +34,28 @@ export const getAssignments = (content) => {
  * @param {string} path Path to the module.
  * @param {!Object} classes The object with classes
  * @param {!Object} assignments The object with assignments
+ * @param {?string} [mod] The path to the hot reload script as a module.
  */
-export const HR = (path, classes, assignments) => {
+export const HR = (path, classes, assignments, mod = null) => {
   const s = Object.entries(classes).map(([k, v]) => {
     return `'${k}': ${v},`
   })
   return `/* IDIO HOT RELOAD */
-if (window.idioHotReload) {
-  let i = 0
+${mod ? `import { idioHotReload } from '${mod}'` : 'const idioHotReload = window.idioHotReload'}
+if (idioHotReload) {
+  let _idio = 0
   idioHotReload('${path}', async () => {
-    i++
-    const module = await import(\`./${basename(path).replace(/\.jsx?$/, '')}?ihr=\${i}\`)
+    _idio++
+    const module = await import(\`./${basename(path).replace(/\.jsx?$/, '')}?ihr=\${_idio}\`)
 ${Object.keys(assignments).map(a => `    if(\`\${${a}}\` != \`\${module['${a}']}\`) {
       console.log('Export %s updated', '${a}')
       ${a} = module['${a}']
     }`).join('\n')}
     return {
-      module,
+      module,${s.length ? `
       classes: {
 ${s.map(t => `        ${t}`).join(EOL)}
-      },
+      },` : '' }
     }
   })
 }`.replace(/\r?\n/g, EOL)

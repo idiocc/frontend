@@ -40,10 +40,10 @@
   resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
   integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
 
-"@idio/idio@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@idio/idio/-/idio-1.4.1.tgz#1788e6c5bf0a321e2c92fa9e3fd52b28382730a6"
-  integrity sha512-PyGuIfitWgVjiWJMYV6N/s5/4+dAfRQdErs5NY0oAYCK5vtSrulEF4EjmW9GyI87imIC25f05vv8zGO0plB3Gw==
+"@idio/idio@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@idio/idio/-/idio-1.6.1.tgz#0dbc62f98205c3f59f494742d78546ee7cfa1891"
+  integrity sha512-aI0Arr+Q/2SSQHpirDiJ/+47KqA9EzIc+9cw0dvPDFK6qSATlf+x6YQ8tMouqVlKfnnV32nywc4F5sC5pjCiGg==
   dependencies:
     mime-db "^1.43.0"
     text-decoding "^1.0.0"
@@ -195,11 +195,6 @@ mismatch@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.2.0.tgz#3f5021861e8084e36a14c2c1f9489941cd18f790"
   integrity sha512-kuw1k8ZHS+12fBVAVOBXMBJBXcNGnByFTJIDzH4W4v84OocejZ/qzxmT4ll9CLX5OD23NXr+NvrQDus0BsQ8xw==
-
-node-watch@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/node-watch/-/node-watch-0.6.3.tgz#9abf739ae0638435be6c0d1c99d4dc2e53df7317"
-  integrity sha512-InVPsg51EemnMVH3fvrrSVgqVBMlksZ/mK7ZDWx/NuWdNQi28wcVJX1/BP38alraPFXbRi9jZ35OfK4Ra7l8Bg==
 
 pedantry@^2.3.1:
   version "2.5.2"

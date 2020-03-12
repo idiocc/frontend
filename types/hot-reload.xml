@@ -8,6 +8,9 @@
     <prop string name="path" default="/hot-reload.js">
       The path from which to serve the operational module that provides admin methods.
     </prop>
+    <prop boolean name="module" default="true">
+      Whether to serve the hot-reload script as a module.
+    </prop>
     <prop boolean name="ignoreNodeModules" default="true">
       Whether to ignore paths from `node_modules`.
     </prop>

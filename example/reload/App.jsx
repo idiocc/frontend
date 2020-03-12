@@ -16,6 +16,7 @@ const app = (<App />)
 const a = render(app, window.app)
 
 /* IDIO HOT RELOAD */
-window['idioAddHotReload'] && window['idioAddHotReload'](() => {
+import addHotReload from '@idio/hot-reload'
+addHotReload(() => {
   render(app, document.body, a)
 })
