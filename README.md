@@ -270,12 +270,12 @@ Such code registers a listener to messages from the websocket connection.
 
 ### Enabling Hot Reload
 
-The API provided for the reload is implemented in a JS file served from [`/hot-reload.js`](/src/listener.js) path. It has 2 functions:
+The API provided for the reload is implemented in a JS file served from [`/hot-reload.js`](/src/listener.mjs) path. It has 2 functions:
 
 - `idioAddHotReload`: the function to execute to rerender the app, which needs to be implemented by the developer. This should be imported in the application main entry point.
 - `idioHotReload`: the function to register that a module can be hot-reloaded. Called by auto-generated code from the `frontend` middleware.
 
-After an update is done, the app needs to be rerendered. This is why we have to update the entry file to our application a little bit:
+After an update is done, the app needs to be re-rendered. This is why we have to update the entry file to our application a little bit:
 
 ```jsx
 import { render, Component } from 'preact'
